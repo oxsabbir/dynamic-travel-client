@@ -1,13 +1,13 @@
 import Nav from "@/app/components/Header/Nav";
-import Hero from "@/app/components/LandingPage/Hero";
-import Destination from "@/app/components/LandingPage/Destination";
-import Unleash from "@/app/components/LandingPage/Unleash";
-import About from "@/app/components/LandingPage/About";
-import Discover from "@/app/components/LandingPage/Discover";
-import Reviews from "@/app/components/LandingPage/Reviews";
-import Explore from "@/app/components/LandingPage/Explore";
-import Footer from "@/app/components/LandingPage/Footer";
-import Container from "./components/Extra/Container";
+import Hero from "@/app/components/LandingPages/Hero";
+import Destination from "@/app/components/LandingPages/Destination";
+import Unleash from "@/app/components/LandingPages/Unleash";
+import About from "@/app/components/LandingPages/About";
+import Discover from "@/app/components/LandingPages/Discover";
+import Reviews from "@/app/components/LandingPages/Reviews";
+import Explore from "@/app/components/LandingPages/Explore";
+import Footer from "@/app/components/LandingPages/Footer";
+import Container from "./components/Extras/Container";
 
 export default function Home() {
   return (

@@ -3,7 +3,7 @@ import kidImage from "@/public/kid.png";
 import skyForButton from "@/public/sky.jpg";
 import { RiArrowRightLine } from "react-icons/ri";
 import Link from "next/link";
-import Container from "../Extra/Container";
+import Container from "../Extras/Container";
 
 export default function Unleash() {
   return (

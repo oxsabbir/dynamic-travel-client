@@ -4,8 +4,8 @@ import Image from "next/image";
 import { FaPlayCircle } from "react-icons/fa";
 import Action from "./Action";
 import { oceanImage } from "../../constant/constant";
-import KnowMore from "../Extra/KnowMore";
-import Places from "../Extra/Places";
+import KnowMore from "../Extras/KnowMore";
+import Places from "../Extras/Places";
 
 export default function Hero() {
   return (

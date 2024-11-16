@@ -5,7 +5,7 @@ import {
   Select,
   Option,
 } from "@/app/ui/materialExport";
-import SelectDate from "@/app/components/Extra/SelectDate";
+import SelectDate from "@/app/components/Extras/SelectDate";
 
 export default function BookingMenu({ guide }) {
   return (

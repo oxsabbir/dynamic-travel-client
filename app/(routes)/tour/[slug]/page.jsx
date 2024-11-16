@@ -1,9 +1,9 @@
 import { getTour } from "@/app/libs/getTour";
 import Nav from "@/app/components/Header/Nav";
-import Footer from "@/app/components/LandingPage/Footer";
+import Footer from "@/app/components/LandingPages/Footer";
 import Image from "next/image";
 import { Button, Typography } from "@/app/ui/materialExport";
-import Container from "@/app/components/Extra/Container";
+import Container from "@/app/components/Extras/Container";
 import { HiOutlineHeart, HiOutlineShare, HiStar } from "react-icons/hi";
 import Link from "next/link";
 import Review from "../../../components/Tour/TourDetails/Reviews";
