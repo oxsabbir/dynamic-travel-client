@@ -60,7 +60,7 @@ export function ProfileMenu({ signOut, user }) {
               </p>
               <Avatar
                 variant="circular"
-                alt={AuthUser?.name}
+                alt={"profileImage"}
                 className="cursor-pointer border hover:border-transparent transition duration-400"
                 src={AuthUser?.image || defaultProfile.src}
               />

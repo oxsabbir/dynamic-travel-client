@@ -51,9 +51,9 @@ export function Login({ pathName }) {
       setStatus((prev) => {
         return { ...prev, loading: true };
       });
-      const response = await credentialsRegisterHandler(inputData);
+      const resData = await credentialsRegisterHandler(inputData);
       // checking if account created successfully
-      if (response.data?.token && response.status === "success") {
+      if (resData?.token) {
         // if succeed login as created user
         await signInAction(loginForm);
       }

@@ -1,7 +1,6 @@
 import { apiRequest } from "./apiClient";
 
 export const getAuthenticatedUserData = async function (token) {
-  let userData;
   try {
     const res = await apiRequest(
       "get",
@@ -9,8 +8,7 @@ export const getAuthenticatedUserData = async function (token) {
       {},
       { Authorization: `Bearer ${token}` }
     );
-    userData = res?.data?.user;
-    return userData;
+    return res?.data?.user;
   } catch (error) {
     throw error.response;
   }
@@ -20,26 +18,24 @@ export const credentialsLoginHandler = async function (
   emailOrUsername,
   password
 ) {
-  let user;
   try {
-    const res = await apiRequest("get", "/api/v1/login", {
+    const res = await apiRequest("post", "/api/v1/login", {
       emailOrUsername,
       password,
     });
 
     const token = res?.data?.token;
     const resUser = await getAuthenticatedUserData(token);
-    user = resUser;
+    let user = resUser;
     user.accessToken = token;
+    // it will return the loggedIn userData
+    return user;
   } catch (error) {
     throw error.response.data;
   }
-  // it will return the loggedIn userData
-  return user;
 };
 
 export const credentialsRegisterHandler = async function (inputData) {
-  let resData;
   const formData = new FormData();
   formData.set("fullName", inputData.fullname);
   formData.set("email", inputData.email);
@@ -49,11 +45,10 @@ export const credentialsRegisterHandler = async function (inputData) {
 
   try {
     const res = await apiRequest("post", "/api/v1/signup", formData);
-    resData = res.data;
+    return res?.data;
   } catch (error) {
     throw error.response?.data;
   }
-  return resData;
 };
 
 export const googleSignInHandler = async function (userInfo) {
@@ -71,7 +66,7 @@ export const googleSignInHandler = async function (userInfo) {
     } else {
       // else we will get the user by sending the access token then return the user
       const authUser = await getAuthenticatedUserData(token);
-      console.log(authUser, "user");
+
       user = authUser;
       user.accessToken = token;
     }
