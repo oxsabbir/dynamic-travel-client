@@ -11,11 +11,11 @@ export default function Hero() {
   return (
     <>
       <div className="px-7 relative flex justify-center items-center flex-col lg:flex-row  ">
-        <div className=" p-4 lg:absolute container z-20 ">
+        <div className=" p-4 lg:absolute lg:pl-16 lg:mt-8 container z-20 ">
           <p className=" uppercase text-sm font-medium text-textBlack">
             Elevate your travel journey
           </p>
-          <h2 className=" lg:text-7xl lg:leading-[1.2] text-4xl py-3 font-semibold leading-[1.1] ">
+          <h2 className=" lg:text-6xl lg:leading-[1.2] 2xl:text-7xl 2xl:leading-[1.2] text-4xl py-3 font-semibold leading-[1.1] ">
             Exeperience <br /> The Magic Of <br /> Flight!
           </h2>
           <div className=" flex py-6 gap-4">
