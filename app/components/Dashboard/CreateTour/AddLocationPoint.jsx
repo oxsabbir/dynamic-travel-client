@@ -1,6 +1,8 @@
 "use client";
-import TourMap from "../../Map/TourMap";
-import SelectedLocation from "../../Map/SelectedLocation";
+import dynamic from "next/dynamic";
+const TourMap = dynamic(() => import("@/app/components/Map/TourMap"), {
+  ssr: false,
+});
 import { useMapContext } from "./MapContext";
 import { useEffect } from "react";
 
