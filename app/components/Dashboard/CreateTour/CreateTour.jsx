@@ -15,8 +15,7 @@ import AddLocationPoint from "./AddLocationPoint";
 import { convertToDataURL } from "@/app/util/helper";
 import { HiOutlineX } from "react-icons/hi";
 import { useMapContext } from "./MapContext";
-// import updateTour from "@/app/libs/updateTour";
-import { updateTour } from "@/app/libs/getAllTours";
+import updateTour from "@/app/libs/updateTour";
 
 export default function CreateTour({ actionType, tourData }) {
   const isUpdate = actionType === "update";
@@ -88,7 +87,6 @@ export default function CreateTour({ actionType, tourData }) {
               formData.append(`${key}[${i}]${locationKey}`, item[locationKey]);
             }
           }
-          // formData.append(`${key}[${i}]`, item);
         });
       } else if (key === "images") {
         inputData[key]?.forEach((item, i) => {
@@ -106,8 +104,6 @@ export default function CreateTour({ actionType, tourData }) {
       return res.data?.data;
     } catch (error) {
       console.log(error);
-      throw error;
-      // throw new Error("Something Went Wrong");
     }
   };
 
