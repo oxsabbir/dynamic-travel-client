@@ -15,7 +15,8 @@ import AddLocationPoint from "./AddLocationPoint";
 import { convertToDataURL } from "@/app/util/helper";
 import { HiOutlineX } from "react-icons/hi";
 import { useMapContext } from "./MapContext";
-import updateTour from "@/app/libs/updateTour";
+// import updateTour from "@/app/libs/updateTour";
+import { updateTour } from "@/app/libs/getAllTours";
 
 export default function CreateTour({ actionType, tourData }) {
   const isUpdate = actionType === "update";
@@ -40,38 +41,74 @@ export default function CreateTour({ actionType, tourData }) {
   const createTourHandler = async function (inputData) {
     const formData = new FormData();
 
-    // for (let key in inputData) {
-    //   console.log(inputData[key]);
-    //   if (key === "coverImage") {
-    //     formData.append(key, inputData[key][0]);
-    //   } else if (key === "locations") {
-    //     input[key]?.forEach((item, i) => formData.append(`${key}[${i}]`, item));
-    //   } else if (key === "images") {
-    //     input[key]?.forEach((item, i) => formData.append(`${key}[${i}]`, item));
-    //   } else {
-    //     formData.append(key, inputData[key]);
-    //   }
-    // }
-    formData.append("coverImage", inputData.coverImage[0]);
+    // creating complex form data because multipart-form-data cannot be send as json
+    // it only supports text and blob
 
-    console.log(formData.get("coverImage"));
+    for (let key in inputData) {
+      if (key === "coverImage") {
+        console.log(inputData[key][0]);
+        formData.append(key, inputData[key][0]);
+      } else if (key === "locations") {
+        inputData[key]?.forEach((item, i) => {
+          // deleting unwanted property
+          delete item?._d;
+          delete item?.type;
+          // for individual location setting the form data as required
+          for (let locationKey in item) {
+            if (locationKey === "coordinates") {
+              formData.append(
+                `${key}[${i}]coordinates[0]`,
+                item["coordinates"][0]
+              );
+              formData.append(
+                `${key}[${i}]coordinates[1]`,
+                item["coordinates"][1]
+              );
+            } else if (locationKey === "images") {
+              // newly added location is going to be file list
+              // so converting it to an array
+              [...item[locationKey]]?.forEach((locationImage, imageIndex) => {
+                // console.log(
+                //   `${key}[${i}]${locationKey}[${imageIndex}]`,
+                //   locationImage
+                // );
+                formData.append(
+                  `${key}[${i}]${locationKey}[${imageIndex}]`,
+                  locationImage
+                );
+              });
+            } else {
+              // console.log(`${key}[${i}]${locationKey}`, item[locationKey]);
+              if (
+                locationKey !== "address" &&
+                locationKey !== "description" &&
+                locationKey !== "dayNumber"
+              )
+                return;
+              formData.append(`${key}[${i}]${locationKey}`, item[locationKey]);
+            }
+          }
+          // formData.append(`${key}[${i}]`, item);
+        });
+      } else if (key === "images") {
+        inputData[key]?.forEach((item, i) => {
+          formData.append(`${key}[${i}]`, item);
+        });
+      } else {
+        formData.append(key, inputData[key]);
+      }
+    }
+    // return;
 
     // sending api request when form is ready
-    // try {
-    //   const updateRes = await updateTour(tourData?.id, formData);
-    //   console.log(updateRes);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-
     try {
       const res = await updateTour(tourData?.id, formData);
       return res.data?.data;
     } catch (error) {
       console.log(error);
+      throw error;
       // throw new Error("Something Went Wrong");
     }
-    console.log(formData.get("images"));
   };
 
   useEffect(() => {
