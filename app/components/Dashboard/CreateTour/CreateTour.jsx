@@ -16,9 +16,11 @@ import { convertToDataURL } from "@/app/util/helper";
 import { HiOutlineX } from "react-icons/hi";
 import { useMapContext } from "./MapContext";
 import updateTour from "@/app/libs/updateTour";
+import generateFormData from "@/app/util/GenerateFormData";
 
 export default function CreateTour({ actionType, tourData }) {
   const isUpdate = actionType === "update";
+  const [isLoading, setIsLoading] = useState(false);
   const { state, dispatch } = useMapContext();
   const {
     register: registerTour,
@@ -37,72 +39,31 @@ export default function CreateTour({ actionType, tourData }) {
   const formData = watch();
 
   // the main submit function
-  const createTourHandler = async function (inputData) {
-    const formData = new FormData();
-
-    // creating complex form data because multipart-form-data cannot be send as json
-    // it only supports text and blob
-
-    for (let key in inputData) {
-      if (key === "coverImage") {
-        console.log(inputData[key][0]);
-        formData.append(key, inputData[key][0]);
-      } else if (key === "locations") {
-        inputData[key]?.forEach((item, i) => {
-          // deleting unwanted property
-          delete item?._d;
-          delete item?.type;
-          // for individual location setting the form data as required
-          for (let locationKey in item) {
-            if (locationKey === "coordinates") {
-              formData.append(
-                `${key}[${i}]coordinates[0]`,
-                item["coordinates"][0]
-              );
-              formData.append(
-                `${key}[${i}]coordinates[1]`,
-                item["coordinates"][1]
-              );
-            } else if (locationKey === "images") {
-              // newly added location is going to be file list
-              // so converting it to an array
-              [...item[locationKey]]?.forEach((locationImage, imageIndex) => {
-                // console.log(
-                //   `${key}[${i}]${locationKey}[${imageIndex}]`,
-                //   locationImage
-                // );
-                formData.append(
-                  `${key}[${i}]${locationKey}[${imageIndex}]`,
-                  locationImage
-                );
-              });
-            } else {
-              // console.log(`${key}[${i}]${locationKey}`, item[locationKey]);
-              if (
-                locationKey !== "address" &&
-                locationKey !== "description" &&
-                locationKey !== "dayNumber"
-              )
-                return;
-              formData.append(`${key}[${i}]${locationKey}`, item[locationKey]);
-            }
-          }
-        });
-      } else if (key === "images") {
-        inputData[key]?.forEach((item, i) => {
-          formData.append(`${key}[${i}]`, item);
-        });
-      } else {
-        formData.append(key, inputData[key]);
-      }
-    }
-    // return;
-
+  const updataTourHandler = async function (inputData) {
+    // getting the forData
+    const formData = generateFormData(inputData);
     // sending api request when form is ready
     try {
+      setIsLoading(true);
       const res = await updateTour(tourData?.id, formData);
+      setIsLoading(false);
       return res.data?.data;
     } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+    }
+  };
+
+  const createTourHandler = async function (inputData) {
+    const formData = generateFormData(inputData);
+    // sending api request when form is ready
+    try {
+      setIsLoading(true);
+      const res = await updateTour(tourData?.id, formData);
+      setIsLoading(false);
+      return res.data?.data;
+    } catch (error) {
+      setIsLoading(false);
       console.log(error);
     }
   };
@@ -124,7 +85,6 @@ export default function CreateTour({ actionType, tourData }) {
 
   // for focusing to the error input
   const onError = function () {
-    console.log("error found");
     const firstError = Object.keys(errorsTour)[0];
     if (firstError) {
       setFocus(firstError);
@@ -695,8 +655,12 @@ export default function CreateTour({ actionType, tourData }) {
             </Typography>
           )}
           <Button
+            loading={isLoading}
             className="bg-actionBlue my-8 mt-3 w-full rounded-none font-medium shadow-none normal-case text-white text-[15px] tracking-wide"
-            onClick={handleSubmitTour(createTourHandler, onError)}
+            onClick={handleSubmitTour(
+              isUpdate ? updataTourHandler : createTourHandler,
+              onError
+            )}
           >
             {isUpdate ? "Update Tour" : "Create Tour"}
           </Button>
