@@ -46,18 +46,17 @@ export default function RoutingMachine({ locations }) {
 
     const delayingTimer = setTimeout(() => {
       if (map) initializeRoutingInstance();
-    }, 150);
+    }, 500);
 
     // cleaning up
     return () => {
       if (routingRef.current) {
-        map.removeControl(routingRef.current);
+        map?.removeControl(routingRef.current);
         routingRef.current = null;
       }
       // clearing the timeOut to not create more that once
       clearTimeout(delayingTimer);
     };
   }, [map, locations]);
-  console.log(routingRef.current);
   return null;
 }

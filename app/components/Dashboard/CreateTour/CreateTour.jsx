@@ -1,11 +1,5 @@
 "use client";
-import {
-  Input,
-  Typography,
-  Button,
-  Textarea,
-  input,
-} from "@material-tailwind/react";
+import { Input, Typography, Button, Textarea } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiOutlinePhotograph } from "react-icons/hi";
