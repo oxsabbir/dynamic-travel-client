@@ -17,11 +17,14 @@ import { HiOutlineX } from "react-icons/hi";
 import { useMapContext } from "./MapContext";
 import updateTour from "@/app/libs/updateTour";
 import generateFormData from "@/app/util/GenerateFormData";
+import createNewTour from "@/app/libs/createNewTour";
+import { useRouter } from "next/navigation";
 
 export default function CreateTour({ actionType, tourData }) {
   const isUpdate = actionType === "update";
   const [isLoading, setIsLoading] = useState(false);
   const { state, dispatch } = useMapContext();
+  const router = useRouter();
   const {
     register: registerTour,
     handleSubmit: handleSubmitTour,
@@ -37,7 +40,9 @@ export default function CreateTour({ actionType, tourData }) {
   });
 
   const formData = watch();
-
+  const redirectToTour = function (tourId) {
+    router.push(`/tour/${tourId}`);
+  };
   // the main submit function
   const updataTourHandler = async function (inputData) {
     // getting the forData
@@ -47,7 +52,7 @@ export default function CreateTour({ actionType, tourData }) {
       setIsLoading(true);
       const res = await updateTour(tourData?.id, formData);
       setIsLoading(false);
-      return res.data?.data;
+      redirectToTour(res?.tour?.id);
     } catch (error) {
       setIsLoading(false);
       console.log(error);
@@ -59,9 +64,9 @@ export default function CreateTour({ actionType, tourData }) {
     // sending api request when form is ready
     try {
       setIsLoading(true);
-      const res = await updateTour(tourData?.id, formData);
+      const res = await createNewTour(formData);
+      redirectToTour(res?.tour?.id);
       setIsLoading(false);
-      return res.data?.data;
     } catch (error) {
       setIsLoading(false);
       console.log(error);
