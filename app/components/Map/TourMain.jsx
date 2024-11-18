@@ -8,14 +8,7 @@ import { getFilteredData } from "@/app/libs/getFilteredTour";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { HiOutlineAdjustments, HiOutlineChevronUp } from "react-icons/hi";
-import {
-  Button,
-  Select,
-  Option,
-  Chip,
-  Card,
-  Typography,
-} from "@material-tailwind/react";
+import { Button, Select, Option, Chip, Card } from "@material-tailwind/react";
 import { filterSort } from "@/app/constant/constant";
 import FilterTour from "@/app/util/FilterTour";
 import filterManager from "@/app/util/FilterManager";
@@ -79,8 +72,6 @@ export default function TourMain({ pageType }) {
     replace(`${pathName}?${modifiedParams?.toString()}`);
     setSelectedSort(selectedValue);
   };
-
-  console.log(showFilter);
 
   return (
     <>
