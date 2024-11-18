@@ -132,7 +132,7 @@ export default function CreateTour({ actionType, tourData }) {
         const coverImageFileList = dataTransfer.files;
         setValue("coverImage", coverImageFileList);
       } else if (inputType === "featureImage") {
-        setValue("images", event.dataTransfer.files);
+        setValue("images", [...formData?.images, ...event.dataTransfer.files]);
       }
     };
   };
