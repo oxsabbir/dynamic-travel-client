@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 const TourMain = dynamic(() => import("@/app/components/Map/TourMain"), {
-  ssr: true,
+  ssr: false,
 });
 export default function page() {
   return (
