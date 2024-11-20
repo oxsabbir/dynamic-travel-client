@@ -1,6 +1,6 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { FaArrowRight, FaArrowLeft, FaStar } from "react-icons/fa";
 import Image from "next/image";
 import { IoLocationSharp } from "react-icons/io5";
@@ -41,9 +41,12 @@ export default function TourSlider({ bestTours }) {
               spaceBetween: 30,
             },
           }}
-          onSlideChange={() => console.log("slide change")}
+          autoplay={{
+            delay: 2500,
+          }}
+          loop="true"
           onSwiper={(swiper) => console.log(swiper)}
-          modules={[Navigation, Pagination]}
+          modules={[Navigation, Pagination, Autoplay]}
           navigation={{ nextEl: ".next-slide", prevEl: ".prev-slide" }}
           pagination={{ clickable: true }}
         >
@@ -55,10 +58,10 @@ export default function TourSlider({ bestTours }) {
                     <Image
                       src={tour?.coverImage}
                       alt="slide-image"
-                      width={700}
-                      height={400}
+                      width={500}
+                      height={300}
                       style={{ objectFit: "cover" }}
-                      className=" rounded-lg h-[270px] w-full "
+                      className=" rounded-lg !h-[280px] w-full "
                     />
                   </div>
 
