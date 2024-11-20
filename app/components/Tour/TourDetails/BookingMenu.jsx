@@ -12,13 +12,19 @@ import SelectDate from "@/app/components/Extras/SelectDate";
 import { HiOutlineX } from "react-icons/hi";
 import { IconButton } from "@material-tailwind/react";
 import { useState } from "react";
+import bookTour from "@/app/libs/bookTour";
 
-export default function BookingMenu({ guide }) {
+export default function BookingMenu({ tourData, guide }) {
   const [selectedGuide, setSelectedGuide] = useState(null);
 
   const selectHandler = function (value) {
     const selected = guide.find((item) => item.userName === value);
     setSelectedGuide(selected);
+  };
+
+  const makePayment = async function () {
+    const response = await bookTour(tourData, selectedGuide);
+    console.log(response);
   };
   return (
     <>
@@ -104,6 +110,7 @@ export default function BookingMenu({ guide }) {
 
           <Button
             disabled={!selectedGuide}
+            onClick={makePayment}
             className="uppercase font-normal text-sm tracking-wide bg-actionBlue"
             fullWidth
           >

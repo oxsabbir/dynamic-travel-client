@@ -86,7 +86,7 @@ export default async function SingleTour({ params }) {
 
           <div className="lg:relative">
             <SubDetails tour={tour} />
-            <BookingMenu guide={guideData?.guide} />
+            <BookingMenu tourData={tour} guide={guideData?.guide} />
           </div>
 
           <SmallGuide guides={tour?.guides} />

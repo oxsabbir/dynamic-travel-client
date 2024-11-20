@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@material-tailwind/react": "^2.1.10",
+    "@stripe/stripe-js": "^5.2.0",
     "axios": "^1.7.7",
     "leaflet": "^1.9.4",
     "leaflet-geosearch": "^4.0.0",
