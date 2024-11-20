@@ -47,9 +47,17 @@ export default function BookingMenu({ guide }) {
                     >
                       <div className=" flex items-center gap-3 rounded-md">
                         <Avatar src={item?.profileImage} alt="profile" />
-                        <Typography className=" text-offGray font-medium tracking-wide">
-                          {item?.fullName}
-                        </Typography>
+                        <div>
+                          <Typography className=" text-offGray font-medium tracking-wide">
+                            {item?.fullName}
+                          </Typography>
+                          <Typography
+                            variant="small"
+                            className=" text-offGray  tracking-wide"
+                          >
+                            {`$${item?.price} per/person`}
+                          </Typography>
+                        </div>
                       </div>
                     </Option>
                   ))}
@@ -68,9 +76,17 @@ export default function BookingMenu({ guide }) {
                 <div className=" flex  items-center gap-3 justify-between mt-3">
                   <div className=" flex items-center  gap-3 ">
                     <Avatar src={selectedGuide?.profileImage} alt="profile" />
-                    <Typography className="text-lg text-offGray font-medium tracking-wide">
-                      {selectedGuide?.fullName}
-                    </Typography>
+                    <div>
+                      <Typography className="text-lg text-offGray font-medium tracking-wide">
+                        {selectedGuide?.fullName}
+                      </Typography>
+                      <Typography
+                        variant="small"
+                        className=" text-offGray  tracking-wide"
+                      >
+                        {`$${selectedGuide?.price} per/person`}
+                      </Typography>
+                    </div>
                   </div>
 
                   <IconButton
