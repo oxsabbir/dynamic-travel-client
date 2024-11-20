@@ -13,10 +13,13 @@ import FaqSection from "../../../components/Tour/TourDetails/FaqSection";
 import BookingMenu from "../../../components/Tour/TourDetails/BookingMenu";
 import Location from "@/app/components/Map/Location";
 import FeatureImage from "@/app/components/Tour/TourDetails/FeatureImage";
+import getAllGuides from "@/app/libs/getAllGuide";
 
 export default async function SingleTour({ params }) {
   const tourData = await getTour(params.slug);
   let tour = tourData?.tour;
+
+  const guideData = await getAllGuides();
   return (
     <>
       <Nav />
@@ -83,7 +86,7 @@ export default async function SingleTour({ params }) {
 
           <div className="lg:relative">
             <SubDetails tour={tour} />
-            <BookingMenu />
+            <BookingMenu guide={guideData?.guide} />
           </div>
 
           <SmallGuide guides={tour?.guides} />
