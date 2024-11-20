@@ -61,10 +61,9 @@ export function ProfileMenu({ signOut, user }) {
               <Avatar
                 variant="circular"
                 alt={"profileImage"}
-                className="cursor-pointer border hover:border-transparent transition duration-400"
+                className="cursor-pointer border hover:border-transparent transition duration-400 border-actionBlue"
                 src={AuthUser?.image || defaultProfile.src}
               />
-              <HiOutlineChevronDown className=" w-5 h-5 ml-1 text-shadeBlack" />
             </div>
           </MenuHandler>
           <MenuList className="text-shadeBlack">

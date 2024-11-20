@@ -13,23 +13,23 @@ import { CiCreditCard2 } from "react-icons/ci";
 export const navMenu = [
   {
     id: "a1",
-    name: "About",
-    href: "/about",
+    title: "About",
+    link: "/about",
   },
   {
     id: "a2",
-    name: "Tour",
-    href: "/tour",
+    title: "Tour",
+    link: "/tour",
   },
   {
     id: "a3",
-    name: "Package",
-    href: "/package",
+    title: "Package",
+    link: "/package",
   },
   {
     id: "a4",
-    name: "Contact",
-    href: "/contact",
+    title: "Contact",
+    link: "/contact",
   },
 ];
 
