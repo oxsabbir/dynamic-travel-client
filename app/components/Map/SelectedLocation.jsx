@@ -50,11 +50,12 @@ export default function SelectedLocation({ places, pageType }) {
           </MenuHandler>
 
           <MenuList className=" bg-white shadow-md flex flex-col py-2  gap-2 max-h-[360px]">
-            {selectedLocation.map((item) => (
+            {selectedLocation.map((item, i) => (
               <div
                 data-lng={item?.coordinates[0]}
                 data-lat={item?.coordinates[1]}
                 onClick={flyHandler}
+                key={i}
                 className="rounded-md text-offGray bg-offWhite shadow-sm p-2 flex items-center cursor-pointer"
               >
                 <div className="pointer-events-none">

@@ -61,8 +61,8 @@ export default async function SingleTour({ params }) {
 
           <div className="flex items-center gap-4">
             <div className="rating flex gap-0.5">
-              {new Array(5).fill(1).map((item) => (
-                <HiStar className="text-yellow-900 w-6 h-6" />
+              {new Array(5).fill(1).map((item, i) => (
+                <HiStar key={i} className="text-yellow-900 w-6 h-6" />
               ))}
             </div>
             <div className="flex gap-3">

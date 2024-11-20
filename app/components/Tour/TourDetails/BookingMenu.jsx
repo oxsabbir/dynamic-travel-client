@@ -13,18 +13,30 @@ import { HiOutlineX } from "react-icons/hi";
 import { IconButton } from "@material-tailwind/react";
 import { useState } from "react";
 import bookTour from "@/app/libs/bookTour";
+import { useRouter } from "next/navigation";
+import { getSession } from "next-auth/react";
 
 export default function BookingMenu({ tourData, guide }) {
   const [selectedGuide, setSelectedGuide] = useState(null);
-
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const selectHandler = function (value) {
     const selected = guide.find((item) => item.userName === value);
     setSelectedGuide(selected);
   };
 
   const makePayment = async function () {
-    const response = await bookTour(tourData, selectedGuide);
-    console.log(response);
+    setLoading(true);
+
+    const session = await getSession();
+    if (!session?.user && !session?.accessToken) return router.push("/login");
+    try {
+      const response = await bookTour(tourData, selectedGuide);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      throw error;
+    }
   };
   return (
     <>
@@ -109,6 +121,7 @@ export default function BookingMenu({ tourData, guide }) {
           </div>
 
           <Button
+            loading={loading}
             disabled={!selectedGuide}
             onClick={makePayment}
             className="uppercase font-normal text-sm tracking-wide bg-actionBlue"
