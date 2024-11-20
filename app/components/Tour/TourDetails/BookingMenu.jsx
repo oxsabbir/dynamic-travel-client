@@ -87,6 +87,7 @@ export default function BookingMenu({ guide }) {
           </div>
 
           <Button
+            disabled={!selectedGuide}
             className="uppercase font-normal text-sm tracking-wide bg-actionBlue"
             fullWidth
           >
