@@ -1,5 +1,6 @@
 import { Typography, Button, Avatar } from "@/app/ui/materialExport";
 import { HiOutlinePencilAlt, HiStar } from "react-icons/hi";
+import { RatingForm } from "./RatingForm";
 
 export default function Review({ totalRating, ratingsAverage, reviews }) {
   return (
@@ -18,10 +19,11 @@ export default function Review({ totalRating, ratingsAverage, reviews }) {
         </div>
 
         <div>
-          <Button className="flex items-center gap-2 shadow-md font-normal tracking-wide bg-actionBlue ">
+          {/* <Button className="flex items-center gap-2 shadow-md font-normal tracking-wide bg-actionBlue ">
             <HiOutlinePencilAlt className="w-5 h-5 " />
             Write a review
-          </Button>
+          </Button> */}
+          <RatingForm />
         </div>
       </div>
 
