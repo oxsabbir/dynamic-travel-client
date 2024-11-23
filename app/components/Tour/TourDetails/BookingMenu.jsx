@@ -27,11 +27,10 @@ export default function BookingMenu({ tourData, guide }) {
 
   const makePayment = async function () {
     setLoading(true);
-
     const session = await getSession();
     if (!session?.user && !session?.accessToken) return router.push("/login");
     try {
-      const response = await bookTour(tourData, selectedGuide);
+      const response = await bookTour(tourData?.id, selectedGuide?.id);
       setLoading(false);
     } catch (error) {
       setLoading(false);

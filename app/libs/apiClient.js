@@ -1,19 +1,7 @@
 import { auth } from "@/auth";
 import axios from "axios";
 import { getSession } from "next-auth/react";
-
-// creating apiClient
-const baseURL =
-  process.env.ENVIRONMENT === "prod"
-    ? process.env.RAILWAY_BACKEND_URL
-    : `
-http://localhost:4000`;
-
-console.log("Host :", baseURL);
-
-const apiClient = axios.create({
-  baseURL,
-});
+import { getBackendURL } from "./getEnv";
 
 const getToken = async function () {
   if (typeof window === "undefined") {
@@ -25,9 +13,16 @@ const getToken = async function () {
   }
 };
 
+// api client to make request with the jwt
 export async function apiRequest(method, url, data = {}, headers = {}) {
   const token = await getToken();
-  console.log(baseURL);
+  const baseURL = await getBackendURL();
+  const apiClient = axios.create({
+    baseURL,
+  });
+
+  console.log(baseURL, "-----");
+
   try {
     const response = await apiClient.request({
       method,
