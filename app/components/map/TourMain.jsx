@@ -8,19 +8,41 @@ import { getFilteredData } from "@/app/libs/getFilteredTour";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { HiOutlineAdjustments, HiOutlineChevronUp } from "react-icons/hi";
-import { Button, Select, Option, Chip, Card } from "@material-tailwind/react";
+import {
+  Button,
+  Select,
+  Option,
+  Chip,
+  Card,
+  Typography,
+} from "@material-tailwind/react";
 import { filterSort } from "@/app/constant/constant";
 import FilterTour from "@/app/util/FilterTour";
 import filterManager from "@/app/util/FilterManager";
 import Loading from "@/app/ui/Loading";
 import NotFound from "../Tour/NotFound";
 import Link from "next/link";
+import { Spinner } from "@material-tailwind/react";
+import useInfiniteLoading from "@/app/hooks/useInfiniteLoading";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 
 export default function TourMain({ pageType }) {
   const [tourData, setTourData] = useState(null);
   const [selectedSort, setSelectedSort] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [moreLoading, setMoreLoading] = useState(false);
+  const [pageInfo, setPageInfo] = useState({});
+
+  const [ref, page] = useInfiniteLoading(
+    {
+      options: {
+        root: null,
+        rootMargin: "100px",
+        threshold: 0,
+      },
+    },
+    pageInfo
+  );
 
   const [showFilter, setShowFilter] = useState(true);
   const [animate, setAnimte] = useState(true);
@@ -36,7 +58,6 @@ export default function TourMain({ pageType }) {
   const searchParams = useSearchParams();
   const pathName = usePathname();
   const { replace } = useRouter();
-
   const filterTour = new FilterTour(searchParams);
   filterTour.init();
 
@@ -46,18 +67,33 @@ export default function TourMain({ pageType }) {
 
   useEffect(() => {
     const getData = async () => {
-      setLoading(true);
+      setMoreLoading(true);
+      if (page <= 1) {
+        setLoading(true);
+      }
       const data = query
-        ? await getFilteredData(query)
-        : await getFilteredData();
+        ? await getFilteredData(page, query)
+        : await getFilteredData(page);
 
-      if (data) {
-        setTourData(data);
+      if (data?.data) {
+        setMoreLoading(false);
+        if (page > 1) {
+          setTourData((prev) => {
+            return {
+              total: prev.total + data.data.total,
+              tour: [...prev.tour, ...data.data.tour],
+            };
+          });
+          setPageInfo(data?.pagination);
+        } else {
+          setTourData(data.data);
+          setPageInfo(data?.pagination);
+        }
         setLoading(false);
       }
     };
     getData();
-  }, [query]);
+  }, [query, page]);
 
   const activeFilterHandler = function (filteredBy) {
     if (!activeFilter) return;
@@ -155,11 +191,30 @@ export default function TourMain({ pageType }) {
                 </div>
 
                 {tourData?.total > 0 && !loading && (
-                  <TourList
-                    pageType={pageType}
-                    activeFilter={showFilter}
-                    tourData={tourData}
-                  />
+                  <>
+                    <TourList
+                      pageType={pageType}
+                      activeFilter={showFilter}
+                      tourData={tourData}
+                    />
+                    {page < pageInfo?.totalPage && !moreLoading && (
+                      <div className="w-full flex items-start justify-center  p-6 ">
+                        <Spinner ref={ref} className="h-10 w-10" />
+                      </div>
+                    )}
+
+                    {moreLoading && (
+                      <div className="w-full flex items-start justify-center  p-6 ">
+                        <Spinner className="h-10 w-10" />
+                      </div>
+                    )}
+
+                    {!moreLoading && page === pageInfo?.totalPage && (
+                      <div className="w-full flex items-start justify-center  p-6 ">
+                        <Typography>All Caught Up</Typography>
+                      </div>
+                    )}
+                  </>
                 )}
                 {tourData?.total < 1 && !loading && <NotFound />}
                 {loading && (

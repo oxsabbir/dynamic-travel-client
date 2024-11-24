@@ -16,6 +16,7 @@ import {
   HiFlag,
 } from "react-icons/hi";
 import { IoIosPricetag } from "react-icons/io";
+
 export default function TourList({ tourData, activeFilter, pageType }) {
   // grid-cols-[repeat(auto-fit,minmax(350px,1fr))]
   const isAdmin = pageType === "admin";
