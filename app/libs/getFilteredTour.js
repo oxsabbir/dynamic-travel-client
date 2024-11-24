@@ -4,16 +4,17 @@ import { apiRequest } from "./apiClient";
 export const getFilteredData = async function (pageNo, query) {
   let pageString = "";
   if (pageNo > 0) {
-    pageString = `?page=${pageNo}`;
+    pageString = query ? `&page=${pageNo}` : `?page=${pageNo}`;
   }
-  console.log(pageNo);
+
+  console.log(query, pageString);
+
   try {
     const tourData = await apiRequest(
       "get",
-      `http://localhost:4000/api/v1/tour${
-        query ? `?${query}` : ""
-      }${pageString}`
+      `/api/v1/tour${query ? `?${query}` : ""}${pageString}`
     );
+    console.log(tourData);
     return tourData;
   } catch (error) {
     console.log(error);
