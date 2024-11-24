@@ -11,15 +11,35 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { HiOutlinePencilAlt, HiOutlineStar, HiStar } from "react-icons/hi";
+import postReview from "@/app/libs/postReview";
 
-export function RatingForm() {
+export function RatingForm({ tourId, refetch }) {
   const [open, setOpen] = useState(false);
   const [review, setReview] = useState("");
-  const [rating, setRating] = useState(3);
-
+  const [loading, setLoading] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [error, setError] = useState("");
   const handleOpen = () => setOpen((cur) => !cur);
 
-  const handleRating = function () {};
+  const reset = () => {
+    setOpen(false);
+    setRating(0);
+    setReview("");
+  };
+
+  const handleRating = async function () {
+    setLoading(true);
+    try {
+      const reviewData = await postReview(tourId, { rating: +rating, review });
+      setLoading(false);
+      refetch();
+      reset();
+      console.log(reviewData);
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
+    }
+  };
 
   return (
     <>
@@ -93,9 +113,20 @@ export function RatingForm() {
               className="!bg-senseWhite flex items-center justify-center font-medium shadow-none normal-case text-[15px] text-blue-gray-900 tracking-wide rounded-md"
               label="Write a review"
             />
+
+            {error && (
+              <Typography
+                variant="small"
+                className="text-red-400 text-center mt-2"
+              >
+                {error}
+              </Typography>
+            )}
           </CardBody>
+
           <CardFooter className="pt-0">
             <Button
+              loading={loading}
               disabled={rating < 1 || review.length < 1}
               onClick={handleRating}
               fullWidth

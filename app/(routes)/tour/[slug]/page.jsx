@@ -97,6 +97,7 @@ export default async function SingleTour({ params }) {
             totalRating={tour?.totalRating}
             ratingsAverage={tour?.ratingsAverage}
             reviews={tour?.reviews}
+            tourId={tour?.id}
           />
         </Container>
       </main>

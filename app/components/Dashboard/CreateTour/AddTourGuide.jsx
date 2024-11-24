@@ -7,6 +7,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { useState } from "react";
+import GuideList from "../../Tour/TourDetails/GuideList";
 
 export default function AddTourGuide() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,9 +27,7 @@ export default function AddTourGuide() {
         </MenuHandler>
 
         <MenuList className="w-[350px]">
-          <MenuItem>Menu Item 1</MenuItem>
-          <MenuItem>Menu Item 2</MenuItem>
-          <MenuItem>Menu Item 3</MenuItem>
+          <GuideList />
           <div className=" bg-pink-100 w-full">
             <Button onClick={() => setIsMenuOpen(false)}>Add</Button>
           </div>
