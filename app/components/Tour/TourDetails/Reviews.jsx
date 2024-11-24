@@ -3,8 +3,7 @@ import { Typography, Button, Avatar } from "@/app/ui/materialExport";
 import { HiOutlinePencilAlt, HiOutlineTrash, HiStar } from "react-icons/hi";
 import { RatingForm } from "./RatingForm";
 import { useEffect, useState } from "react";
-import { getReviews } from "@/app/libs/reviewsApi";
-import { collapse, IconButton } from "@material-tailwind/react";
+import { getReviews, deleteReview } from "@/app/libs/reviewsApi";
 
 export default function Review({
   totalRating,
@@ -17,16 +16,19 @@ export default function Review({
   const [actionType, setActionType] = useState("");
   const [selectedReview, setSelectedReview] = useState({});
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const refetch = () => setUpdated((prev) => !prev);
 
   const openCreateHandler = () => {
     setActionType("create");
     setOpen((prev) => !prev);
   };
+
   const openEditHandler = (e) => {
     setActionType("edit");
     const reviewId = e.target.id;
     const foundData = reviews.find((item) => item.id === reviewId);
-    console.log(foundData);
     setSelectedReview({
       review: foundData.review,
       rating: foundData.rating,
@@ -35,7 +37,17 @@ export default function Review({
     setOpen((prev) => !prev);
   };
 
-  const refetch = () => setUpdated((prev) => !prev);
+  const deleteReviewHandler = async function (events) {
+    const reviewId = events.target.id;
+    setLoading(true);
+    try {
+      const deletedTour = await deleteReview(reviewId);
+      refetch();
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     const getData = async () => {
@@ -138,10 +150,8 @@ export default function Review({
                   </Button>
                   <Button
                     id={item?.id}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      console.log(e.target);
-                    }}
+                    loading={loading}
+                    onClick={deleteReviewHandler}
                     variant="text"
                     size="sm"
                     className="px-2"

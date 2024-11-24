@@ -49,7 +49,6 @@ export function RatingForm({
       setLoading(false);
       refetch();
       reset();
-      console.log(reviewData);
     } catch (error) {
       setLoading(false);
       setError(error.message);

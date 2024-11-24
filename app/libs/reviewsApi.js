@@ -2,8 +2,8 @@ import { apiRequest } from "./apiClient";
 
 export const getReviews = async function (tourId) {
   try {
-    const tourData = await apiRequest("get", `/api/v1/tour/${tourId}/review`);
-    return tourData?.data;
+    const review = await apiRequest("get", `/api/v1/tour/${tourId}/review`);
+    return review?.data;
   } catch (error) {
     throw error;
   }
@@ -11,12 +11,12 @@ export const getReviews = async function (tourId) {
 
 export const postReview = async function (tourId, reviewData) {
   try {
-    const tourData = await apiRequest(
+    const review = await apiRequest(
       "post",
       `/api/v1/tour/${tourId}/review`,
       reviewData
     );
-    return tourData?.data;
+    return review?.data;
   } catch (error) {
     console.log(error);
     throw new Error("Something Went Wrong");
@@ -25,26 +25,22 @@ export const postReview = async function (tourId, reviewData) {
 
 export const updateReview = async function (tourId, reviewId, reviewData) {
   try {
-    const tourData = await apiRequest(
+    const review = await apiRequest(
       "patch",
       `/api/v1/tour/${tourId}/review/${reviewId}`,
       reviewData
     );
-    return tourData?.data;
+    return review?.data;
   } catch (error) {
     console.log(error);
     throw new Error("Something Went Wrong");
   }
 };
 
-export const deleteReview = async function (tourId, reviewData) {
+export const deleteReview = async function (reviewId) {
   try {
-    const tourData = await apiRequest(
-      "patch",
-      `/api/v1/tour/${tourId}/review`,
-      reviewData
-    );
-    return tourData?.data;
+    const reviewData = await apiRequest("delete", `/api/v1/review/${reviewId}`);
+    return reviewData?.data;
   } catch (error) {
     console.log(error);
     throw new Error("Something Went Wrong");
