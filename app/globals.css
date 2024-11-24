@@ -88,6 +88,37 @@ body {
     transform: translateY(-20px);
   }
 }
+
+@keyframes noneFill{
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes withFill {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.withFill {
+  animation: withFill .5s forwards ;
+
+}
+.noneFill {
+  animation: noneFill .5s forwards;
+}
+
+
 @keyframes showFilter {
   from {
     opacity: 0;
@@ -97,8 +128,8 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
-  
 }
+
 
 .showfilter {
   animation: showFilter .5s forwards;
@@ -106,3 +137,4 @@ body {
 .hidefilter{
   animation: hideFilter .5s forwards ;
 }
+

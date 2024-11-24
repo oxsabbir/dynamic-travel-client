@@ -10,13 +10,16 @@ import {
   Textarea,
   IconButton,
 } from "@material-tailwind/react";
-import { HiOutlinePencilAlt, HiOutlineStar } from "react-icons/hi";
+import { HiOutlinePencilAlt, HiOutlineStar, HiStar } from "react-icons/hi";
 
 export function RatingForm() {
   const [open, setOpen] = useState(false);
-  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState("");
+  const [rating, setRating] = useState(3);
 
   const handleOpen = () => setOpen((cur) => !cur);
+
+  const handleRating = function () {};
 
   return (
     <>
@@ -35,12 +38,14 @@ export function RatingForm() {
         className="bg-transparent shadow-none"
       >
         <Card className="mx-auto w-full max-w-[24rem] ">
-          <CardBody className="flex flex-col gap-4">
-            <Typography variant="h4" className=" uppercase text-center ">
+          <CardBody className="flex flex-col gap-2">
+            <Typography
+              variant="h4"
+              className=" uppercase text-center pb-3 font-thin"
+            >
               Give us a rating
             </Typography>
-            <Textarea label="Write a review" />
-            <div className=" bg-senseWhite rounded-md p-2">
+            <div className=" bg-senseWhite rounded-md p-4 mb-2">
               <div>
                 <Typography
                   variant="paragraph"
@@ -49,13 +54,27 @@ export function RatingForm() {
                   Rate this out of 5 by your experience
                 </Typography>
               </div>
-              <div className=" flex items-center justify-center  gap-3 py-3">
+              <div className=" flex items-center justify-center  gap-3.5 py-3 pt-1">
                 {new Array(5).fill(1).map((item, i) => (
-                  <IconButton variant="text" key={i} className=" rounded-full">
-                    <HiOutlineStar
-                      className={`w-12 h-12 p-1 text-orange-400 `}
-                      strokeWidth={1}
-                    />
+                  <IconButton
+                    onClick={() => setRating(i + 1)}
+                    variant="text"
+                    key={i}
+                    className=" rounded-full"
+                  >
+                    {i + 1 <= rating ? (
+                      <HiStar
+                        style={{ animationDelay: `${90 * i + 1}ms` }}
+                        className={`w-12 h-12 p-1 text-orange-500 opacity-0 withFill`}
+                        strokeWidth={1}
+                      />
+                    ) : (
+                      <HiOutlineStar
+                        style={{ animationDelay: `${90 * i + 1}ms` }}
+                        className={`w-12 h-12 p-1 text-orange-500 opacity-0 noneFill`}
+                        strokeWidth={1}
+                      />
+                    )}
                   </IconButton>
                 ))}
               </div>
@@ -68,10 +87,17 @@ export function RatingForm() {
                 </Typography>
               </div>
             </div>
+            <Textarea
+              defaultValue={review}
+              onChange={(event) => setReview(event.target.value)}
+              className="!bg-senseWhite flex items-center justify-center font-medium shadow-none normal-case text-[15px] text-blue-gray-900 tracking-wide rounded-md"
+              label="Write a review"
+            />
           </CardBody>
           <CardFooter className="pt-0">
             <Button
-              onClick={handleOpen}
+              disabled={rating < 1 || review.length < 1}
+              onClick={handleRating}
               fullWidth
               className="flex items-center justify-center gap-2 shadow-md font-normal text-sm tracking-wide bg-actionBlue"
             >
