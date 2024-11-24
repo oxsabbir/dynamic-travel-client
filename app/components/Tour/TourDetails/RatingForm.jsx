@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -10,27 +10,42 @@ import {
   Textarea,
   IconButton,
 } from "@material-tailwind/react";
-import { HiOutlinePencilAlt, HiOutlineStar, HiStar } from "react-icons/hi";
-import postReview from "@/app/libs/postReview";
+import { HiOutlineStar, HiStar } from "react-icons/hi";
+import { postReview, updateReview } from "@/app/libs/reviewsApi";
 
-export function RatingForm({ tourId, refetch }) {
-  const [open, setOpen] = useState(false);
+export function RatingForm({
+  tourId,
+  reviewId,
+  refetch,
+  open,
+  handleOpen,
+  actionType,
+  preData,
+}) {
   const [review, setReview] = useState("");
-  const [loading, setLoading] = useState(false);
   const [rating, setRating] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const handleOpen = () => setOpen((cur) => !cur);
 
   const reset = () => {
-    setOpen(false);
+    handleOpen();
     setRating(0);
     setReview("");
   };
+  useEffect(() => {
+    setReview(preData.review);
+    setRating(preData.rating);
+  }, [actionType]);
 
-  const handleRating = async function () {
+  const handleReview = async function () {
     setLoading(true);
+    const newReview = { rating: +rating, review };
     try {
-      const reviewData = await postReview(tourId, { rating: +rating, review });
+      const reviewData =
+        actionType === "edit"
+          ? await updateReview(tourId, reviewId, newReview)
+          : await postReview(tourId, newReview);
+
       setLoading(false);
       refetch();
       reset();
@@ -43,14 +58,6 @@ export function RatingForm({ tourId, refetch }) {
 
   return (
     <>
-      <Button
-        onClick={handleOpen}
-        className="flex items-center gap-2 shadow-md font-normal tracking-wide bg-actionBlue "
-      >
-        <HiOutlinePencilAlt className="w-5 h-5 " />
-        Write a review
-      </Button>
-
       <Dialog
         size="xs"
         open={open}
@@ -127,8 +134,8 @@ export function RatingForm({ tourId, refetch }) {
           <CardFooter className="pt-0">
             <Button
               loading={loading}
-              disabled={rating < 1 || review.length < 1}
-              onClick={handleRating}
+              disabled={rating < 1 || review?.length < 1}
+              onClick={handleReview}
               fullWidth
               className="flex items-center justify-center gap-2 shadow-md font-normal text-sm tracking-wide bg-actionBlue"
             >

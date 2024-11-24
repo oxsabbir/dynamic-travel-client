@@ -9,16 +9,16 @@ import Review from "../../../components/Tour/TourDetails/Reviews";
 import SubDetails from "../../../components/Tour/TourDetails/SubDetails";
 import SmallGuide from "../../../components/Tour/TourDetails/SmallGuide";
 import FaqSection from "../../../components/Tour/TourDetails/FaqSection";
-
 import BookingMenu from "../../../components/Tour/TourDetails/BookingMenu";
 import Location from "@/app/components/Map/Location";
 import FeatureImage from "@/app/components/Tour/TourDetails/FeatureImage";
 import getAllGuides from "@/app/libs/getAllGuide";
+import { auth } from "@/auth";
 
 export default async function SingleTour({ params }) {
   const tourData = await getTour(params.slug);
   let tour = tourData?.tour;
-
+  const userSession = await auth();
   const guideData = await getAllGuides();
   return (
     <>
@@ -98,6 +98,7 @@ export default async function SingleTour({ params }) {
             ratingsAverage={tour?.ratingsAverage}
             reviews={tour?.reviews}
             tourId={tour?.id}
+            authImage={userSession?.user?.image}
           />
         </Container>
       </main>
