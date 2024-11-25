@@ -10,7 +10,6 @@ export default function AddLocationPoint({ registerTour, setValue }) {
   const locations = [{ coordinates: [89.251608, 24.003675] }];
   const { state } = useMapContext();
   useEffect(() => {
-    console.log("chenges");
     setValue("locations", state?.selectedLocation);
   }, [state?.selectedLocation]);
 

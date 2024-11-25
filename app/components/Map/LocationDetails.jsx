@@ -1,15 +1,16 @@
 "use client";
 import { Typography, Button } from "@material-tailwind/react";
-import { useMapContext } from "../Dashboard/CreateTour/MapContext";
 import { Slider } from "../Tour/TourDetails/Slider";
 import { useState } from "react";
 export default function LocationDetails({ location, pageType }) {
   const [open, setOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const editHandler = () => setIsEditing((prev) => !prev);
   const handleOpen = () => setOpen((prev) => !prev);
 
   return (
     <>
-      <div className="min-w-[300px]">
+      <div className="max-w-[260px]">
         <Slider
           open={open}
           handleOpen={handleOpen}
@@ -22,7 +23,7 @@ export default function LocationDetails({ location, pageType }) {
         >
           Place Details
         </Typography>
-        <div className="mr-3 flex flex-col gap-3 mt-2 ">
+        <div className="flex flex-col gap-3 mt-2 ">
           <div>
             <Typography
               variant="paragraph"
@@ -80,7 +81,10 @@ export default function LocationDetails({ location, pageType }) {
               <Button className=" w-28 bg-red-400 p-2 px-3 font-normal tracking-wide ">
                 Delete
               </Button>
-              <Button className=" w-28 bg-actionBlue p-2 px-3 font-normal tracking-wide">
+              <Button
+                onClick={editHandler}
+                className=" w-28 bg-actionBlue p-2 px-3 font-normal tracking-wide"
+              >
                 Edit
               </Button>
             </div>

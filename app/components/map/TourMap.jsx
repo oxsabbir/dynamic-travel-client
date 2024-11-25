@@ -118,7 +118,7 @@ const TourMap = ({ locations, pageType }) => {
                 </Popup>
               </Marker>
             ))}
-          <div className=" absolute bottom-1 left-2 z-[999] pointer-events-none">
+          <div className=" absolute bottom-4 left-2 z-[999] pointer-events-none">
             <SelectedLocation
               places={
                 pageType === "admin"

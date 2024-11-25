@@ -38,10 +38,9 @@ export default function SelectedLocation({ places, pageType }) {
                 className=" normal-case rounded-lg p-0 pointer-events-auto w-[140px]"
                 onClick={openMenu}
               >
-                {" "}
                 <Typography
                   variant="paragraph"
-                  className=" bg-offWhite text-[15px] text-offGray flex items-center gap-2 p-2 px-3 rounded-lg shadow-md cursor-pointer"
+                  className=" bg-white text-[15px] text-offGray flex items-center gap-2 p-2 px-3 rounded-lg shadow-md cursor-pointer"
                 >
                   Show Places
                   <HiChevronUp className=" w-5 h-5 text-shadeBlack" />
