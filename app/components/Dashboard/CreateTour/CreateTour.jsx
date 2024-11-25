@@ -112,8 +112,6 @@ export default function CreateTour({ actionType, tourData }) {
   };
 
   // this one is for custom register form
-
-  //
   const featureImageHandler = function (e) {
     const newImageList = formData?.images ? [...formData.images] : [];
     [...e.target.files].forEach((item) => newImageList.push(item));
@@ -138,7 +136,6 @@ export default function CreateTour({ actionType, tourData }) {
 
   const featureImageEditHandler = function (event) {
     const imageId = event.target.id;
-    console.log(imageId);
     const newImageList = [...formData.images]?.filter((item) => {
       if (item?.lastModified) {
         return item.lastModified !== +imageId;
@@ -148,8 +145,6 @@ export default function CreateTour({ actionType, tourData }) {
     });
     setValue("images", newImageList);
   };
-
-  console.log(watch());
 
   return (
     <>

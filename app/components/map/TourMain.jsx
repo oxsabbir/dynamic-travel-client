@@ -32,9 +32,15 @@ export default function TourMain({ pageType }) {
   const [loading, setLoading] = useState(true);
   const [moreLoading, setMoreLoading] = useState(false);
   const [pageInfo, setPageInfo] = useState({});
+  const [fetchAgain, setFetchAgain] = useState(false);
 
   const [showFilter, setShowFilter] = useState(true);
   const [animate, setAnimte] = useState(true);
+
+  const refetch = () => {
+    setFetchAgain((prev) => !prev);
+  };
+
   const toggleFilter = () => {
     if (animate) {
       setAnimte(false);
@@ -62,7 +68,8 @@ export default function TourMain({ pageType }) {
         threshold: 0,
       },
     },
-    query
+    query,
+    fetchAgain
   );
 
   useEffect(() => {
@@ -93,7 +100,7 @@ export default function TourMain({ pageType }) {
       }
     };
     getData();
-  }, [query, page]);
+  }, [query, page, fetchAgain]);
 
   const activeFilterHandler = function (filteredBy) {
     if (!activeFilter) return;
@@ -196,6 +203,7 @@ export default function TourMain({ pageType }) {
                       pageType={pageType}
                       activeFilter={showFilter}
                       tourData={tourData}
+                      refetch={refetch}
                     />
                     {page < pageInfo?.totalPage && !moreLoading && (
                       <div className="w-full flex items-start justify-center  p-6 ">

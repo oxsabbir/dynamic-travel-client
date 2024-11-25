@@ -1,13 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRef } from "react";
-export default function useInfiniteLoading(options, query) {
+export default function useInfiniteLoading(options, query, fetchStatus) {
   const ref = useRef(null);
   const [page, setPage] = useState(1);
 
+  console.log(query, "modified");
   useEffect(() => {
     setPage(1);
-  }, [query]);
+  }, [query, fetchStatus]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {

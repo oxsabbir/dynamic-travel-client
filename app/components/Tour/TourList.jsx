@@ -20,18 +20,47 @@ import {
   HiTrash,
 } from "react-icons/hi";
 import { IoIosPricetag } from "react-icons/io";
-
 import { deleteTour } from "@/app/libs/tourApi";
 
-export default function TourList({ tourData, activeFilter, pageType }) {
+export default function TourList({
+  tourData,
+  activeFilter,
+  pageType,
+  refetch,
+}) {
   const [open, setOpen] = useState(false);
   const [selectedTourId, setSelectedTourId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleOpen = () => setOpen((prev) => !prev);
+  const handleOpen = (event) => {
+    const tourId = event?.target?.id;
+    if (typeof tourId === "string") {
+      setSelectedTourId(tourId);
+    } else {
+      setSelectedTourId(null);
+    }
+    setOpen((prev) => !prev);
+  };
 
   const deleteTourHandler = async function () {
-    console.log(selectedTourId);
+    setLoading(true);
+    try {
+      if (!selectedTourId) {
+        setLoading(false);
+        handleOpen();
+        return;
+      }
+      const deletedTour = await deleteTour(selectedTourId);
+      setLoading(false);
+      handleOpen();
+      refetch();
+    } catch (error) {
+      setLoading(false);
+      throw error;
+    }
   };
+
+  console.log(selectedTourId, "outside");
 
   // grid-cols-[repeat(auto-fit,minmax(350px,1fr))]
   const isAdmin = pageType === "admin";
@@ -59,6 +88,8 @@ export default function TourList({ tourData, activeFilter, pageType }) {
           handleOpen={handleOpen}
           open={open}
           confirmHandler={deleteTourHandler}
+          title={"Tour"}
+          loading={loading}
         />
 
         {tourData?.tour?.map((item) => (
@@ -138,7 +169,7 @@ export default function TourList({ tourData, activeFilter, pageType }) {
                       onClick={handleOpen}
                       className=" flex items-center gap-2 shadow-md font-normal py-2.5 px-3 ml-2 tracking-wide bg-blue-gray-500"
                     >
-                      <HiTrash className="w-4 h-4" />
+                      <HiTrash className="w-4 h-4 pointer-events-none" />
                     </Button>
 
                     <Link
