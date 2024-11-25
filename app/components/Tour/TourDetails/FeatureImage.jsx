@@ -9,7 +9,12 @@ export default function FeatureImage({ coverImage, images }) {
   const handleOpen = () => setOpen((prev) => !prev);
   return (
     <>
-      <Slider open={open} handleOpen={handleOpen} images={images} />
+      <Slider
+        open={open}
+        handleOpen={handleOpen}
+        images={images}
+        title={"Feature"}
+      />
       <div className=" flex lg:flex-row flex-col h-[400px] lg:h-[520px]  gap-6">
         <div className=" w-full lg:w-[70%] h-full">
           <img

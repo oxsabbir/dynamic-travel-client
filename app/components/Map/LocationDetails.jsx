@@ -10,7 +10,12 @@ export default function LocationDetails({ location, pageType }) {
   return (
     <>
       <div className="min-w-[300px]">
-        <Slider open={open} handleOpen={handleOpen} images={location?.image} />
+        <Slider
+          open={open}
+          handleOpen={handleOpen}
+          images={location?.images}
+          title={"Location"}
+        />
         <Typography
           variant="h5"
           className=" text-blue-gray-700 font-medium border-b pb-1 border-blue-gray-700"
@@ -50,12 +55,20 @@ export default function LocationDetails({ location, pageType }) {
                   variant="paragraph"
                   className=" text-blue-gray-700 font-medium"
                 >
-                  Location images
+                  Location Images
                 </Typography>
-                <div className="w-full mt-1 relative">
+                <div className="w-full group mt-1 relative ">
+                  <div
+                    onClick={handleOpen}
+                    className=" absolute group-hover:opacity-100 flex duration-300 group-hover:duration-300 opacity-0 cursor-pointer items-center justify-center bg-[#00000075] w-full h-full top-0 left-0 rounded-lg"
+                  >
+                    <Typography variant="lead" className="text-offWhite p-2">
+                      Show More
+                    </Typography>
+                  </div>
                   <img
                     src={location.images[0]}
-                    className=" w-full h-[200px]  object-cover rounded-lg"
+                    className=" w-full h-[200px] object-cover rounded-lg"
                   />
                 </div>
               </>
