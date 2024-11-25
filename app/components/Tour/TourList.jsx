@@ -1,4 +1,5 @@
 "use client";
+import { DeleteModal } from "@/app/ui/DeleteModal";
 import {
   Card,
   CardBody,
@@ -8,16 +9,30 @@ import {
 } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import {
   HiHeart,
   HiLocationMarker,
   HiUser,
   HiStar,
   HiFlag,
+  HiOutlinePencilAlt,
+  HiTrash,
 } from "react-icons/hi";
 import { IoIosPricetag } from "react-icons/io";
 
+import { deleteTour } from "@/app/libs/tourApi";
+
 export default function TourList({ tourData, activeFilter, pageType }) {
+  const [open, setOpen] = useState(false);
+  const [selectedTourId, setSelectedTourId] = useState(null);
+
+  const handleOpen = () => setOpen((prev) => !prev);
+
+  const deleteTourHandler = async function () {
+    console.log(selectedTourId);
+  };
+
   // grid-cols-[repeat(auto-fit,minmax(350px,1fr))]
   const isAdmin = pageType === "admin";
 
@@ -40,10 +55,18 @@ export default function TourList({ tourData, activeFilter, pageType }) {
           activeFilter ? activeFilterAdminStyle : deactiveFilterAdminStyle
         }  justify-items-center  gap-x-4 gap-y-6  py-4 `}
       >
+        <DeleteModal
+          handleOpen={handleOpen}
+          open={open}
+          confirmHandler={deleteTourHandler}
+        />
+
         {tourData?.tour?.map((item) => (
           <Card
             key={item?.id}
-            className="w-full flex flex-col justify-between  bg-white "
+            draggable={isAdmin ? true : false}
+            id={item?.id}
+            className="w-full flex flex-col bg-white justify-between"
           >
             <CardBody className=" flex flex-col">
               <div className=" h-[250px]">
@@ -100,24 +123,33 @@ export default function TourList({ tourData, activeFilter, pageType }) {
               <div className="flex justify-between">
                 <Typography
                   variant="paragraph"
-                  className="  text-green-600   gap-1  flex items-center  "
+                  className="  text-green-700  font-normal tracking-wide gap-1  flex items-center  "
                 >
-                  <IoIosPricetag className="w-6 h-6 mr-0.5 text-green-600" />
+                  <IoIosPricetag className="w-6 h-6 mr-0.5 text-green-700" />
                   {`$ ${item?.price}`}
                 </Typography>
 
                 {/* Conditional render depending on pageType */}
                 {isAdmin ? (
-                  <div className="bg-light-green-200">
-                    <Button size="sm" color="blue-gray" className=" mr-3">
-                      <HiHeart className="w-4 h-4" />
+                  <div className=" flex items-center">
+                    <Button
+                      size="sm"
+                      id={item?.id}
+                      onClick={handleOpen}
+                      className=" flex items-center gap-2 shadow-md font-normal py-2.5 px-3 ml-2 tracking-wide bg-blue-gray-500"
+                    >
+                      <HiTrash className="w-4 h-4" />
                     </Button>
 
                     <Link
                       href={`/dashboard/tour-management/update-tour/${item?.id}`}
                     >
-                      <Button size="sm" className=" bg-actionBlue font-light">
-                        Update
+                      <Button
+                        size="sm"
+                        className="flex items-center gap-2 shadow-md font-normal py-2.5 px-3 ml-2 tracking-wide bg-actionBlue"
+                      >
+                        <HiOutlinePencilAlt className="w-4 h-4 mb-0.5" />
+                        Edit
                       </Button>
                     </Link>
                   </div>

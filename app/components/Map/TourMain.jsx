@@ -211,7 +211,9 @@ export default function TourMain({ pageType }) {
 
                     {!moreLoading && page === pageInfo?.totalPage && (
                       <div className="w-full flex items-start justify-center  p-6 ">
-                        <Typography>All Caught Up</Typography>
+                        <Typography className="text-shadeBlack  text-md tracking-wide ">
+                          All Caught Up
+                        </Typography>
                       </div>
                     )}
                   </>
