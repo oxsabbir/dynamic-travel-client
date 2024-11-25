@@ -17,7 +17,7 @@ export default function SelectedLocation({ places, pageType }) {
   const map = useMap();
   const openMenu = (e) => {
     e.stopPropagation();
-    setIsOpen(true);
+    setIsOpen((prev) => !prev);
   };
 
   const flyHandler = function (e) {
@@ -38,6 +38,7 @@ export default function SelectedLocation({ places, pageType }) {
                 className=" normal-case rounded-lg p-0 pointer-events-auto w-[140px]"
                 onClick={openMenu}
               >
+                {" "}
                 <Typography
                   variant="paragraph"
                   className=" bg-offWhite text-[15px] text-offGray flex items-center gap-2 p-2 px-3 rounded-lg shadow-md cursor-pointer"

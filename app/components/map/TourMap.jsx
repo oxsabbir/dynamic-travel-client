@@ -16,6 +16,7 @@ import { OpenStreetMapProvider } from "leaflet-geosearch";
 import AddLocationDetails from "./AddLocationDetails";
 import { useMapContext } from "../Dashboard/CreateTour/MapContext";
 import SelectedLocation from "./SelectedLocation";
+import LocationDetails from "./LocationDetails";
 
 const customIcon = new L.Icon({
   iconUrl: markerIcon?.src, // Replace with your icon path
@@ -113,9 +114,7 @@ const TourMap = ({ locations, pageType }) => {
                 icon={customIcon}
               >
                 <Popup>
-                  <div>
-                    <h3>{item?.address}</h3>
-                  </div>
+                  <LocationDetails location={item} pageType={pageType} />
                 </Popup>
               </Marker>
             ))}

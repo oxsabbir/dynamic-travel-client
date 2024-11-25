@@ -5,7 +5,6 @@ export default function useInfiniteLoading(options, query, fetchStatus) {
   const ref = useRef(null);
   const [page, setPage] = useState(1);
 
-  console.log(query, "modified");
   useEffect(() => {
     setPage(1);
   }, [query, fetchStatus]);
