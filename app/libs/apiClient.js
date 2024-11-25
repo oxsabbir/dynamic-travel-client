@@ -12,7 +12,6 @@ const getToken = async function () {
     return session?.accessToken;
   }
 };
-
 // api client to make request with the jwt
 export async function apiRequest(method, url, data = {}, headers = {}) {
   const token = await getToken();
@@ -20,8 +19,6 @@ export async function apiRequest(method, url, data = {}, headers = {}) {
   const apiClient = axios.create({
     baseURL,
   });
-
-  console.log(baseURL, "-----");
 
   try {
     const response = await apiClient.request({

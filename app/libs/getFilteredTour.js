@@ -7,8 +7,6 @@ export const getFilteredData = async function (pageNo, query) {
     pageString = query ? `&page=${pageNo}` : `?page=${pageNo}`;
   }
 
-  console.log(query, pageString);
-
   try {
     const tourData = await apiRequest(
       "get",

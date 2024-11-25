@@ -33,17 +33,6 @@ export default function TourMain({ pageType }) {
   const [moreLoading, setMoreLoading] = useState(false);
   const [pageInfo, setPageInfo] = useState({});
 
-  const [ref, page] = useInfiniteLoading(
-    {
-      options: {
-        root: null,
-        rootMargin: "100px",
-        threshold: 0,
-      },
-    },
-    pageInfo
-  );
-
   const [showFilter, setShowFilter] = useState(true);
   const [animate, setAnimte] = useState(true);
   const toggleFilter = () => {
@@ -64,6 +53,17 @@ export default function TourMain({ pageType }) {
   const query = filterTour.getServerQuery();
   const filteredEntry = filterTour.getFilteredEntry();
   const activeFilter = filterTour.getActiveFilter();
+
+  const [ref, page] = useInfiniteLoading(
+    {
+      options: {
+        root: null,
+        rootMargin: "100px",
+        threshold: 0,
+      },
+    },
+    query
+  );
 
   useEffect(() => {
     const getData = async () => {
