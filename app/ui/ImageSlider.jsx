@@ -14,6 +14,7 @@ import { HiOutlineDownload, HiOutlineX } from "react-icons/hi";
 
 // import required modules
 import { Pagination, Navigation } from "swiper/modules";
+import { convertToDataURL } from "../util/helper";
 
 export default function ImageCarousel({ handleOpen, images, title }) {
   const [activeImageIndex, setActiveImageIndex] = useState(null);
@@ -50,7 +51,11 @@ export default function ImageCarousel({ handleOpen, images, title }) {
           {images &&
             images?.map((item, i) => (
               <SwiperSlide key={i}>
-                <img src={item} alt={`tour_image_${i}`} className=" w-full  " />
+                <img
+                  src={convertToDataURL(item)}
+                  alt={`tour_image_${i}`}
+                  className=" w-full  "
+                />
               </SwiperSlide>
             ))}
         </Swiper>

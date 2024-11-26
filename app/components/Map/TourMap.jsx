@@ -36,6 +36,7 @@ const TourMap = ({ locations, pageType }) => {
     locations[0].coordinates[1],
     locations[0].coordinates[0],
   ];
+
   // the position of the marker and popup
   const [position, setPosition] = useState(null);
 
@@ -112,11 +113,7 @@ const TourMap = ({ locations, pageType }) => {
                 icon={customIcon}
               >
                 <Popup>
-                  <LocationDetails
-                    location={item}
-                    pageType={pageType}
-                    setPosition={setPosition}
-                  />
+                  <LocationDetails location={item} pageType={pageType} />
                 </Popup>
               </Marker>
             ))}

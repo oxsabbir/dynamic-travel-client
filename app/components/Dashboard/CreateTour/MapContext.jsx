@@ -27,7 +27,20 @@ export const MapContextProvider = function ({ children }) {
           selectedLocation: [...state.selectedLocation, action.payload],
         };
       case "EDIT_LOCATION": {
-        return { ...state, selectedLocation: [] };
+        // { ...state, selectedLocation: [] }
+        {
+          const indexToEdit = state.selectedLocation.findIndex(
+            (item) =>
+              item.coordinates.join(",") ===
+              action.payload.coordinates.join(",")
+          );
+          const editedLocation = state.selectedLocation.splice(
+            indexToEdit,
+            1,
+            action.payload
+          );
+          return { ...state, selectedLocation: [...state.selectedLocation] };
+        }
       }
       case "DELETE_LOCATION": {
         const tourId = action.payload;
