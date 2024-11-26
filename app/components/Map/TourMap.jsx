@@ -55,8 +55,6 @@ const TourMap = ({ locations, pageType }) => {
   };
 
   const LocationMarkerGeoCoded = () => {
-    const dispatch = contextData?.dispatch;
-
     useMapEvents({
       click(e) {
         // checking it clicked on the map only not on the overlay elements
@@ -114,7 +112,11 @@ const TourMap = ({ locations, pageType }) => {
                 icon={customIcon}
               >
                 <Popup>
-                  <LocationDetails location={item} pageType={pageType} />
+                  <LocationDetails
+                    location={item}
+                    pageType={pageType}
+                    setPosition={setPosition}
+                  />
                 </Popup>
               </Marker>
             ))}

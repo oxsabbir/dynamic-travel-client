@@ -12,6 +12,7 @@ export default function AddLocationDetails({
   setPosition,
 }) {
   const { state, dispatch } = useMapContext();
+
   const {
     register: registerDetails,
     handleSubmit: handleSubmitDetails,

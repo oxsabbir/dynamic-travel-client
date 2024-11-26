@@ -15,19 +15,28 @@ export const MapContextProvider = function ({ children }) {
 
   const mapReducer = function (state, action) {
     switch (action.type) {
-      case "ADD_NEW_LOCATION":
-        return {
-          ...state,
-          selectedLocation: [...state.selectedLocation, action.payload],
-        };
       case "LOAD_LOCATION":
         return {
           ...state,
           selectedLocation: [...action.payload],
         };
 
-      case "DELETE_LOCATION":
+      case "ADD_NEW_LOCATION":
+        return {
+          ...state,
+          selectedLocation: [...state.selectedLocation, action.payload],
+        };
+      case "EDIT_LOCATION": {
         return { ...state, selectedLocation: [] };
+      }
+      case "DELETE_LOCATION": {
+        const tourId = action.payload;
+        const locationAfterDelete = state.selectedLocation.filter(
+          (item) => item.coordinates.join(",") !== tourId
+        );
+        return { ...state, selectedLocation: [...locationAfterDelete] };
+      }
+
       default: {
         return state;
       }

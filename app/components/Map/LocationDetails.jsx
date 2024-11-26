@@ -2,11 +2,22 @@
 import { Typography, Button } from "@material-tailwind/react";
 import { Slider } from "../Tour/TourDetails/Slider";
 import { useState } from "react";
-export default function LocationDetails({ location, pageType }) {
+import { useMapContext } from "../Dashboard/CreateTour/MapContext";
+export default function LocationDetails({ location, pageType, setPosition }) {
+  const mapContext = pageType === "admin" ? useMapContext() : [];
+  const state = mapContext?.state;
+  const dispatch = mapContext?.dispatch;
+
   const [open, setOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const editHandler = () => setIsEditing((prev) => !prev);
   const handleOpen = () => setOpen((prev) => !prev);
+
+  const deleteHandler = function (event) {
+    const tourId = event.target.id;
+    console.log(tourId);
+    dispatch({ type: "DELETE_LOCATION", payload: tourId });
+  };
 
   return (
     <>
@@ -69,7 +80,7 @@ export default function LocationDetails({ location, pageType }) {
                   </div>
                   <img
                     src={location.images[0]}
-                    className=" w-full h-[200px] object-cover rounded-lg"
+                    className=" w-full h-[180px] object-cover rounded-lg"
                   />
                 </div>
               </>
@@ -77,8 +88,12 @@ export default function LocationDetails({ location, pageType }) {
           </div>
 
           {pageType === "admin" && (
-            <div className=" flex items-center gap-3 pt-4 justify-center ">
-              <Button className=" w-28 bg-red-400 p-2 px-3 font-normal tracking-wide ">
+            <div className=" flex items-center gap-3 pt-2 justify-center ">
+              <Button
+                id={location.coordinates.join(",")}
+                onClick={deleteHandler}
+                className=" w-28 bg-red-400 p-2 px-3 font-normal tracking-wide "
+              >
                 Delete
               </Button>
               <Button
