@@ -99,7 +99,7 @@ const TourMap = ({ locations, pageType }) => {
           zoom={15}
           maxZoom={18}
           minZoom={7}
-          style={{ height: "600px", width: "100%" }}
+          style={{ height: "650px", width: "100%" }}
         >
           <TileLayer
             url="https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=5a1f7bce059b4f25aec08e4a8a50524c"
