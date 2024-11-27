@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Drawer } from "@material-tailwind/react";
 import { HiOutlineMenu } from "react-icons/hi";
-import { Button } from "@/app/ui/materialExport";
+import { Button, Typography } from "@/app/ui/materialExport";
 import SideNav from "./SideNav";
 import { ProfileMenu } from "../Header/ProfileMenu";
 import { usePathname } from "next/navigation";
@@ -15,6 +15,8 @@ export default function MobileMenu() {
     .split("/")
     [pathName.split("/").length - 1]?.toUpperCase();
 
+  const isUpdate = pathName.split("/")[pathName.split("/").length - 2];
+
   return (
     <>
       <div className=" p-2 py-3 shadow-md">
@@ -22,7 +24,10 @@ export default function MobileMenu() {
           <Button onClick={openDrawer} variant="text" className=" p-2">
             <HiOutlineMenu className="w-6 h-6" />
           </Button>
-          <h4 className=" font-bold text-lg text-blue-gray-900">{heading}</h4>
+
+          <h4 className=" font-bold text-lg text-blue-gray-900">
+            {isUpdate === "update-tour" ? isUpdate.toUpperCase() : heading}
+          </h4>
           <div>
             <ProfileMenu />
           </div>

@@ -13,7 +13,7 @@ export default function layout({ children }) {
         <div className=" md:hidden ">
           <MobileMenu />
         </div>
-        <div className=" p-3 py-0 md:py-3  w-full h-screen overflow-auto">
+        <div className=" p-3 py-0 md:p-4   w-full h-screen overflow-auto">
           <div className=" hidden lg:flex items-center border-b mb-2 justify-between py-1 ">
             <LargeHeading />
             <ProfileMenu />

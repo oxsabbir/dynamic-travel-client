@@ -6,6 +6,7 @@ import {
   MenuItem,
   Avatar,
   Typography,
+  Spinner,
 } from "@material-tailwind/react";
 import { getSession, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -51,7 +52,11 @@ export function ProfileMenu({ signOut, user }) {
           Join Now
         </a>
       )}
-      {session.status === "loading" && <p className=" py-4">Loading...</p>}
+      {session.status === "loading" && (
+        <div className="p-2">
+          <Spinner className="h-8 w-8 " />
+        </div>
+      )}
       {AuthStatus === "authenticated" && (
         <Menu placement="bottom-end">
           <MenuHandler>
