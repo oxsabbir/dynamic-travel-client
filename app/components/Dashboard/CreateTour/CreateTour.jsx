@@ -1,5 +1,11 @@
 "use client";
-import { Input, Typography, Button, Textarea } from "@material-tailwind/react";
+import {
+  Input,
+  Typography,
+  Button,
+  Textarea,
+  collapse,
+} from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiOutlinePhotograph } from "react-icons/hi";
@@ -75,6 +81,9 @@ export default function CreateTour({ actionType, tourData }) {
     formInputKeys.forEach((item) => {
       if (item === "coverImage") {
         setValue(item, [tourData[item]]);
+      } else if (item === "guides") {
+        const guideId = tourData[item]?.map((item) => item.id);
+        setValue(item, guideId);
       } else {
         setValue(item, tourData[item]);
       }
@@ -507,19 +516,22 @@ export default function CreateTour({ actionType, tourData }) {
                   color="blue-gray"
                   className="block font-medium mb-2"
                 >
-                  Tour Guides
+                  Tour guides
                 </Typography>
               </label>
               <div>
-                <AddTourGuide />
+                <AddTourGuide
+                  registerTour={registerTour}
+                  setValue={setValue}
+                  guideData={formData.guides}
+                />
               </div>
-
-              {errorsTour?.totalParticipants && (
+              {errorsTour?.guides && (
                 <Typography
                   variant="small"
                   className="opacity-90 tracking-wide text-red-600 mt-1"
                 >
-                  {errorsTour.totalParticipants?.message}
+                  {errorsTour.guides?.message}
                 </Typography>
               )}
             </div>

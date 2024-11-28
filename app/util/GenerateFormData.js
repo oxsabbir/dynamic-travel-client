@@ -7,6 +7,10 @@ export default function generateFormData(inputData) {
     if (key === "coverImage") {
       console.log(inputData[key][0]);
       formData.append(key, inputData[key][0]);
+    } else if (key === "guides") {
+      inputData[key]?.forEach((item, i) => {
+        formData.append(`${key}[${i}]`, item);
+      });
     } else if (key === "locations") {
       console.log(inputData[key], "item locaiton ");
       formData.append(key, JSON.stringify(inputData[key]));

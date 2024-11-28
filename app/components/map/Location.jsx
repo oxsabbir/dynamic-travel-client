@@ -5,8 +5,8 @@ const TourMap = dynamic(() => import("./TourMap"), { ssr: false });
 export default function Location({ places }) {
   return (
     <>
-      <div className="py-6">
-        <Typography variant="h3" className="tracking-wide">
+      <div className="py-4">
+        <Typography variant="h4" className="tracking-wide">
           Places were gonna explore
         </Typography>
       </div>
