@@ -1,8 +1,18 @@
 import { apiRequest } from "./apiClient";
 
-export const getReviews = async function (tourId) {
+export const getReviews = async function (tourId, page, sortValue) {
+  let sortQuery = "";
+  if (sortValue === "latest") {
+    sortQuery = `sort=-updatedAt,-createdAt`;
+  } else if (sortQuery === "positive") {
+    sortValue = `sort=-rating`;
+  }
+
   try {
-    const review = await apiRequest("get", `/api/v1/tour/${tourId}/review`);
+    const review = await apiRequest(
+      "get",
+      `/api/v1/tour/${tourId}/review${sortQuery ? `?${sortQuery}` : ""}`
+    );
     return review?.data;
   } catch (error) {
     throw error;
@@ -18,7 +28,6 @@ export const postReview = async function (tourId, reviewData) {
     );
     return review?.data;
   } catch (error) {
-    console.log(error);
     throw new Error("Something Went Wrong");
   }
 };

@@ -12,7 +12,6 @@ import FaqSection from "../../../components/Tour/TourDetails/FaqSection";
 import BookingMenu from "../../../components/Tour/TourDetails/BookingMenu";
 import Location from "@/app/components/Map/Location";
 import FeatureImage from "@/app/components/Tour/TourDetails/FeatureImage";
-import getAllGuides from "@/app/libs/getAllGuide";
 import { auth } from "@/auth";
 
 export default async function SingleTour({ params }) {

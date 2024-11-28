@@ -4,6 +4,7 @@ import { HiOutlinePencilAlt, HiOutlineTrash, HiStar } from "react-icons/hi";
 import { RatingForm } from "./RatingForm";
 import { useEffect, useState } from "react";
 import { getReviews, deleteReview } from "@/app/libs/reviewsApi";
+import { Spinner } from "@material-tailwind/react";
 
 export default function Review({
   totalRating,
@@ -15,10 +16,35 @@ export default function Review({
   const [updated, setUpdated] = useState(false);
   const [actionType, setActionType] = useState("");
   const [selectedReview, setSelectedReview] = useState({});
+  const [reviewed, setReviewed] = useState(false);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [loadingReview, setLoadingReview] = useState(false);
+  const [activeSort, setActiveSort] = useState("all");
+  const [page, setPage] = useState(1);
   const refetch = () => setUpdated((prev) => !prev);
+
+  useEffect(() => {
+    const getData = async () => {
+      setLoadingReview(true);
+      try {
+        const reviewData = await getReviews(tourId);
+        if (reviewData?.authReview) {
+          setReviews([reviewData.authReview, ...reviewData?.review]);
+          setReviewed(true);
+          setLoadingReview(false);
+        } else {
+          setReviewed(false);
+          setReviews(reviewData?.review);
+          setLoadingReview(false);
+        }
+      } catch (error) {
+        setLoadingReview(false);
+        throw error;
+      }
+    };
+    getData();
+  }, [updated, activeSort, page]);
 
   const openCreateHandler = () => {
     setActionType("create");
@@ -49,13 +75,10 @@ export default function Review({
     }
   };
 
-  useEffect(() => {
-    const getData = async () => {
-      const reviewData = await getReviews(tourId);
-      setReviews(reviewData?.review);
-    };
-    getData();
-  }, [updated]);
+  const sortHandler = function (event) {
+    const value = event.target?.value;
+    setActiveSort(value);
+  };
 
   return (
     <>
@@ -84,11 +107,12 @@ export default function Review({
         </div>
         <div>
           <Button
+            disabled={reviewed}
             onClick={openCreateHandler}
             className="flex items-center gap-2 shadow-md font-normal tracking-wide bg-actionBlue "
           >
             <HiOutlinePencilAlt className="w-5 h-5 " />
-            Write a review
+            {reviewed ? "Already Reviewed" : "Write a review"}
           </Button>
         </div>
       </div>
@@ -117,15 +141,54 @@ export default function Review({
           </Typography>
         </div>
         <div className=" flex items-center gap-2">
-          <Button className=" tracking-wide bg-actionBlue ">All</Button>
-          <Button className>Latest</Button>
-          <Button>Positive</Button>
+          <Button
+            value={"all"}
+            className={`tracking-wide ${
+              activeSort === "all"
+                ? "bg-actionBlue"
+                : "bg-gray-200 py-2.5 duration-150 text-textBlack"
+            } duration-150`}
+            onClick={sortHandler}
+          >
+            All
+          </Button>
+          <Button
+            value={"latest"}
+            onClick={sortHandler}
+            className={`tracking-wide ${
+              activeSort === "latest"
+                ? "bg-actionBlue"
+                : "bg-gray-200 py-2.5 duration-150 text-textBlack"
+            } `}
+          >
+            Latest
+          </Button>
+          <Button
+            value={"positive"}
+            onClick={sortHandler}
+            className={`tracking-wide ${
+              activeSort === "positive"
+                ? "bg-actionBlue"
+                : "bg-gray-200 py-2.5 duration-150 text-textBlack"
+            } `}
+          >
+            Positive
+          </Button>
         </div>
       </div>
 
       {/* review items */}
+      {loadingReview && (
+        <div className=" flex items-center justify-center gap-2 flex-col p-2 mt-4">
+          <Spinner className=" w-8 h-8" />
+          <Typography variant="small" className=" text-offGray">
+            Loading Reviews
+          </Typography>
+        </div>
+      )}
 
       {reviews &&
+        !loadingReview &&
         reviews?.map((item) => (
           <div className=" border-b border-[#99999981] py-4 flex flex-col gap-3 ">
             <div className="rating flex gap-0.5 items-center">
