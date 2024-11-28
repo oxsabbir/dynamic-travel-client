@@ -39,7 +39,7 @@ export default function BookingMenu({ tourData, guide }) {
   };
   return (
     <>
-      <Card className="rounded-md  lg:absolute  p-8 w-full lg:w-[400px] bg-offWhite top-0 right-0">
+      <Card className="rounded-md my-4 lg:my-1 lg:absolute  p-8 w-full lg:w-[400px] bg-offWhite top-0 right-0">
         <div className=" ">
           <Typography className="tracking-wide text-center py-2 font-medium text-lg uppercase text-textBlack">
             Find a guide by your date

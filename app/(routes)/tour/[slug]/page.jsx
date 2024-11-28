@@ -19,7 +19,7 @@ export default async function SingleTour({ params }) {
   const tourData = await getTour(params.slug);
   let tour = tourData?.tour;
   const userSession = await auth();
-  const guideData = await getAllGuides();
+  const guideData = tourData?.tour?.guides;
   return (
     <>
       <Nav />
@@ -84,12 +84,12 @@ export default async function SingleTour({ params }) {
             </div>
           </div>
 
-          <div className="lg:relative">
+          <div className="lg:relative ">
             <SubDetails tour={tour} />
-            <BookingMenu tourData={tour} guide={guideData?.guide} />
+            <BookingMenu tourData={tour} guide={guideData} />
           </div>
 
-          <SmallGuide guides={tour?.guides} />
+          <SmallGuide guides={guideData} />
           <FaqSection tour={tour} />
           <Location places={tour?.locations} />
           {/* reviews */}

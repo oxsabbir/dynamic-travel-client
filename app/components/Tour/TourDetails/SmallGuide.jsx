@@ -1,69 +1,29 @@
-import { Typography } from "@/app/ui/materialExport";
+"use client";
+import { Typography, Avatar } from "@/app/ui/materialExport";
+
 export default function SmallGuide({ guides }) {
-  console.log(guides);
-  let demo = [
-    {
-      _id: "661fa187f2faa1f9b873f4f5",
-      firstName: "Sabbir",
-      lastName: "Hossain",
-      userName: "mojabbir",
-      email: "email@gmail.com",
-      profileImage:
-        "https://res.cloudinary.com/dquhkvjxf/image/upload/v1724824977/profile/661fa187f2faa1f9b873f4f5/o3b7h0cfelmac80voygg.png",
-      createdAt: "2024-04-17T10:16:38.954Z",
-      isActive: true,
-      __v: 0,
-      fullName: "Sabbir Hossain",
-      id: "661fa187f2faa1f9b873f4f5",
-    },
-    {
-      _id: "661fa187f2faa1f9b873f4f5",
-      firstName: "Sabbir",
-      lastName: "Hossain",
-      userName: "mojabbir",
-      email: "email@gmail.com",
-      profileImage:
-        "https://res.cloudinary.com/dquhkvjxf/image/upload/v1724824977/profile/661fa187f2faa1f9b873f4f5/o3b7h0cfelmac80voygg.png",
-      createdAt: "2024-04-17T10:16:38.954Z",
-      isActive: true,
-      __v: 0,
-      fullName: "Sabbir Hossain",
-      id: "661fa187f2faa1f9b873f4f5",
-    },
-    {
-      _id: "661fa187f2faa1f9b873f4f5",
-      firstName: "Sabbir",
-      lastName: "Hossain",
-      userName: "mojabbir",
-      email: "email@gmail.com",
-      profileImage:
-        "https://res.cloudinary.com/dquhkvjxf/image/upload/v1724824977/profile/661fa187f2faa1f9b873f4f5/o3b7h0cfelmac80voygg.png",
-      createdAt: "2024-04-17T10:16:38.954Z",
-      isActive: true,
-      __v: 0,
-      fullName: "Sabbir Hossain",
-      id: "661fa187f2faa1f9b873f4f5",
-    },
-  ];
+  const first4Only = guides?.slice(0, 3);
   return (
     <>
-      <div className="flex items-center py-2 ">
-        <div className="flex">
-          {demo?.map((item, i) => (
-            <img
-              src={item?.profileImage}
-              alt="guides-image"
-              className={`w-11 h-11 rounded-full border-2 border-transparent -translate-x-${
-                i === 0 ? 0 : i * 3
-              } `}
+      <div className="flex items-center gap-2  py-2 ">
+        <div className="flex items-center -space-x-3">
+          {first4Only?.map((item, i) => (
+            <Avatar
+              key={i}
+              variant="circular"
+              alt="user 1"
+              className="border-2 border-white hover:z-10 focus:z-10"
+              src={item.profileImage}
             />
           ))}
         </div>
         <Typography
           variant="paragraph"
-          className="text-shadeBlack text-base font-medium tracking-wide -translate-x-4"
+          className="text-shadeBlack text-base font-medium tracking-wide "
         >
-          35+ More guides available
+          {guides?.length > 4
+            ? `${guides.length - 4} More guides available`
+            : "No more guides available"}
         </Typography>
       </div>
     </>
