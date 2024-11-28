@@ -13,27 +13,47 @@ import getAllGuides from "@/app/libs/getAllGuide";
 export default function GuideList({ setValue, guideData, handleMenu }) {
   const [guide, setGuide] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [searchQuery, setSearchQuery] = useState(null);
+  const [page, setPage] = useState(1);
+  const [pageInfo, setPageInfo] = useState();
   const [selectedGuide, setSelectedGuide] = useState(guideData || []);
 
   useEffect(() => {
+    setPage(1);
+  }, [searchQuery]);
+
+  useEffect(() => {
     const getData = async () => {
-      setLoading(true);
+      if (page > 1) {
+        setLoadingMore(true);
+      } else {
+        setLoading(true);
+      }
       try {
         const response = searchQuery
-          ? await getAllGuides(searchQuery)
-          : await getAllGuides();
-        if (response.guide) {
+          ? await getAllGuides(searchQuery, page)
+          : await getAllGuides(undefined, page);
+        setPageInfo(response?.pagination);
+        if (response.guide && page > 1) {
+          setGuide((prev) => [...prev, ...response.guide]);
+          setLoadingMore(false);
+        } else {
           setGuide(response.guide);
           setLoading(false);
         }
       } catch (error) {
         setLoading(false);
+        setLoadingMore(false);
         throw error;
       }
     };
     getData();
-  }, [searchQuery]);
+  }, [searchQuery, page]);
+
+  const loadMoreHandler = function () {
+    setPage((prev) => prev + 1);
+  };
 
   const guideSelectHandler = function (event) {
     event.stopPropagation();
@@ -126,6 +146,26 @@ export default function GuideList({ setValue, guideData, handleMenu }) {
                 />
               </div>
             ))}
+          <div>
+            {pageInfo?.currentPage < pageInfo?.totalPage && !loading && (
+              <div className="flex items-center justify-center">
+                <Button
+                  loading={loadingMore}
+                  variant="outlined"
+                  size="sm"
+                  onClick={loadMoreHandler}
+                  className=" font-normal py-1 px-4 mt-2"
+                >
+                  Load more
+                </Button>
+              </div>
+            )}
+            {pageInfo?.currentPage === pageInfo?.totalPage && !loading && (
+              <Typography className=" text-center text-offGray pt-2">
+                All caught up
+              </Typography>
+            )}
+          </div>
         </div>
 
         <div className="  w-full text-center p-1 px-3">
