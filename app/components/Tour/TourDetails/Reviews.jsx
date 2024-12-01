@@ -3,15 +3,11 @@ import { Typography, Button, Avatar } from "@/app/ui/materialExport";
 import { HiOutlinePencilAlt, HiOutlineTrash, HiStar } from "react-icons/hi";
 import { RatingForm } from "./RatingForm";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { getReviews, deleteReview } from "@/app/libs/reviewsApi";
 import { Spinner } from "@material-tailwind/react";
 
-export default function Review({
-  totalRating,
-  ratingsAverage,
-  tourId,
-  authImage,
-}) {
+export default function Review({ totalRating, ratingsAverage, tourId, auth }) {
   const [reviews, setReviews] = useState(null);
   const [updated, setUpdated] = useState(false);
   const [actionType, setActionType] = useState("");
@@ -22,6 +18,7 @@ export default function Review({
   const [loadingReview, setLoadingReview] = useState(false);
   const [activeSort, setActiveSort] = useState("all");
   const [page, setPage] = useState(1);
+
   const refetch = () => setUpdated((prev) => !prev);
 
   useEffect(() => {
@@ -106,14 +103,26 @@ export default function Review({
           </Typography>
         </div>
         <div>
-          <Button
-            disabled={reviewed}
-            onClick={openCreateHandler}
-            className="flex items-center gap-2 shadow-md font-normal tracking-wide bg-actionBlue "
-          >
-            <HiOutlinePencilAlt className="w-5 h-5 " />
-            {reviewed ? "Already Reviewed" : "Write a review"}
-          </Button>
+          {auth ? (
+            <Button
+              disabled={reviewed}
+              onClick={openCreateHandler}
+              className="flex items-center gap-2 shadow-md font-normal tracking-wide bg-actionBlue "
+            >
+              <HiOutlinePencilAlt className="w-5 h-5 " />
+              {reviewed ? "Already Reviewed" : "Write a review"}
+            </Button>
+          ) : (
+            <Link href={"/login"}>
+              <Button
+                disabled={reviewed}
+                className="flex items-center gap-2 shadow-md font-normal tracking-wide bg-actionBlue "
+              >
+                <HiOutlinePencilAlt className="w-5 h-5 " />
+                Login to review
+              </Button>
+            </Link>
+          )}
         </div>
       </div>
 
@@ -200,7 +209,7 @@ export default function Review({
                 className=" text-shadeBlack ml-2"
               >{`(${item?.rating})`}</Typography>
 
-              {item?.user?.profileImage === authImage && (
+              {item?.user?.profileImage === auth?.image && (
                 <div className=" flex  ml-2 items-center ">
                   <Button
                     id={item?.id}
@@ -247,7 +256,7 @@ export default function Review({
                     color="gray"
                     className="font-normal"
                   >
-                    Web Developer
+                    {item?.user?.userName}
                   </Typography>
                 </div>
               </div>
