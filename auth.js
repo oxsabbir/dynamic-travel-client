@@ -55,8 +55,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // console.log(profile, "profile----");
         // generating userInfo for registering
         const userInfo = {
-          firstName: profile.given_name,
-          lastName: profile.family_name,
+          fullName: profile.name,
           email: profile.email,
           profileImage: profile.picture,
         };
@@ -68,7 +67,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         user.name = currentuser.fullName;
         user.image = currentuser.profileImage;
         user.accessToken = currentuser.accessToken;
-        // console.log(user, "session user -----");
         // need to modify the user params to create custom session
       }
       return true; // Do different verification for other providers that don't have `email_verified`
