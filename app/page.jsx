@@ -16,9 +16,7 @@ export default function Home() {
         <Nav />
       </nav>
       <main>
-        <section>
-          <Hero />
-        </section>
+        <Hero />
         <Container>
           <section className=" py-10 container">
             <Destination />

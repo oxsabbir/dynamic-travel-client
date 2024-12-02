@@ -4,6 +4,7 @@ import Nav from "@/app/components/Header/Nav";
 import Container from "@/app/components/Extras/Container";
 import Image from "next/image";
 import { Typography } from "@/app/ui/materialExport";
+import ProfileTour from "./ProfileTour";
 
 export default async function page({ params }) {
   const userName = params.userName;
@@ -18,7 +19,7 @@ export default async function page({ params }) {
       <Container>
         <div>
           <div className="lg:-translate-y-[18%] -translate-y-[15%] ">
-            <div className="w-full flex flex-col lg:flex-row lg:justify-start gap-2 items-center justify-center">
+            <div className="w-full flex flex-col  pb-4 lg:flex-row lg:justify-start gap-2 items-center justify-center">
               <Image
                 src={authUserData?.profileImage}
                 alt="profileImage"
@@ -27,7 +28,7 @@ export default async function page({ params }) {
                 quality={90}
                 className="lg:w-[265px] lg:h-[265px] h-[240px] w-[240px] border-[10px] border-[#7575754c] rounded-[50px]"
               />
-              <div className=" self-end p-5 flex flex-col lg:flex-row items-center justify-between w-full">
+              <div className=" self-end p-2 lg:p-5 gap-4 flex flex-col lg:flex-row items-center justify-between w-full">
                 <div className=" text-center lg:text-left">
                   <Typography
                     variant="lead"
@@ -42,7 +43,7 @@ export default async function page({ params }) {
                     Web developer and Product designer based on San Antonio
                   </Typography>
                 </div>
-                <div className="flex gap-3 items-center p-2 pb-0">
+                <div className="flex gap-3 items-center lg:p-2 pb-0">
                   <div className=" p-2">
                     <Typography className=" text-offBlack font-medium tracking-wide text-base">
                       Completed
@@ -71,8 +72,8 @@ export default async function page({ params }) {
               </div>
             </div>
 
-            <div className="bg-green-200 min-h-[300px]">
-              <h3>HI</h3>
+            <div className="min-h-[300px] ">
+              <ProfileTour />
             </div>
           </div>
         </div>
