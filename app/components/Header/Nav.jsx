@@ -40,7 +40,7 @@ export default function Nav() {
   return (
     <>
       <Container>
-        <nav className="py-4 ">
+        <nav className="py-4  ">
           <div className="flex justify-between items-center px-2 md:px-0 ">
             <div className=" md:hidden">
               <MobileNav />
@@ -57,7 +57,7 @@ export default function Nav() {
             <ul
               className={`gap-3 p-2 ${
                 !dropNav
-                  ? " absolute bg-white"
+                  ? " absolute "
                   : "fixed z-[1500] bg-[#000000ae] backdrop-blur-md text-white"
               }  left-1/2 transform -translate-x-1/2 duration-200 rounded-full md:flex hidden`}
             >

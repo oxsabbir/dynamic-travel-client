@@ -66,6 +66,7 @@ export const googleSignInHandler = async function (userInfo) {
     } else {
       // else we will get the user by sending the access token then return the user
       const authUser = await getAuthenticatedUserData(token);
+      console.log(authUser);
 
       user = authUser;
       user.accessToken = token;

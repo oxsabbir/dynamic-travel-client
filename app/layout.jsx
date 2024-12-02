@@ -1,7 +1,7 @@
 import { SessionProvider } from "next-auth/react";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
-import dynamic from "next/dynamic";
+import Nav from "./components/Header/Nav";
 
 import TopLoader from "./components/Extras/TopLoader";
 // const TopLoader = dynamic(() => import("./components/Extras/TopLoader"));

@@ -65,6 +65,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // console.log(currentuser, "current user -----");
         user.role = currentuser.role;
         user.name = currentuser.fullName;
+        user.userName = currentuser.userName;
         user.image = currentuser.profileImage;
         user.accessToken = currentuser.accessToken;
         // need to modify the user params to create custom session
@@ -79,9 +80,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user, account, profile }) {
       // modifying the token to modify the session
       if (user && token) {
-        console.log(token);
         token.type = "custom";
         token.name = user.fullName;
+        token.userName = user.userName;
         token.role = user.role;
         token.image = user.profileImage;
         token.accessToken = user.accessToken;
@@ -89,6 +90,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account && profile) {
         token.type = "google";
         token.name = user.name;
+        token.userName = user.userName;
         token.role = user.role;
         token.image = user.image;
         token.accessToken = user.accessToken;
@@ -100,12 +102,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // modifying the session data
       if (token.type === "custom") {
         session.user.name = token.name;
+        session.user.userName = token.userName;
         session.user.image = token.image;
         session.user.role = token.role;
         session.accessToken = token.accessToken;
       }
       if (token.type === "google") {
         session.user.name = token.name;
+        session.user.userName = token.userName;
         session.user.image = token.image;
         session.user.role = token.role;
         session.accessToken = token.accessToken;

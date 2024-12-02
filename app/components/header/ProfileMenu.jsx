@@ -83,10 +83,11 @@ export function ProfileMenu({ signOut, user }) {
             </MenuItem>
             <MenuItem className="flex items-center gap-2">
               <HiOutlineUserCircle className="w-6 h-6" />
-
-              <Typography variant="small" className="font-medium">
-                My Profile
-              </Typography>
+              <Link href={`/profile/${AuthUser?.userName}`}>
+                <Typography variant="small" className="font-medium">
+                  My Profile
+                </Typography>
+              </Link>
             </MenuItem>
             {AuthUser?.role === "admin" && (
               <Link href={"/dashboard"}>

@@ -3,44 +3,60 @@
 @tailwind utilities;
 
 :root {
-  --background : white;
-  --color : black;
+  --background: white;
+  --color: black;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background : white;
-    --color : black
+    --background: white;
+    --color: black;
   }
-} 
-
+}
 
 .loginGradient {
-  background: radial-gradient(circle at 10% 20%, rgb(145, 217, 243) 0%, rgb(147, 164, 243) 90%);
+  background: radial-gradient(
+    circle at 10% 20%,
+    rgb(145, 217, 243) 0%,
+    rgb(147, 164, 243) 90%
+  );
 }
 
 .dashboardGradient {
-  background: linear-gradient(111.4deg, rgb(122, 192, 233) 18.8%, rgb(4, 161, 255) 100.2%);
+  background: linear-gradient(
+    111.4deg,
+    rgb(122, 192, 233) 18.8%,
+    rgb(4, 161, 255) 100.2%
+  );
 }
+
+.profileGradient {
+  background: linear-gradient(
+    359.3deg,
+    rgb(196, 214, 252) 1%,
+    rgba(187, 187, 187, 0) 70.9%
+  );
+}
+
 /* leaflet custom css */
 .leaflet-popup-close-button {
   display: none;
 }
-.added-location-style{
+.added-location-style {
   background: green;
   padding: 4px;
 }
-.leaflet-popup-content p{
+.leaflet-popup-content p {
   margin: 0px 0px !important;
 }
 
 .leaflet-routing-container {
-  display: none !important;  /* Hides the directions panel */
+  display: none !important; /* Hides the directions panel */
 }
 
 body {
   color: var(--color);
-  background: var(--background)
+  background: var(--background);
 }
 
 @layer utilities {
@@ -59,9 +75,8 @@ body {
   }
 }
 .fadeIn {
-  animation: fadeIn .5s ;
+  animation: fadeIn 0.5s;
 }
-
 
 @keyframes circleAnim {
   from {
@@ -77,7 +92,6 @@ body {
   animation: circleAnim 10s linear infinite forwards;
 }
 
-
 @keyframes hideFilter {
   from {
     opacity: 1;
@@ -89,7 +103,7 @@ body {
   }
 }
 
-@keyframes noneFill{
+@keyframes noneFill {
   from {
     opacity: 0;
     transform: translateY(20px);
@@ -111,13 +125,11 @@ body {
 }
 
 .withFill {
-  animation: withFill .5s forwards ;
-
+  animation: withFill 0.5s forwards;
 }
 .noneFill {
-  animation: noneFill .5s forwards;
+  animation: noneFill 0.5s forwards;
 }
-
 
 @keyframes showFilter {
   from {
@@ -130,11 +142,9 @@ body {
   }
 }
 
-
 .showfilter {
-  animation: showFilter .5s forwards;
+  animation: showFilter 0.5s forwards;
 }
-.hidefilter{
-  animation: hideFilter .5s forwards ;
+.hidefilter {
+  animation: hideFilter 0.5s forwards;
 }
-
