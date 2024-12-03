@@ -31,3 +31,15 @@ export const bookTour = async function (tourId, guideId, date) {
     throw error.response.data;
   }
 };
+
+export const getUserBooking = async function (userName, filterType) {
+  try {
+    const res = await apiRequest(
+      "get",
+      `/api/v1/booking/booking-by-user/${userName}?filter=${filterType}`
+    );
+    return res.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};

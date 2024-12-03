@@ -5,23 +5,31 @@ import Container from "@/app/components/Extras/Container";
 import Image from "next/image";
 import { Typography } from "@/app/ui/materialExport";
 import ProfileTour from "./ProfileTour";
+import profileGradient from "../../../../public/image/profileGradient.jpg";
 
 export default async function page({ params }) {
   const userName = params.userName;
   const session = await auth();
-  const authUserData = await getUserByUserName(userName);
+  const userData = await getUserByUserName(userName);
 
   return (
     <>
-      <div className="profileGradient h-[230px]">
+      <div
+        style={{
+          backgroundImage: `url("${profileGradient.src}")`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
+        className="h-[240px]"
+      >
         <Nav />
       </div>
       <Container>
         <div>
-          <div className="lg:-translate-y-[18%] -translate-y-[15%] ">
+          <div className="lg:-translate-y-[18%] -translate-y-[15%]  ">
             <div className="w-full flex flex-col  pb-4 lg:flex-row lg:justify-start gap-2 items-center justify-center">
               <Image
-                src={authUserData?.profileImage}
+                src={userData?.profileImage}
                 alt="profileImage"
                 width={265}
                 height={265}
@@ -34,7 +42,7 @@ export default async function page({ params }) {
                     variant="lead"
                     className=" text-textBlack tracking-wider font-bold text-3xl mb-4"
                   >
-                    {authUserData?.fullName}
+                    {userData?.fullName}
                   </Typography>
                   <Typography
                     variant="paragraph"
