@@ -18,31 +18,15 @@ export default function Home() {
       <main>
         <Hero />
         <Container>
-          <section className=" py-10 container">
-            <Destination />
-          </section>
-          <section className=" py-10 container">
-            <Unleash />
-          </section>
-          <section id="about" className=" py-10 container">
-            <About />
-          </section>
-          <section className=" py-10 container">
-            <Discover />
-          </section>
-          <section className=" py-10 container 0">
-            <Reviews />
-          </section>
-          <section className=" py-20 container">
-            <Explore />
-          </section>
+          <Destination />
+          <Unleash />
+          <About />
+          <Discover />
+          <Reviews />
+          <Explore />
         </Container>
       </main>
-      <footer className=" pt-10  bg-offWhite">
-        <Container>
-          <Footer />
-        </Container>
-      </footer>
+      <Footer />
     </>
   );
 }

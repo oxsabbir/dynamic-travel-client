@@ -11,7 +11,7 @@ import {
 import { HiOutlineX, HiCalendar, HiOutlineCalendar } from "react-icons/hi";
 import { IconButton } from "@material-tailwind/react";
 import { useState } from "react";
-import bookTour from "@/app/libs/bookTour";
+import { bookTour } from "@/app/libs/bookingApi";
 import { useRouter } from "next/navigation";
 import { getSession } from "next-auth/react";
 import DatePicker from "react-datepicker";
