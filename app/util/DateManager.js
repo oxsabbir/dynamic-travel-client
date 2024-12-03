@@ -4,8 +4,9 @@
  * it provide some method like getTodaysDate
  */
 class DateManager {
-  constructor() {
+  constructor(selectedDate) {
     this.today = new Date();
+    this.selectedDate = selectedDate;
   }
   getTodaysDate(date) {
     let dateObject = date ? new Date(date) : new Date();
@@ -25,6 +26,10 @@ class DateManager {
     const month = Math.floor(+`.${extraYear[1]}` * 12) || 1;
 
     return `${year}-${month}-${todayDate}`;
+  }
+
+  getSelectedDate() {
+    return this.getTodaysDate(new Date(this.selectedDate));
   }
 }
 
