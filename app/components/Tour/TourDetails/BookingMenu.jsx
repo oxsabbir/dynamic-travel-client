@@ -8,17 +8,21 @@ import {
   Avatar,
 } from "@/app/ui/materialExport";
 
-import SelectDate from "@/app/components/Extras/SelectDate";
-import { HiOutlineX } from "react-icons/hi";
+import { HiOutlineX, HiCalendar, HiOutlineCalendar } from "react-icons/hi";
 import { IconButton } from "@material-tailwind/react";
 import { useState } from "react";
 import bookTour from "@/app/libs/bookTour";
 import { useRouter } from "next/navigation";
 import { getSession } from "next-auth/react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import DateManager from "@/app/util/DateManager";
 
 export default function BookingMenu({ tourData, guide }) {
   const [selectedGuide, setSelectedGuide] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [startDate, setStartDate] = useState(new DateManager().getTodaysDate());
+
   const router = useRouter();
   const selectHandler = function (value) {
     const selected = guide.find((item) => item.userName === value);
@@ -30,13 +34,18 @@ export default function BookingMenu({ tourData, guide }) {
     const session = await getSession();
     if (!session?.user && !session?.accessToken) return router.push("/login");
     try {
-      const response = await bookTour(tourData?.id, selectedGuide?.id);
+      const response = await bookTour(
+        tourData?.id,
+        selectedGuide?.id,
+        selectedDate
+      );
       setLoading(false);
     } catch (error) {
       setLoading(false);
       throw error;
     }
   };
+
   return (
     <>
       <Card className="rounded-md my-4 lg:my-1 lg:absolute  p-8 w-full lg:w-[400px] bg-offWhite top-0 right-0">
@@ -46,7 +55,17 @@ export default function BookingMenu({ tourData, guide }) {
           </Typography>
 
           <div className="flex flex-col">
-            <SelectDate />
+            <DatePicker
+              dateFormat="yyyy/MM/dd"
+              excludeDates={[new Date("2024-01-02")]}
+              className=" w-full p-2 text-lg  text-center placeholder:text-offGray cursor-pointer mt-1 border rounded-lg text-offBlack"
+              selected={startDate}
+              onChange={(date) => setStartDate(date)} // Update selected date
+              minDate={new DateManager().getTodaysDate()} // Set minimum date
+              maxDate={new DateManager().getDateAfterMonth(12)} // Set maximum date
+              icon={<HiOutlineCalendar className=" w-6 h-6" />}
+              placeholderText="Select a start date"
+            />
           </div>
           <div className="my-4">
             {!selectedGuide && (
