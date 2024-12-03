@@ -33,11 +33,13 @@ export const bookTour = async function (tourId, guideId, date) {
 };
 
 export const getUserBooking = async function (userName, filterType) {
+  console.log(userName, filterType);
   try {
     const res = await apiRequest(
       "get",
-      `/api/v1/booking/booking-by-user/${userName}?filter=${filterType}`
+      `/api/v1/booking/booking-by-user/${userName}/${filterType}`
     );
+    console.log(res);
     return res.data;
   } catch (error) {
     throw error.response.data;

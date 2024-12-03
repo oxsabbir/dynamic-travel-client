@@ -8,12 +8,3 @@ export const deleteTour = async function (tourId) {
     throw error;
   }
 };
-
-export const getTourBySelection = async function (type) {
-  try {
-    const tourData = await apiRequest("get", `/api/v1/tour/bytype/${type}`);
-    return tourData.data;
-  } catch (error) {
-    throw error.response?.data;
-  }
-};

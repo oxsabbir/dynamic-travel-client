@@ -3,7 +3,7 @@ import { useState } from "react";
 import TourCard from "@/app/components/Tour/TourCard";
 import { Typography } from "@material-tailwind/react";
 
-export default function ProfileTour() {
+export default function ProfileTour({ userName }) {
   const [selectedBar, setSelectedBar] = useState("upcoming");
 
   return (
@@ -21,16 +21,6 @@ export default function ProfileTour() {
             Upcoming
           </Typography>
           <Typography
-            onClick={() => setSelectedBar("completed")}
-            className={`${
-              selectedBar === "completed"
-                ? "text-textBlack font-medium"
-                : "text-offBlack"
-            } p-1 tracking-wide cursor-pointer hover:opacity-80 duration-200 text-base`}
-          >
-            Completed
-          </Typography>
-          <Typography
             onClick={() => setSelectedBar("review")}
             className={`${
               selectedBar === "review"
@@ -40,11 +30,21 @@ export default function ProfileTour() {
           >
             To Review
           </Typography>
+          <Typography
+            onClick={() => setSelectedBar("completed")}
+            className={`${
+              selectedBar === "completed"
+                ? "text-textBlack font-medium"
+                : "text-offBlack"
+            } p-1 tracking-wide cursor-pointer hover:opacity-80 duration-200 text-base`}
+          >
+            Completed
+          </Typography>
         </div>
       </div>
 
-      <div className=" bg-red-200">
-        <TourCard selectedBar={selectedBar} />
+      <div>
+        <TourCard filterType={selectedBar} userName={userName} />
       </div>
     </>
   );

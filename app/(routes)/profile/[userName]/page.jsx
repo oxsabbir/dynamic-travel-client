@@ -81,7 +81,7 @@ export default async function page({ params }) {
             </div>
 
             <div className="min-h-[300px] ">
-              <ProfileTour />
+              <ProfileTour userName={userName} />
             </div>
           </div>
         </div>
