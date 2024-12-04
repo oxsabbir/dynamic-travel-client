@@ -4,18 +4,16 @@ import { signIn, signOut, auth } from "@/auth";
 import { redirect } from "next/navigation";
 
 export const signInAction = async function (formData) {
-  let status;
   try {
     await signIn("credentials", formData);
-    status = true;
   } catch (error) {
     if (isRedirectError(error)) {
       redirect("/");
     }
-    status = false;
-    throw new Error(error?.cause?.err);
+    throw new Error(
+      error?.cause.err?.toString()?.split(":")[1] || "Something Went Wrong"
+    );
   }
-  return status;
 };
 
 export const signOutAction = async function () {
@@ -27,6 +25,7 @@ export const signOutAction = async function () {
     if (isRedirectError(error)) {
       // redirect("/login");
       status = false;
+      // console.log(error);
       throw error;
     }
     status = false;

@@ -43,7 +43,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // return user object with their profile data
           return user;
         } catch (error) {
-          throw new Error(error.message);
+          throw error;
         }
       },
     }),

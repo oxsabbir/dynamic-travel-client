@@ -31,7 +31,7 @@ export const credentialsLoginHandler = async function (
     // it will return the loggedIn userData
     return user;
   } catch (error) {
-    throw error.response.data;
+    throw new Error(error.response?.data?.message || "Something went wrong");
   }
 };
 
