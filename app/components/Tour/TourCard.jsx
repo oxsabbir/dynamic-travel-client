@@ -12,7 +12,7 @@ import {
 import DateManager from "@/app/util/DateManager";
 
 import Image from "next/image";
-import { Avatar, Button, Spinner, Typography } from "@material-tailwind/react";
+import { Avatar, Spinner, Typography } from "@material-tailwind/react";
 
 export default function TourCard({ filterType, userName }) {
   const [tours, setTours] = useState([]);
@@ -52,7 +52,7 @@ export default function TourCard({ filterType, userName }) {
           </div>
         )}
         <div className=" grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 py-4 gap-6 ">
-          {tours?.length > 1 &&
+          {tours?.length > 0 &&
             !loading &&
             tours?.map((tour) => (
               <Link key={tour?.id} href={`/tour/${tour.tour.id}`}>

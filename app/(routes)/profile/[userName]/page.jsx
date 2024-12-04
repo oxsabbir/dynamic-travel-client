@@ -5,6 +5,7 @@ import Container from "@/app/components/Extras/Container";
 import { Typography, Avatar } from "@/app/ui/materialExport";
 import ProfileTour from "./ProfileTour";
 import profileGradient from "../../../../public/image/profileGradient.jpg";
+import UpdateProfile from "./UpadateProfile";
 
 export default async function page({ params }) {
   const userName = params.userName;
@@ -42,9 +43,10 @@ export default async function page({ params }) {
                   <div className=" text-center lg:text-left">
                     <Typography
                       variant="lead"
-                      className=" text-textBlack tracking-wider font-bold text-3xl mb-4"
+                      className=" text-textBlack tracking-wider font-bold text-3xl mb-4 flex flex-col-reverse lg:flex-row items-center"
                     >
-                      {userData?.fullName}
+                      <span>{userData?.fullName}</span>{" "}
+                      <UpdateProfile userData={userData} />
                     </Typography>
                     <Typography
                       variant="paragraph"
