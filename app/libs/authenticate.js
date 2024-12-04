@@ -78,3 +78,12 @@ export const googleSignInHandler = async function (userInfo) {
   // returning user with the accessToken to add it to the session
   return user;
 };
+
+export const updateProfileData = async function (formData) {
+  try {
+    const res = await apiRequest("post", "/api/v1/updateMe", formData);
+    return res?.data;
+  } catch (error) {
+    throw error?.response?.data;
+  }
+};

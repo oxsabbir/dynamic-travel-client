@@ -331,8 +331,8 @@ export default function CreateTour({ actionType, tourData }) {
                 {...registerTour("description", {
                   required: "Insert your description",
                   minLength: {
-                    value: 100,
-                    message: "Description should be at least 100 characters",
+                    value: 30,
+                    message: "Description should be at least 30 characters",
                   },
                   maxLength: {
                     value: 1000,

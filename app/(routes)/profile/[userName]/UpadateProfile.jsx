@@ -15,28 +15,55 @@ import Image from "next/image";
 
 import { convertToDataURL } from "@/app/util/helper";
 import { useForm } from "react-hook-form";
+import { updateProfileData } from "@/app/libs/authenticate";
+import { useRouter } from "next/navigation";
 
 import { HiOutlinePencilAlt, HiOutlinePlus } from "react-icons/hi";
 
 export default function UpdateProfile({ userData }) {
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   const {
     register,
     setValue,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isValid, isSubmitting },
   } = useForm();
+  const formData = watch();
 
-  useEffect(() => {}, [userData]);
+  const router = useRouter();
+
+  useEffect(() => {
+    const updatableValue = ["fullName", "profileImage", "bio", "email"];
+    updatableValue.map((item) => {
+      if (item === "profileImage") {
+        setValue(item, [userData[item]]);
+      } else {
+        setValue(item, userData[item]);
+      }
+    });
+  }, [userData]);
 
   const handleOpen = () => setOpen((prev) => !prev);
 
   const updateHandler = async function (inputData) {
-    console.log(inputData);
+    const formData = new FormData();
+    for (let item in inputData) {
+      if (item === "profileImage") {
+        formData.append(item, inputData[item][0]);
+      } else {
+        formData.append(item, inputData[item]);
+      }
+    }
+
+    try {
+      const data = await updateProfileData(formData);
+      router.refresh();
+      handleOpen();
+    } catch (error) {
+      console.log(error);
+    }
   };
-  console.log(userData);
 
   return (
     <>
@@ -56,7 +83,11 @@ export default function UpdateProfile({ userData }) {
           >
             <div className=" relative">
               <Image
-                src={userData?.profileImage}
+                src={convertToDataURL(
+                  formData?.profileImage?.length > 0
+                    ? formData?.profileImage[0]
+                    : userData?.profileImage
+                )}
                 alt="profile-Image"
                 width={250}
                 height={250}
@@ -72,7 +103,11 @@ export default function UpdateProfile({ userData }) {
             <div>
               <input
                 {...register("profileImage", {
-                  required: "Insert your profileImage",
+                  validate: {
+                    minFile: (image) =>
+                      (image && image.length >= 1) ||
+                      "Please select a profile image.",
+                  },
                 })}
                 type="file"
                 accept="*/images"
@@ -97,8 +132,8 @@ export default function UpdateProfile({ userData }) {
                 size="lg"
                 type="text"
                 name="fullname"
-                {...register("fullname", {
-                  required: "Insert your fullname",
+                {...register("fullName", {
+                  required: "Please insert your fullname",
                 })}
                 label="Full Name"
                 placeholder="Enter your name"
@@ -120,7 +155,7 @@ export default function UpdateProfile({ userData }) {
                 type="text"
                 name="email"
                 {...register("email", {
-                  required: "Insert your email",
+                  required: "Please insert your email",
                 })}
                 label="Email"
                 placeholder="Enter your email"
@@ -136,11 +171,14 @@ export default function UpdateProfile({ userData }) {
             </div>
             <div className=" w-full">
               <Textarea
-                maxLength={160}
                 label="Bio"
                 placeholder=""
                 {...register("bio", {
-                  required: "Insert your bio",
+                  required: "Please enter your bio",
+                  maxLength: {
+                    value: 160,
+                    message: "Bio cannot exceed 160 characters",
+                  },
                 })}
               />
 
@@ -155,8 +193,9 @@ export default function UpdateProfile({ userData }) {
             </div>
 
             <Button
+              disabled={!isValid}
+              loading={isSubmitting}
               className="bg-actionBlue w-full rounded-lg mt-2 font-medium shadow-none normal-case text-white text-[15px] tracking-wide"
-              loading={loading}
               type="submit"
             >
               Update

@@ -10,8 +10,11 @@ import UpdateProfile from "./UpadateProfile";
 export default async function page({ params }) {
   const userName = params.userName;
   const session = await auth();
-  const userData = await getUserByUserName(userName);
 
+  let userData = await getUserByUserName(userName);
+  if (session?.user?.email) {
+    userData.email = session?.user?.email;
+  }
   return (
     <>
       <div>
@@ -46,7 +49,9 @@ export default async function page({ params }) {
                       className=" text-textBlack tracking-wider font-bold text-3xl mb-4 flex flex-col-reverse lg:flex-row items-center"
                     >
                       <span>{userData?.fullName}</span>{" "}
-                      <UpdateProfile userData={userData} />
+                      {session?.user?.userName === userData?.userName && (
+                        <UpdateProfile userData={userData} />
+                      )}
                     </Typography>
                     <Typography
                       variant="paragraph"
