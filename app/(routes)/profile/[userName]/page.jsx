@@ -2,8 +2,7 @@ import { getUserByUserName } from "@/app/libs/userApi";
 import { auth } from "@/auth";
 import Nav from "@/app/components/Header/Nav";
 import Container from "@/app/components/Extras/Container";
-import Image from "next/image";
-import { Typography } from "@/app/ui/materialExport";
+import { Typography, Avatar } from "@/app/ui/materialExport";
 import ProfileTour from "./ProfileTour";
 import profileGradient from "../../../../public/image/profileGradient.jpg";
 
@@ -30,14 +29,15 @@ export default async function page({ params }) {
           <div className=" absolute top-[55%] left-[50%] -translate-x-[50%] w-full">
             <Container>
               <div className="w-full flex flex-col pb-4 lg:flex-row lg:justify-start gap-2 items-center justify-center">
-                <Image
+                <Avatar
                   src={userData?.profileImage}
                   alt="profileImage"
                   width={250}
+                  variant="rounded"
                   height={250}
-                  quality={90}
-                  className="lg:w-[265px] lg:h-[265px] h-[240px] object-cover w-[240px] border-[8px] border-[#b6b6b64c] rounded-[45px]"
+                  className="lg:w-[265px] lg:h-[265px] h-[240px] w-[240px] object-cover  border-[8px] border-[#b6b6b64c] rounded-[45px]"
                 />
+
                 <div className=" self-end p-2 lg:p-5 gap-4 flex flex-col lg:flex-row items-center justify-between w-full">
                   <div className=" text-center lg:text-left">
                     <Typography

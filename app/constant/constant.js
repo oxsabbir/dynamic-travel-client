@@ -14,7 +14,7 @@ export const navMenu = [
   {
     id: "a1",
     title: "About",
-    link: "/about",
+    link: "/#about",
   },
   {
     id: "a2",
@@ -24,12 +24,12 @@ export const navMenu = [
   {
     id: "a3",
     title: "Package",
-    link: "/package",
+    link: "/#package",
   },
   {
     id: "a4",
     title: "Contact",
-    link: "/contact",
+    link: "/#contact",
   },
 ];
 

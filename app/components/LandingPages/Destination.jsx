@@ -14,7 +14,7 @@ export default async function Destination() {
 
   return (
     <>
-      <section className=" py-10 container">
+      <section id="package" className=" py-10 container">
         <TourSlider bestTours={allTours} />
         <div className=" flex flex-col items-center py-3">
           <h3 className=" text-4xl text-center pb-4 font-bold text-black">
