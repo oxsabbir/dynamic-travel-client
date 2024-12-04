@@ -8,7 +8,8 @@ import {
   HiStar,
   HiOutlineArrowSmRight,
 } from "react-icons/hi";
-import { IoIosPricetag } from "react-icons/io";
+
+import DateManager from "@/app/util/DateManager";
 
 import Image from "next/image";
 import { Avatar, Button, Spinner, Typography } from "@material-tailwind/react";
@@ -16,6 +17,7 @@ import { Avatar, Button, Spinner, Typography } from "@material-tailwind/react";
 export default function TourCard({ filterType, userName }) {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(false);
+  const dateManager = new DateManager();
 
   useEffect(() => {
     const getData = async function () {
@@ -53,7 +55,7 @@ export default function TourCard({ filterType, userName }) {
           {tours?.length > 1 &&
             !loading &&
             tours?.map((tour) => (
-              <Link href={`/tour/${tour.tour.id}`}>
+              <Link key={tour?.id} href={`/tour/${tour.tour.id}`}>
                 <div className="p-5 rounded-lg shadow-md bg-offWhite">
                   <div className="">
                     <Image
@@ -90,10 +92,15 @@ export default function TourCard({ filterType, userName }) {
                       </Typography>
                       <Typography
                         variant="small"
-                        className="  text-offGray   gap-1  flex items-center"
+                        className="  text-offGray   gap-1  flex items-center group"
                       >
                         <HiOutlineCalendar className="w-6 h-6 mr-0.5 text-actionBlue" />
-                        {"2 month 7d left "}
+                        <span className=" group-hover:-translate-x-9 group-hover:opacity-0 duration-200">
+                          {dateManager.getDaysLeft(tour?.startDate).daysString}
+                        </span>
+                        <span className=" opacity-0 group-hover:-translate-x-[70px] group-hover:opacity-100 duration-200">
+                          {dateManager.getDaysLeft(tour?.startDate).dateFormat}
+                        </span>
                       </Typography>
                     </div>
                   </div>
