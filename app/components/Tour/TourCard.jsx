@@ -2,9 +2,16 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getUserBooking } from "@/app/libs/bookingApi";
-import { FaStar } from "react-icons/fa";
+import {
+  HiOutlineLocationMarker,
+  HiOutlineCalendar,
+  HiStar,
+  HiOutlineArrowSmRight,
+} from "react-icons/hi";
+import { IoIosPricetag } from "react-icons/io";
+
 import Image from "next/image";
-import { Avatar, Spinner, Typography } from "@material-tailwind/react";
+import { Avatar, Button, Spinner, Typography } from "@material-tailwind/react";
 
 export default function TourCard({ filterType, userName }) {
   const [tours, setTours] = useState([]);
@@ -19,7 +26,6 @@ export default function TourCard({ filterType, userName }) {
         setTours(bookingData?.booking);
         setLoading(false);
       } catch (error) {
-        console.log(error);
         setLoading(false);
         throw error;
       }
@@ -43,12 +49,12 @@ export default function TourCard({ filterType, userName }) {
             </Typography>
           </div>
         )}
-        <div className=" grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 py-2 gap-5 ">
+        <div className=" grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 py-4 gap-6 ">
           {tours?.length > 1 &&
             !loading &&
             tours?.map((tour) => (
               <Link href={`/tour/${tour.tour.id}`}>
-                <div className="p-3 px-0">
+                <div className="p-5 rounded-lg shadow-md bg-offWhite">
                   <div className="">
                     <Image
                       src={tour?.tour.coverImage}
@@ -56,35 +62,73 @@ export default function TourCard({ filterType, userName }) {
                       width={500}
                       height={300}
                       style={{ objectFit: "cover" }}
-                      className=" rounded-lg !h-[280px] w-full "
+                      className=" rounded-lg !h-[250px] w-full "
                     />
                   </div>
 
-                  <div className=" py-2  flex md:flex-col gap-2 lg:flex-row items-center justify-between">
+                  <div className=" p-2 px-0  flex md:flex-col gap-2 lg:flex-row items-center mt-2  justify-between">
                     <div>
-                      <h4 className=" font-bold text-lg tracking-wide pb-1.5">
+                      <h4 className=" font-medium text-xl text-offBlack tracking-wide pb-1.5">
                         {tour.tour.title}
                       </h4>
-                      <p className=" flex items-center gap-2 text-textBlack">
-                        {/* <IoLocationSharp /> {tour.startLocation?.address} */}
+                    </div>
+                    <div className=" flex items-center">
+                      <p className=" font-medium flex items-center gap-1.5 text-white bg-actionBlue px-3 py-1.5 rounded-xl">
+                        <HiStar />
+                        {tour.tour.ratingsAverage}
                       </p>
                     </div>
-
-                    <div className=" flex items-center">
-                      <Link href={`/profile/${tour.guide?.userName}`}>
-                        <Avatar
-                          src={tour.guide?.profileImage}
-                          className=" w-[65px] h-[65px] object-cover"
-                          id={tour?.guide?.id}
-                        />
-                      </Link>
-                      {/* 
-                      <p className=" font-medium flex items-center gap-1.5 text-white bg-actionBlue px-3 py-1.5 rounded-2xl">
-                        <FaStar />
-                        {tour.tour.ratingsAverage}
-                      </p> */}
+                  </div>
+                  <div>
+                    <div className=" grid grid-cols-2  gap-3 ">
+                      <Typography
+                        variant="small"
+                        className="  text-offGray   gap-1  flex items-center  "
+                      >
+                        <HiOutlineLocationMarker className="w-6 h-6 mr-0.5 text-actionBlue" />
+                        {"Paris, France"}
+                      </Typography>
+                      <Typography
+                        variant="small"
+                        className="  text-offGray   gap-1  flex items-center"
+                      >
+                        <HiOutlineCalendar className="w-6 h-6 mr-0.5 text-actionBlue" />
+                        {"2 month 7d left "}
+                      </Typography>
                     </div>
                   </div>
+
+                  <div className=" bg-gradient-to-r from-actionBlue to-pink-300 h-[1px] rounded-full mt-2 mb-1 "></div>
+                  <Link href={`/profile/${tour?.guide?.userName}`}>
+                    <div className=" p-2 rounded-md group">
+                      <div className=" flex items-center  gap-3 hover:opacity-80 duration-200 hover:cursor-pointer ">
+                        <Avatar
+                          src={tour?.guide?.profileImage}
+                          alt="guide-profile"
+                          variant="rounded"
+                          className=" w-[60px] h-[60px] object-cover  "
+                        />
+                        <div className=" flex-grow pointer-events-none">
+                          <Typography className="text-lg text-offBlack font-medium tracking-wide">
+                            {tour?.guide?.fullName}{" "}
+                            <span className=" bg-gradient-to-r from-actionBlue to-pink-300 px-3  text-sm py-[2px] mx-2 rounded-full  text-white">
+                              Guide
+                            </span>
+                          </Typography>
+
+                          <Typography
+                            variant="small"
+                            className=" text-offBlack  tracking-wide"
+                          >
+                            {`$${tour?.guide?.price} per/person`}
+                          </Typography>
+                        </div>
+                        <div className="   p-2 rounded-full group-hover:border-actionBlue border">
+                          <HiOutlineArrowSmRight className=" text-offBlack duration-200 group-hover:translate-x-[2px] group-hover:text-actionBlue w-7 h-7" />
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
                 </div>
               </Link>
             ))}

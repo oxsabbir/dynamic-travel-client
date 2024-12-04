@@ -20,7 +20,7 @@ export default function ProfileTour({ userName }) {
           >
             Upcoming
           </Typography>
-          <Typography
+          {/* <Typography
             onClick={() => setSelectedBar("review")}
             className={`${
               selectedBar === "review"
@@ -29,7 +29,7 @@ export default function ProfileTour({ userName }) {
             } p-1 tracking-wide cursor-pointer hover:opacity-80 duration-200 text-base`}
           >
             To Review
-          </Typography>
+          </Typography> */}
           <Typography
             onClick={() => setSelectedBar("completed")}
             className={`${

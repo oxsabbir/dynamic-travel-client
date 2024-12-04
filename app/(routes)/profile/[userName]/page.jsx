@@ -21,21 +21,22 @@ export default async function page({ params }) {
               backgroundImage: `url("${profileGradient.src}")`,
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
+              backgroundPosition: "bottom",
             }}
-            className=" h-[250px] bg-green-300 "
+            className=" h-[250px]"
           >
             <Nav />
           </div>
           <div className=" absolute top-[55%] left-[50%] -translate-x-[50%] w-full">
             <Container>
-              <div className="w-full flex flex-col  pb-4 lg:flex-row lg:justify-start gap-2 items-center justify-center">
+              <div className="w-full flex flex-col pb-4 lg:flex-row lg:justify-start gap-2 items-center justify-center">
                 <Image
                   src={userData?.profileImage}
                   alt="profileImage"
-                  width={265}
-                  height={265}
+                  width={250}
+                  height={250}
                   quality={90}
-                  className="lg:w-[265px] lg:h-[265px] h-[240px] w-[240px] border-[8px] border-[#b6b6b64c] rounded-[45px]"
+                  className="lg:w-[265px] lg:h-[265px] h-[240px] object-cover w-[240px] border-[8px] border-[#b6b6b64c] rounded-[45px]"
                 />
                 <div className=" self-end p-2 lg:p-5 gap-4 flex flex-col lg:flex-row items-center justify-between w-full">
                   <div className=" text-center lg:text-left">
