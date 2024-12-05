@@ -2,6 +2,7 @@
 import { isRedirectError } from "@/node_modules/next/dist/client/components/redirect";
 import { signIn, signOut, auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { getSession } from "next-auth/react";
 
 export const signInAction = async function (formData) {
   try {

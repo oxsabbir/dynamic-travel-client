@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import { apiRequest } from "./apiClient";
 
 export const getAuthenticatedUserData = async function (token) {

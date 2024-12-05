@@ -19,6 +19,8 @@ import { updateProfileData } from "@/app/libs/authenticate";
 import { useRouter } from "next/navigation";
 
 import { HiOutlinePencilAlt, HiOutlinePlus } from "react-icons/hi";
+import { useSession } from "next-auth/react";
+import { data } from "autoprefixer";
 
 export default function UpdateProfile({ userData }) {
   const [open, setOpen] = useState(false);
@@ -30,6 +32,7 @@ export default function UpdateProfile({ userData }) {
     formState: { errors, isValid, isSubmitting },
   } = useForm();
   const formData = watch();
+  const { data: session, update } = useSession();
 
   const router = useRouter();
 
@@ -47,6 +50,13 @@ export default function UpdateProfile({ userData }) {
   const handleOpen = () => setOpen((prev) => !prev);
 
   const updateHandler = async function (inputData) {
+    console.log(session);
+    await update({
+      ...session,
+      user: {
+        ...session.user,
+      },
+    });
     const formData = new FormData();
     for (let item in inputData) {
       if (item === "profileImage") {
@@ -58,7 +68,20 @@ export default function UpdateProfile({ userData }) {
 
     try {
       const data = await updateProfileData(formData);
+      const user = data?.userData;
+
+      await update({
+        ...session,
+        user: {
+          ...session.user,
+          email: user?.email,
+          name: user?.fullName,
+          image: user?.profileImage,
+        },
+      });
+
       router.refresh();
+
       handleOpen();
     } catch (error) {
       console.log(error);

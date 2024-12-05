@@ -77,8 +77,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return baseUrl;
     },
 
-    async jwt({ token, user, account, profile }) {
+    async jwt({ token, user, account, trigger, session, profile }) {
       // modifying the token to modify the session
+      if (trigger === "update") {
+        let newToken = {
+          ...token,
+          name: session.user.name,
+          email: session.user?.email,
+          image: session.user?.image,
+        };
+        token = newToken;
+      }
+
       if (user && token) {
         token.type = "custom";
         token.name = user.fullName;
@@ -98,7 +108,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       return token;
     },
-    async session({ session, user, token }) {
+    async session({ session, user, trigger, token }) {
+      // console.log("final token ", token);
       // modifying the session data
       if (token.type === "custom") {
         session.user.name = token.name;
