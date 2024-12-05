@@ -242,23 +242,29 @@ export default function Review({ totalRating, ratingsAverage, tourId, auth }) {
               </Typography>
             </div>
             <div>
-              <div className="flex items-center gap-4">
-                <Avatar
-                  src={item?.user?.profileImage}
-                  alt="avatar"
-                  variant="rounded"
-                  className="w-14 h-14"
-                />
-                <div>
-                  <Typography variant="h6">{item?.user?.fullName}</Typography>
-                  <Typography
-                    variant="small"
-                    color="gray"
-                    className="font-normal"
-                  >
-                    {item?.user?.userName}
-                  </Typography>
-                </div>
+              <div className="flex ">
+                <Link href={`/profile/${item?.user?.userName}`}>
+                  <div className=" flex  items-center gap-4 hover:opacity-80 duration-200">
+                    <Avatar
+                      src={item?.user?.profileImage}
+                      alt="avatar"
+                      variant="rounded"
+                      className="w-14 h-14"
+                    />
+                    <div>
+                      <Typography variant="h6">
+                        {item?.user?.fullName}
+                      </Typography>
+                      <Typography
+                        variant="small"
+                        color="gray"
+                        className="font-normal"
+                      >
+                        {item?.user?.userName}
+                      </Typography>
+                    </div>
+                  </div>
+                </Link>
               </div>
             </div>
           </div>

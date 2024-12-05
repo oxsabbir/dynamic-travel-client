@@ -31,7 +31,9 @@ export default function UpdateProfile({ userData }) {
     watch,
     formState: { errors, isValid, isSubmitting },
   } = useForm();
+
   const formData = watch();
+
   const { data: session, update } = useSession();
 
   const router = useRouter();

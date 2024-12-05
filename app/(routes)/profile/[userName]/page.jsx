@@ -11,8 +11,6 @@ export default async function page({ params }) {
   const userName = params.userName;
   const session = await auth();
 
-  // console.log(session);
-
   let userData = await getUserByUserName(userName);
   if (session?.user?.email) {
     userData.email = session?.user?.email;
