@@ -30,7 +30,6 @@ export default function TourCard({ filterType, userName }) {
       setLoading(true);
       try {
         const bookingData = await getUserBooking(userName, filterType);
-        console.log(bookingData?.booking);
         setTours(bookingData?.booking);
         setLoading(false);
       } catch (error) {
@@ -134,7 +133,7 @@ export default function TourCard({ filterType, userName }) {
 
                   <div className=" bg-gradient-to-r from-actionBlue to-pink-300 h-[1px] rounded-full mt-2 mb-1 "></div>
                   <div className=" p-2 rounded-md ">
-                    <div className=" flex items-center  gap-3  duration-200 hover:cursor-pointer ">
+                    <div className=" flex items-center group gap-3  duration-200 hover:cursor-pointer ">
                       <Avatar
                         src={tour?.guide?.profileImage}
                         alt="guide-profile"
@@ -158,18 +157,27 @@ export default function TourCard({ filterType, userName }) {
                           </Typography>
                         </Link>
                       </div>
-                      <Link
-                        key={tour?.id}
-                        href={`/tour/${tour.tour.id}#reviews`}
-                      >
-                        <Button
-                          variant="outlined"
-                          className="p-1 px-3 group tracking-wide  flex items-center group-hover:border-actionBlue border"
+
+                      {filterType === "completed" ? (
+                        <Link href={`/profile/${tour?.guide?.userName}`}>
+                          <div className=" p-1.5 rounded-full  tracking-wide  flex items-center group-hover:border-actionBlue border">
+                            <HiOutlineArrowSmRight className=" text-offBlack duration-200 group-hover:translate-x-[2px] group-hover:text-actionBlue w-7 h-7" />
+                          </div>
+                        </Link>
+                      ) : (
+                        <Link
+                          key={tour?.id}
+                          href={`/tour/${tour.tour.id}#reviews`}
                         >
-                          Review
-                          <HiOutlineArrowSmRight className=" text-offBlack duration-200 group-hover:translate-x-[2px] group-hover:text-actionBlue w-7 h-7" />
-                        </Button>
-                      </Link>
+                          <Button
+                            variant="outlined"
+                            className="p-1 px-3 group tracking-wide  flex items-center group-hover:border-actionBlue border"
+                          >
+                            Review
+                            <HiOutlineArrowSmRight className=" text-offBlack duration-200 group-hover:translate-x-[2px] group-hover:text-actionBlue w-7 h-7" />
+                          </Button>
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </div>

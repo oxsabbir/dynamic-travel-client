@@ -33,7 +33,6 @@ export const bookTour = async function (tourId, guideId, date) {
 };
 
 export const getUserBooking = async function (userName, filterType) {
-  console.log(userName, filterType);
   try {
     const res = await apiRequest(
       "get",

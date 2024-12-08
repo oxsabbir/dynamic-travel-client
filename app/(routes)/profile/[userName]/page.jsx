@@ -57,7 +57,7 @@ export default async function page({ params }) {
                       variant="paragraph"
                       className="tracking-wide text-offGray  max-w-[300px]"
                     >
-                      Web developer and Product designer based on San Antonio
+                      {userData?.bio}
                     </Typography>
                   </div>
                   <div className="flex gap-3 items-center lg:p-2 pb-0">
@@ -77,14 +77,14 @@ export default async function page({ params }) {
                         4
                       </Typography>
                     </div>
-                    <div className=" p-2">
+                    {/* <div className=" p-2">
                       <Typography className=" text-offBlack font-medium tracking-wide text-base">
                         To Review
                       </Typography>
                       <Typography className=" font-extrabold text-4xl text-offBlack mt-2 tracking-wider">
                         14
                       </Typography>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
