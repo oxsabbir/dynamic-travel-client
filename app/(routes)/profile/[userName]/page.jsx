@@ -2,19 +2,22 @@ import { getUserByUserName } from "@/app/libs/userApi";
 import { auth } from "@/auth";
 import Nav from "@/app/components/Header/Nav";
 import Container from "@/app/components/Extras/Container";
-import { Typography, Avatar } from "@/app/ui/materialExport";
+import { Typography, Avatar, Button } from "@/app/ui/materialExport";
 import ProfileTour from "./ProfileTour";
 import profileGradient from "../../../../public/image/profileGradient.jpg";
 import UpdateProfile from "./UpadateProfile";
+import BecomeGuide from "./BecomeGuide";
 
 export default async function page({ params }) {
   const userName = params.userName;
   const session = await auth();
 
   let userData = await getUserByUserName(userName);
+
   if (session?.user?.email) {
     userData.email = session?.user?.email;
   }
+
   return (
     <>
       <div>
@@ -41,14 +44,18 @@ export default async function page({ params }) {
                   height={250}
                   className="lg:w-[265px] lg:h-[265px] h-[240px] w-[240px] object-cover  border-[8px] border-[#b6b6b64c] rounded-[45px]"
                 />
-
                 <div className=" self-end p-2 lg:p-5 gap-4 flex flex-col lg:flex-row items-center justify-between w-full">
                   <div className=" text-center lg:text-left">
                     <Typography
                       variant="lead"
-                      className=" text-textBlack tracking-wider font-bold text-3xl mb-4 flex flex-col-reverse lg:flex-row items-center"
+                      className=" text-textBlack tracking-wider font-bold text-3xl mb-3  flex flex-col-reverse lg:flex-row items-center"
                     >
                       <span>{userData?.fullName}</span>{" "}
+                      <span className="  bg-gradient-to-r from-red-500 to-orange-500 lg:my-0 my-2 lg:ml-3 rounded-xl text-sm font-normal px-2.5 py-0.5  text-white">
+                        {userData?.role === "user"
+                          ? "Explorer"
+                          : userData?.role}
+                      </span>
                       {session?.user?.userName === userData?.userName && (
                         <UpdateProfile userData={userData} />
                       )}
@@ -60,24 +67,31 @@ export default async function page({ params }) {
                       {userData?.bio}
                     </Typography>
                   </div>
-                  <div className="flex gap-3 items-center lg:p-2 pb-0">
-                    <div className=" p-2">
-                      <Typography className=" text-offBlack font-medium tracking-wide text-base">
-                        Completed
-                      </Typography>
-                      <Typography className=" font-extrabold text-4xl text-offBlack mt-2 tracking-wider">
-                        56
-                      </Typography>
+                  <div className=" flex flex-col  items-center lg:items-start lg:flex-row ">
+                    <div className=" lg:mt-4">
+                      <BecomeGuide
+                        readyForGuide={userData?.readyForGuide}
+                        role={userData?.role}
+                      />
                     </div>
-                    <div className=" p-2">
-                      <Typography className=" text-offBlack font-medium tracking-wide text-base">
-                        Upcoming
-                      </Typography>
-                      <Typography className=" font-extrabold text-4xl text-offBlack mt-2 tracking-wider">
-                        4
-                      </Typography>
-                    </div>
-                    {/* <div className=" p-2">
+                    <div className="flex gap-3  items-center lg:p-2 pb-0">
+                      <div className=" p-2">
+                        <Typography className=" text-offBlack font-medium tracking-wide text-base">
+                          Completed
+                        </Typography>
+                        <Typography className=" font-extrabold text-4xl text-offBlack mt-2 tracking-wider">
+                          56
+                        </Typography>
+                      </div>
+                      <div className=" p-2">
+                        <Typography className=" text-offBlack font-medium tracking-wide text-base">
+                          Upcoming
+                        </Typography>
+                        <Typography className=" font-extrabold text-4xl text-offBlack mt-2 tracking-wider">
+                          4
+                        </Typography>
+                      </div>
+                      {/* <div className=" p-2">
                       <Typography className=" text-offBlack font-medium tracking-wide text-base">
                         To Review
                       </Typography>
@@ -85,6 +99,7 @@ export default async function page({ params }) {
                         14
                       </Typography>
                     </div> */}
+                    </div>
                   </div>
                 </div>
               </div>
