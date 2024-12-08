@@ -12,7 +12,13 @@ import {
 import DateManager from "@/app/util/DateManager";
 
 import Image from "next/image";
-import { Avatar, Spinner, Typography } from "@material-tailwind/react";
+import {
+  Avatar,
+  Button,
+  collapse,
+  Spinner,
+  Typography,
+} from "@material-tailwind/react";
 
 export default function TourCard({ filterType, userName }) {
   const [tours, setTours] = useState([]);
@@ -90,32 +96,53 @@ export default function TourCard({ filterType, userName }) {
                         <HiOutlineLocationMarker className="w-6 h-6 mr-0.5 text-actionBlue" />
                         {"Paris, France"}
                       </Typography>
-                      <Typography
-                        variant="small"
-                        className="  text-offGray   gap-1  flex items-center group"
-                      >
-                        <HiOutlineCalendar className="w-6 h-6 mr-0.5 text-actionBlue" />
-                        <span className=" group-hover:-translate-x-9 group-hover:opacity-0 duration-200">
-                          {dateManager.getDaysLeft(tour?.startDate).daysString}
-                        </span>
-                        <span className=" opacity-0 group-hover:-translate-x-[70px] group-hover:opacity-100 duration-200">
-                          {dateManager.getDaysLeft(tour?.startDate).dateFormat}
-                        </span>
-                      </Typography>
+                      {filterType === "complete" ? (
+                        <Typography
+                          variant="small"
+                          className="  text-offGray   gap-1  flex items-center"
+                        >
+                          <HiOutlineCalendar className="w-6 h-6 mr-0.5 text-actionBlue" />
+                          <span>
+                            {
+                              dateManager.getDaysLeft(tour?.startDate)
+                                .dateFormat
+                            }
+                          </span>
+                        </Typography>
+                      ) : (
+                        <Typography
+                          variant="small"
+                          className="  text-offGray   gap-1  flex items-center group"
+                        >
+                          <HiOutlineCalendar className="w-6 h-6 mr-0.5 text-actionBlue" />
+                          <span className=" group-hover:-translate-x-9 group-hover:opacity-0 duration-200">
+                            {
+                              dateManager.getDaysLeft(tour?.startDate)
+                                .daysString
+                            }
+                          </span>
+                          <span className=" opacity-0 group-hover:-translate-x-[70px] group-hover:opacity-100 duration-200">
+                            {
+                              dateManager.getDaysLeft(tour?.startDate)
+                                .dateFormat
+                            }
+                          </span>
+                        </Typography>
+                      )}
                     </div>
                   </div>
 
                   <div className=" bg-gradient-to-r from-actionBlue to-pink-300 h-[1px] rounded-full mt-2 mb-1 "></div>
-                  <Link href={`/profile/${tour?.guide?.userName}`}>
-                    <div className=" p-2 rounded-md group">
-                      <div className=" flex items-center  gap-3 hover:opacity-80 duration-200 hover:cursor-pointer ">
-                        <Avatar
-                          src={tour?.guide?.profileImage}
-                          alt="guide-profile"
-                          variant="rounded"
-                          className=" w-[60px] h-[60px] object-cover  "
-                        />
-                        <div className=" flex-grow pointer-events-none">
+                  <div className=" p-2 rounded-md ">
+                    <div className=" flex items-center  gap-3  duration-200 hover:cursor-pointer ">
+                      <Avatar
+                        src={tour?.guide?.profileImage}
+                        alt="guide-profile"
+                        variant="rounded"
+                        className=" w-[60px] h-[60px] object-cover  "
+                      />
+                      <div className=" flex-grow ">
+                        <Link href={`/profile/${tour?.guide?.userName}`}>
                           <Typography className="text-lg text-offBlack font-medium tracking-wide">
                             {tour?.guide?.fullName}{" "}
                             <span className=" bg-gradient-to-r from-actionBlue to-pink-300 px-3  text-sm py-[2px] mx-2 rounded-full  text-white">
@@ -129,13 +156,22 @@ export default function TourCard({ filterType, userName }) {
                           >
                             {`$${tour?.guide?.price} per/person`}
                           </Typography>
-                        </div>
-                        <div className="   p-2 rounded-full group-hover:border-actionBlue border">
-                          <HiOutlineArrowSmRight className=" text-offBlack duration-200 group-hover:translate-x-[2px] group-hover:text-actionBlue w-7 h-7" />
-                        </div>
+                        </Link>
                       </div>
+                      <Link
+                        key={tour?.id}
+                        href={`/tour/${tour.tour.id}#reviews`}
+                      >
+                        <Button
+                          variant="outlined"
+                          className="p-1 px-3 group tracking-wide  flex items-center group-hover:border-actionBlue border"
+                        >
+                          Review
+                          <HiOutlineArrowSmRight className=" text-offBlack duration-200 group-hover:translate-x-[2px] group-hover:text-actionBlue w-7 h-7" />
+                        </Button>
+                      </Link>
                     </div>
-                  </Link>
+                  </div>
                 </div>
               </Link>
             ))}

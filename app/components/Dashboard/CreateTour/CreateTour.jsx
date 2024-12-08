@@ -145,6 +145,8 @@ export default function CreateTour({ actionType, tourData }) {
 
   const featureImageEditHandler = function (event) {
     const imageId = event.target.id;
+
+    console.log(imageId);
     const newImageList = [...formData.images]?.filter((item) => {
       if (item?.lastModified) {
         return item.lastModified !== +imageId;
@@ -152,8 +154,10 @@ export default function CreateTour({ actionType, tourData }) {
         return item.split("/")[item.split("/").length - 1] !== imageId;
       }
     });
+
     setValue("images", newImageList);
   };
+  console.log(formData?.images);
 
   return (
     <>

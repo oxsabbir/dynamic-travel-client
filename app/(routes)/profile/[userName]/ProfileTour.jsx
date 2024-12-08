@@ -31,9 +31,9 @@ export default function ProfileTour({ userName }) {
             To Review
           </Typography> */}
           <Typography
-            onClick={() => setSelectedBar("completed")}
+            onClick={() => setSelectedBar("complete")}
             className={`${
-              selectedBar === "completed"
+              selectedBar === "complete"
                 ? "text-textBlack font-medium"
                 : "text-offBlack"
             } p-1 tracking-wide cursor-pointer hover:opacity-80 duration-200 text-base`}

@@ -6,7 +6,7 @@ export default function Location({ places }) {
   return (
     <>
       <div className="py-4">
-        <Typography variant="h4" className="tracking-wide">
+        <Typography variant="h3" className="tracking-wide">
           Places were gonna explore
         </Typography>
       </div>
