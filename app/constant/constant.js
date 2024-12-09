@@ -236,6 +236,21 @@ export const filterSort = [
   },
 ];
 
+export const guideSort = [
+  {
+    id: "sort1",
+    title: "Latest",
+  },
+  {
+    id: "sort2",
+    title: "Expensive",
+  },
+  {
+    id: "sort3",
+    title: "Cheapest",
+  },
+];
+
 import {
   HiOutlineHome,
   HiOutlineGlobe,
