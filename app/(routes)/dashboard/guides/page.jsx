@@ -1,8 +1,10 @@
-export default function page() {
+import AllGuide from "./AllGuide";
+
+export default async function page() {
   return (
     <>
       <div>
-        <h2>this one is guide page</h2>
+        <AllGuide />
       </div>
     </>
   );

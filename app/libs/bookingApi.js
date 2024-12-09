@@ -38,7 +38,18 @@ export const getUserBooking = async function (userName, filterType) {
       "get",
       `/api/v1/booking/booking-by-user/${userName}/${filterType}`
     );
-    console.log(res);
+    return res.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const getUserBookingCount = async function (userName) {
+  try {
+    const res = await apiRequest(
+      "get",
+      `/api/v1/booking/booking-by-user/${userName}`
+    );
     return res.data;
   } catch (error) {
     throw error.response.data;

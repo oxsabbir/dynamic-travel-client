@@ -40,6 +40,8 @@ export default function TourCard({ filterType, userName }) {
     getData();
   }, [filterType]);
 
+  console.log(filterType);
+
   return (
     <>
       <div>
@@ -158,7 +160,7 @@ export default function TourCard({ filterType, userName }) {
                         </Link>
                       </div>
 
-                      {filterType === "completed" ? (
+                      {filterType !== "complete" ? (
                         <Link href={`/profile/${tour?.guide?.userName}`}>
                           <div className=" p-1.5 rounded-full  tracking-wide  flex items-center group-hover:border-actionBlue border">
                             <HiOutlineArrowSmRight className=" text-offBlack duration-200 group-hover:translate-x-[2px] group-hover:text-actionBlue w-7 h-7" />

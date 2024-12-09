@@ -60,8 +60,6 @@ export default function TourList({
     }
   };
 
-  console.log(selectedTourId, "outside");
-
   // grid-cols-[repeat(auto-fit,minmax(350px,1fr))]
   const isAdmin = pageType === "admin";
 

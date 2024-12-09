@@ -1,6 +1,6 @@
 import { apiRequest } from "./apiClient";
 
-export default async function getAllGuides(query, page) {
+export default async function getAllGuides(query, page = 1) {
   let queryBuild = "";
   if (query && page > 1) {
     queryBuild = `?query=${query}&page=${page}`;

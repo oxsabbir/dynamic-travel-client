@@ -7,12 +7,15 @@ import ProfileTour from "./ProfileTour";
 import profileGradient from "../../../../public/image/profileGradient.jpg";
 import UpdateProfile from "./UpadateProfile";
 import BecomeGuide from "./BecomeGuide";
+import { getUserBookingCount } from "@/app/libs/bookingApi";
 
 export default async function page({ params }) {
   const userName = params.userName;
   const session = await auth();
 
   let userData = await getUserByUserName(userName);
+  const bookingCount = await getUserBookingCount(userName);
+  console.log(bookingCount);
 
   if (session?.user?.email) {
     userData.email = session?.user?.email;
@@ -80,7 +83,7 @@ export default async function page({ params }) {
                           Completed
                         </Typography>
                         <Typography className=" font-extrabold text-4xl text-offBlack mt-2 tracking-wider">
-                          56
+                          {bookingCount?.completed || 0}
                         </Typography>
                       </div>
                       <div className=" p-2">
@@ -88,17 +91,9 @@ export default async function page({ params }) {
                           Upcoming
                         </Typography>
                         <Typography className=" font-extrabold text-4xl text-offBlack mt-2 tracking-wider">
-                          4
+                          {bookingCount?.upcoming || 0}
                         </Typography>
                       </div>
-                      {/* <div className=" p-2">
-                      <Typography className=" text-offBlack font-medium tracking-wide text-base">
-                        To Review
-                      </Typography>
-                      <Typography className=" font-extrabold text-4xl text-offBlack mt-2 tracking-wider">
-                        14
-                      </Typography>
-                    </div> */}
                     </div>
                   </div>
                 </div>
