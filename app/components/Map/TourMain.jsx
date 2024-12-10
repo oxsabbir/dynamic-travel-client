@@ -64,7 +64,7 @@ export default function TourMain({ pageType }) {
     {
       options: {
         root: null,
-        rootMargin: "100px",
+        rootMargin: "0px 0px -300px 0px",
         threshold: 0,
       },
     },
@@ -206,13 +206,13 @@ export default function TourMain({ pageType }) {
                       refetch={refetch}
                     />
                     {page < pageInfo?.totalPage && !moreLoading && (
-                      <div className="w-full flex items-start justify-center  p-6 ">
-                        <Spinner ref={ref} className="h-10 w-10" />
+                      <div ref={ref} id="loadingSpinner" className="p-6">
+                        <Spinner className="h-10 w-10 bg-green-400" />
                       </div>
                     )}
 
                     {moreLoading && (
-                      <div className="w-full flex items-start justify-center  p-6 ">
+                      <div className="w-full flex items-start justify-center   p-6 ">
                         <Spinner className="h-10 w-10" />
                       </div>
                     )}

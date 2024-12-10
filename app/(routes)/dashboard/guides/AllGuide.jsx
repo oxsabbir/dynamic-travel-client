@@ -3,12 +3,14 @@ import getAllGuides from "@/app/libs/getAllGuide";
 import { Input, Select, Option } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { Typography, Card, Button } from "@/app/ui/materialExport";
-import { HiTrash, HiOutlinePencilAlt } from "react-icons/hi";
+import { HiTrash } from "react-icons/hi";
 import { IoSearch } from "react-icons/io5";
 import Link from "next/link";
 import Image from "next/image";
 import { guideSort } from "@/app/constant/constant";
 import Loading from "@/app/ui/Loading";
+import { acceptGuide, rejectGuide } from "@/app/libs/guidesApi";
+import { useRouter } from "next/navigation";
 
 export default function AllGuide() {
   const [guides, setGuides] = useState(null);
@@ -16,13 +18,21 @@ export default function AllGuide() {
   const [isPending, setIsPending] = useState(false);
   const [acitveSort, setActiveSort] = useState(null);
   const [query, setQuery] = useState(null);
+  const [refetch, setRefetch] = useState(false);
+
+  const [buttonLoader, setButtonLoader] = useState({
+    type: null,
+    loading: false,
+    id: null,
+  });
+
+  const router = useRouter();
 
   useEffect(() => {
     const getData = async () => {
-      setLoading(true);
+      setLoading(refetch ? false : true);
       try {
         const res = await getAllGuides(query, acitveSort, undefined, isPending);
-
         setGuides(res?.guide);
       } catch (error) {
         console.log(error);
@@ -31,7 +41,25 @@ export default function AllGuide() {
       setLoading(false);
     };
     getData();
-  }, [isPending, acitveSort, query]);
+  }, [isPending, acitveSort, query, refetch]);
+
+  const pendingHandler = async function (actionType, guideId) {
+    try {
+      setButtonLoader({ type: actionType, loading: true, id: guideId });
+      const res =
+        actionType === "accept"
+          ? await acceptGuide(guideId)
+          : await rejectGuide(guideId);
+      refetch(true);
+    } catch (error) {
+      setButtonLoader({ type: null, loading: false, id: null });
+      setRefetch(false);
+    }
+    setButtonLoader({ type: null, loading: false, id: null });
+    setRefetch(false);
+  };
+
+  console.log(guides);
 
   return (
     <>
@@ -122,6 +150,13 @@ export default function AllGuide() {
                     {isPending ? (
                       <div className=" flex items-center gap-1 self-end">
                         <Button
+                          id={item?.id}
+                          onClick={(e) => pendingHandler("reject", e.target.id)}
+                          loading={
+                            buttonLoader.type === "reject" &&
+                            buttonLoader.id === item?.id &&
+                            buttonLoader.loading
+                          }
                           size="sm"
                           className=" flex items-center gap-2 shadow-md font-normal py-2.5 px-3 ml-2 tracking-wide bg-blue-gray-500"
                         >
@@ -129,6 +164,13 @@ export default function AllGuide() {
                         </Button>
 
                         <Button
+                          id={item?.id}
+                          onClick={(e) => pendingHandler("accept", e.target.id)}
+                          loading={
+                            buttonLoader.type === "accept" &&
+                            buttonLoader.id === item?.id &&
+                            buttonLoader.loading
+                          }
                           size="sm"
                           className="flex items-center gap-2 shadow-md font-normal py-2.5 px-3 ml-2 tracking-wide bg-actionBlue"
                         >

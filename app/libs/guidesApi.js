@@ -10,3 +10,28 @@ export const applyForGuide = async function (price) {
     throw error.response?.data;
   }
 };
+
+export const acceptGuide = async function (guideId) {
+  try {
+    const guideData = await apiRequest(
+      "get",
+      `/api/v1/guide/accept/${guideId}`
+    );
+    return guideData?.data;
+  } catch (error) {
+    throw error.response?.data;
+  }
+};
+
+export const rejectGuide = async function (guideId) {
+  console.log("hi", guideId);
+  try {
+    const guideData = await apiRequest(
+      "get",
+      `/api/v1/guide/reject/${guideId}`
+    );
+    return guideData?.data;
+  } catch (error) {
+    throw error.response?.data;
+  }
+};
