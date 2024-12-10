@@ -33,18 +33,12 @@ export default function AllGuide() {
 
   return (
     <>
-      <div className="p-3 mb-2 rounded-sm flex items-center justify-between">
+      <div className=" pb-3 rounded-sm flex items-center justify-between">
         <div>
           <div className=" hidden  md:flex gap-3 ">
             <div className="  md:flex">
               <div className="flex flex-col gap-6">
-                <Select
-                  //   value={selectedSort}
-                  //   onChange={(value) => sortHandler(value)}
-                  color="gray"
-                  label="Sort By"
-                  variant="outlined"
-                >
+                <Select color="gray" label="Sort By" variant="outlined">
                   {guideSort.map((item) => (
                     <Option key={item.id} value={item.title}>
                       {item.title}
