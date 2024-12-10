@@ -35,3 +35,12 @@ export const rejectGuide = async function (guideId) {
     throw error.response?.data;
   }
 };
+
+export const deleteGuide = async function (guideId) {
+  try {
+    const guideData = await apiRequest("delete", `/api/v1/guide//${guideId}`);
+    return guideData?.data;
+  } catch (error) {
+    throw error.response?.data;
+  }
+};

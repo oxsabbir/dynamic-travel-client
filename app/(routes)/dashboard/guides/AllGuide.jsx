@@ -9,16 +9,28 @@ import Link from "next/link";
 import Image from "next/image";
 import { guideSort } from "@/app/constant/constant";
 import Loading from "@/app/ui/Loading";
-import { acceptGuide, rejectGuide } from "@/app/libs/guidesApi";
+import { acceptGuide, deleteGuide, rejectGuide } from "@/app/libs/guidesApi";
 import { useRouter } from "next/navigation";
+import { DeleteModal } from "@/app/ui/DeleteModal";
 
 export default function AllGuide() {
   const [guides, setGuides] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const [acitveSort, setActiveSort] = useState(null);
+
   const [query, setQuery] = useState(null);
   const [refetch, setRefetch] = useState(false);
+
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [idForDelete, setIdForDelete] = useState(null);
+  const [openDelete, setOpenDelete] = useState(false);
+
+  const handlerDeleteOpen = (event) => {
+    const id = event?.target?.id || null;
+    setIdForDelete(id);
+    setOpenDelete((prev) => !prev);
+  };
 
   const [buttonLoader, setButtonLoader] = useState({
     type: null,
@@ -30,7 +42,7 @@ export default function AllGuide() {
 
   useEffect(() => {
     const getData = async () => {
-      setLoading(refetch ? false : true);
+      setLoading(true);
       try {
         const res = await getAllGuides(query, acitveSort, undefined, isPending);
         setGuides(res?.guide);
@@ -50,19 +62,37 @@ export default function AllGuide() {
         actionType === "accept"
           ? await acceptGuide(guideId)
           : await rejectGuide(guideId);
-      refetch(true);
+      setRefetch((prev) => !prev);
     } catch (error) {
       setButtonLoader({ type: null, loading: false, id: null });
-      setRefetch(false);
     }
     setButtonLoader({ type: null, loading: false, id: null });
-    setRefetch(false);
   };
 
-  console.log(guides);
+  const guideDeleteHandler = async function () {
+    try {
+      setDeleteLoading(true);
+      const res = await deleteGuide(idForDelete);
+      setRefetch((prev) => !prev);
+
+      handlerDeleteOpen();
+    } catch (error) {
+      setDeleteLoading(false);
+
+      console.log(error);
+    }
+    setDeleteLoading(false);
+  };
 
   return (
     <>
+      <DeleteModal
+        handleOpen={handlerDeleteOpen}
+        open={openDelete}
+        title={"Guide"}
+        loading={deleteLoading}
+        confirmHandler={guideDeleteHandler}
+      />
       <div className=" pb-3 rounded-sm flex flex-col-reverse  gap-4 md:flex-row items-start  justify-between">
         <div className=" flex gap-4 items-center">
           <div className="flex flex-col gap-6">
@@ -181,6 +211,8 @@ export default function AllGuide() {
                       <div className=" flex items-center gap-1 self-end">
                         <Button
                           size="sm"
+                          id={item?.id}
+                          onClick={handlerDeleteOpen}
                           className=" flex items-center gap-2 shadow-md font-normal py-2.5 px-3 ml-2 tracking-wide bg-blue-gray-500"
                         >
                           <HiTrash className="w-4 h-4 pointer-events-none" />
