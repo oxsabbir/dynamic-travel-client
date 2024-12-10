@@ -240,14 +240,17 @@ export const guideSort = [
   {
     id: "sort1",
     title: "Latest",
+    value: "-createdAt",
   },
   {
     id: "sort2",
     title: "Expensive",
+    value: "-price",
   },
   {
     id: "sort3",
     title: "Cheapest",
+    value: "price",
   },
 ];
 
