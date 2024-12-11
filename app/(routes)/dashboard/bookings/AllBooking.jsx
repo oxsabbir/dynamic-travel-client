@@ -16,15 +16,16 @@ export default function AllBooking() {
   const [booking, setBooking] = useState(null);
   const [loading, setLoading] = useState(false);
   const [acitveSort, setActiveSort] = useState(null);
-  let filterType = "complete";
-  const manageDate = new DateManager();
+
+  const handleActiveSort = (sortValue) => {
+    setActiveSort(sortValue);
+  };
 
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
       try {
         const res = await getAllBooking();
-        console.log(res);
         setBooking(res?.tour);
       } catch (error) {
         console.log(error);
@@ -37,7 +38,11 @@ export default function AllBooking() {
 
   return (
     <>
-      <BookingTable bookingData={booking} />
+      <BookingTable
+        bookingData={booking}
+        loading={loading}
+        handleSort={handleActiveSort}
+      />
     </>
   );
 }
