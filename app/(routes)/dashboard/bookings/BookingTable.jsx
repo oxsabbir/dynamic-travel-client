@@ -7,23 +7,21 @@ import {
   HiOutlineChevronDown as ChevronUpDownIcon,
 } from "react-icons/hi";
 
+import Link from "next/link";
+
 import DateManager from "@/app/util/DateManager";
 
 import {
   Card,
-  CardHeader,
   Input,
   Typography,
   Button,
   CardBody,
   Chip,
-  CardFooter,
   Tabs,
   TabsHeader,
   Tab,
   Avatar,
-  IconButton,
-  Tooltip,
 } from "@material-tailwind/react";
 import Loading from "@/app/ui/Loading";
 
@@ -45,8 +43,8 @@ const TABS = [
 const TABLE_HEAD = [
   "User",
   "Tour",
-  "Amount",
-  "Guide",
+  "Total Amount",
+  "Tour Guide",
   "Status",
   "Booking Date",
 ];
@@ -124,55 +122,59 @@ export function BookingTable({ bookingData, loading, handleSort }) {
                   return (
                     <tr key={item?.id}>
                       <td className={classes}>
-                        <div className="flex items-center gap-3">
-                          <Avatar
-                            src={item?.user?.profileImage}
-                            alt={item?.user?.userName}
-                            size="md"
-                          />
-                          <div className="flex flex-col">
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
-                              {item?.user?.fullName}
-                            </Typography>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal opacity-70"
-                            >
-                              {item?.user?.userName}
-                            </Typography>
+                        <Link href={`/profile/${item?.user?.userName}`}>
+                          <div className="flex items-center gap-3 hover:opacity-80 duration-300">
+                            <Avatar
+                              src={item?.user?.profileImage}
+                              alt={item?.user?.userName}
+                              size="md"
+                            />
+                            <div className="flex flex-col">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {item?.user?.fullName}
+                              </Typography>
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal opacity-70"
+                              >
+                                {item?.user?.userName}
+                              </Typography>
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       </td>
                       <td className={classes}>
-                        <div className="flex items-center gap-3  max-w-[250px] ">
-                          <Avatar
-                            src={item?.tour?.coverImage}
-                            alt={"tour-cover-image"}
-                            variant="rounded"
-                            size="md"
-                          />
-                          <div className="flex flex-col">
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal max-w-[200px] overflow-hidden whitespace-nowrap text-ellipsis "
-                            >
-                              {item?.tour?.title}
-                            </Typography>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal opacity-70"
-                            >
-                              ${item?.tour?.price}
-                            </Typography>
+                        <Link href={`/tour/${item?.id}`}>
+                          <div className="flex items-center gap-3  max-w-[250px hover:opacity-80 duration-300 ">
+                            <Avatar
+                              src={item?.tour?.coverImage}
+                              alt={"tour-cover-image"}
+                              variant="rounded"
+                              size="md"
+                            />
+                            <div className="flex flex-col">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal max-w-[200px] overflow-hidden whitespace-nowrap text-ellipsis "
+                              >
+                                {item?.tour?.title}
+                              </Typography>
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal opacity-70"
+                              >
+                                ${item?.tour?.price}
+                              </Typography>
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       </td>
                       <td className={classes}>
                         <div className="flex flex-col">
@@ -186,29 +188,31 @@ export function BookingTable({ bookingData, loading, handleSort }) {
                         </div>
                       </td>
                       <td className={classes}>
-                        <div className="flex items-center gap-3">
-                          <Avatar
-                            src={item?.guide?.profileImage}
-                            alt={item?.guide?.userName}
-                            size="md"
-                          />
-                          <div className="flex flex-col">
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
-                              {item?.guide?.fullName}
-                            </Typography>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal opacity-70"
-                            >
-                              ${item?.guide?.price} per/person
-                            </Typography>
+                        <Link href={`/profile/${item?.guide?.userName}`}>
+                          <div className="flex items-center gap-3 hover:opacity-80 duration-300">
+                            <Avatar
+                              src={item?.guide?.profileImage}
+                              alt={item?.guide?.userName}
+                              size="md"
+                            />
+                            <div className="flex flex-col">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal"
+                              >
+                                {item?.guide?.fullName}
+                              </Typography>
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal opacity-70"
+                              >
+                                ${item?.guide?.price} per/person
+                              </Typography>
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       </td>
                       <td className={classes}>
                         <div className="w-max">
