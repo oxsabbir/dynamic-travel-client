@@ -51,7 +51,18 @@ const TABLE_HEAD = [
 
 const manageData = new DateManager();
 
-export function BookingTable({ bookingData, loading, handleSort }) {
+export function BookingTable({
+  bookingData,
+  loading,
+  handleSort,
+  handlePage,
+  pageInfo,
+}) {
+  console.log(pageInfo);
+
+  const nextPage = () => handlePage(pageInfo?.currentPage + 1);
+  const prevPage = () => handlePage(pageInfo?.currentPage - 1);
+
   return (
     <>
       <Card className="maxhfu w-full my-2">
@@ -149,7 +160,7 @@ export function BookingTable({ bookingData, loading, handleSort }) {
                         </Link>
                       </td>
                       <td className={classes}>
-                        <Link href={`/tour/${item?.id}`}>
+                        <Link href={`/tour/${item?.tour?.id}`}>
                           <div className="flex items-center gap-3  max-w-[250px hover:opacity-80 duration-300 ">
                             <Avatar
                               src={item?.tour?.coverImage}
@@ -244,13 +255,23 @@ export function BookingTable({ bookingData, loading, handleSort }) {
       </Card>
       <div className="flex items-center justify-between border-t border-blue-gray-50 p-4">
         <Typography variant="small" color="blue-gray" className="font-normal">
-          Page 1 of 10
+          {`Page ${pageInfo?.currentPage} of ${pageInfo?.totalPage}`}
         </Typography>
         <div className="flex gap-2">
-          <Button variant="outlined" size="sm">
+          <Button
+            onClick={prevPage}
+            disabled={pageInfo?.currentPage === 1}
+            variant="outlined"
+            size="sm"
+          >
             Previous
           </Button>
-          <Button variant="outlined" size="sm">
+          <Button
+            onClick={nextPage}
+            disabled={pageInfo?.currentPage === pageInfo?.totalPage}
+            variant="outlined"
+            size="sm"
+          >
             Next
           </Button>
         </div>

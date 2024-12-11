@@ -16,6 +16,8 @@ export default function AllBooking() {
   const [booking, setBooking] = useState(null);
   const [loading, setLoading] = useState(false);
   const [acitveSort, setActiveSort] = useState(null);
+  const [pageInfo, setPageInfo] = useState(null);
+  const [page, setPage] = useState(pageInfo?.currentPage || 1);
 
   const handleActiveSort = (sortValue) => {
     setActiveSort(sortValue);
@@ -25,8 +27,9 @@ export default function AllBooking() {
     const getData = async () => {
       setLoading(true);
       try {
-        const res = await getAllBooking();
-        setBooking(res?.tour);
+        const res = await getAllBooking(acitveSort, page);
+        setBooking(res?.data?.tour);
+        setPageInfo(res?.pagination);
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -34,7 +37,9 @@ export default function AllBooking() {
       setLoading(false);
     };
     getData();
-  }, [acitveSort]);
+  }, [acitveSort, page]);
+
+  const handlePage = (pageNumber) => setPage(pageNumber);
 
   return (
     <>
@@ -42,6 +47,8 @@ export default function AllBooking() {
         bookingData={booking}
         loading={loading}
         handleSort={handleActiveSort}
+        pageInfo={pageInfo}
+        handlePage={handlePage}
       />
     </>
   );

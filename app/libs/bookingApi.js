@@ -45,9 +45,21 @@ export const getUserBooking = async function (userName, filterType) {
 };
 
 export const getAllBooking = async function (sort, page) {
+  let query = "";
+  if (page && !sort) {
+    query = `?page=${page}`;
+  } else if (page && sort) {
+    query = `?page=${page}&sort=${sort}`;
+  } else if (!page && sort) {
+    query = `?sort=${sort}`;
+  } else {
+    query = "";
+  }
+  console.log(query);
+
   try {
-    const res = await apiRequest("get", `/api/v1/booking`);
-    return res.data;
+    const res = await apiRequest("get", `/api/v1/booking${query}`);
+    return res;
   } catch (error) {
     throw error.response.data;
   }
