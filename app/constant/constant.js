@@ -290,12 +290,6 @@ export const adminNavMenu = [
     icon: HiOutlineChartBar,
   },
   {
-    id: "ad4",
-    title: "Settings",
-    link: "/dashboard/settings",
-    icon: HiOutlineCog,
-  },
-  {
     id: "ad5",
     title: "Sign out",
     link: "/dashboard/signout",
