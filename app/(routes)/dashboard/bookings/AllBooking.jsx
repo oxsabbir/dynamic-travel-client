@@ -57,6 +57,8 @@ export default function AllBooking() {
   const nextPage = () => setPage(pageInfo?.currentPage + 1);
   const prevPage = () => setPage(pageInfo?.currentPage - 1);
 
+  console.log(pageInfo);
+
   return (
     <>
       <Card className="maxhfu w-full my-2">
@@ -96,7 +98,7 @@ export default function AllBooking() {
           )}
           {!loading && booking?.length < 1 && (
             <div className=" p-6">
-              <Typography className="  text-offGray">
+              <Typography className="  text-offGray text-lg text-center">
                 No booking data found
               </Typography>
             </div>
@@ -273,7 +275,7 @@ export default function AllBooking() {
           </Button>
           <Button
             onClick={nextPage}
-            disabled={pageInfo?.currentPage === pageInfo?.totalPage}
+            disabled={pageInfo?.currentPage >= pageInfo?.totalPage}
             variant="outlined"
             size="sm"
           >
