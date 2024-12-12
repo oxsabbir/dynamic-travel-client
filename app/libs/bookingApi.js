@@ -44,21 +44,21 @@ export const getUserBooking = async function (userName, filterType) {
   }
 };
 
-export const getAllBooking = async function (sort, page) {
-  let query = "";
-  if (page && !sort) {
-    query = `?page=${page}`;
-  } else if (page && sort) {
-    query = `?page=${page}&sort=${sort}`;
-  } else if (!page && sort) {
-    query = `?sort=${sort}`;
-  } else {
-    query = "";
-  }
-  console.log(query);
+export const getAllBooking = async function (query, sort, page) {
+  let customQuery = "";
+  let queryobject = { query, sort, page };
+  Object.keys(queryobject).forEach((item, i) => {
+    if (queryobject[item] && i === 0) {
+      customQuery = `?${item}=${queryobject[item]}`;
+    } else if (queryobject[item] && i > 0 && customQuery) {
+      customQuery = `${customQuery}&${item}=${queryobject[item]}`;
+    } else if (queryobject[item] && i > 0 && !customQuery) {
+      customQuery = `?${item}=${queryobject[item]}`;
+    }
+  });
 
   try {
-    const res = await apiRequest("get", `/api/v1/booking${query}`);
+    const res = await apiRequest("get", `/api/v1/booking${customQuery}`);
     return res;
   } catch (error) {
     throw error.response.data;
