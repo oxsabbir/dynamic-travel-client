@@ -28,8 +28,8 @@ class DateManager {
     return `${year}-${month}-${todayDate}`;
   }
 
-  getSelectedDate() {
-    return this.getTodaysDate(new Date(this.selectedDate));
+  getIsGreateThan(inputDate) {
+    return new Date(inputDate) > new Date();
   }
   getDaysLeft(startDate) {
     const bookDate = new Date(startDate);

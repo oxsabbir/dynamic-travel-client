@@ -296,3 +296,27 @@ export const adminNavMenu = [
     icon: HiOutlineLogout,
   },
 ];
+
+export const bookingTabs = [
+  {
+    label: "All",
+    value: "all",
+  },
+  {
+    label: "Latest",
+    value: "-createdAt",
+  },
+  {
+    label: "Oldest",
+    value: "createdAt",
+  },
+];
+
+export const bookingTableHead = [
+  "User",
+  "Tour",
+  "Total Amount",
+  "Tour Guide",
+  "Status",
+  "Booking Date",
+];

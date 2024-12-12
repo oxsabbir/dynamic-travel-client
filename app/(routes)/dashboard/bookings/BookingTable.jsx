@@ -31,12 +31,12 @@ const TABS = [
     value: "all",
   },
   {
-    label: "Upcoming",
-    value: "upcoming",
+    label: "Latest",
+    value: "-createdAt",
   },
   {
-    label: "Completed",
-    value: "complete",
+    label: "Oldest",
+    value: "createdAt",
   },
 ];
 
@@ -58,8 +58,6 @@ export function BookingTable({
   handlePage,
   pageInfo,
 }) {
-  console.log(pageInfo);
-
   const nextPage = () => handlePage(pageInfo?.currentPage + 1);
   const prevPage = () => handlePage(pageInfo?.currentPage - 1);
 
@@ -69,8 +67,12 @@ export function BookingTable({
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row p-6">
           <Tabs value="all" className="w-full md:w-max">
             <TabsHeader>
-              {TABS.map(({ label, value }) => (
-                <Tab key={value} value={value}>
+              {TABS.map(({ label, value }, index) => (
+                <Tab
+                  key={value}
+                  value={value}
+                  onClick={(e) => handleSort(value !== "all" ? value : "")}
+                >
                   &nbsp;&nbsp;{label}&nbsp;&nbsp;
                 </Tab>
               ))}
@@ -78,6 +80,11 @@ export function BookingTable({
           </Tabs>
           <div className="w-full md:w-72">
             <Input
+              onChange={(e) => {
+                setTimeout(() => {
+                  console.log(e.target.value);
+                }, 800);
+              }}
               label="Search"
               icon={<MagnifyingGlassIcon className="h-5 w-5" />}
             />
@@ -230,8 +237,8 @@ export function BookingTable({
                           <Chip
                             size="md"
                             variant="gradient"
-                            value={`Paid`}
-                            color="green"
+                            value={item?.isComplete ? "Complete" : "Upcoming"}
+                            color={item?.isComplete ? "green" : "orange"}
                             className=" tracking-wider font-medium"
                           />
                         </div>
@@ -255,7 +262,7 @@ export function BookingTable({
       </Card>
       <div className="flex items-center justify-between border-t border-blue-gray-50 p-4">
         <Typography variant="small" color="blue-gray" className="font-normal">
-          {`Page ${pageInfo?.currentPage} of ${pageInfo?.totalPage}`}
+          {`Page ${pageInfo?.currentPage || 1} of ${pageInfo?.totalPage || 1}`}
         </Typography>
         <div className="flex gap-2">
           <Button
