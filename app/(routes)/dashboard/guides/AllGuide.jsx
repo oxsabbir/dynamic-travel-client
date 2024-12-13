@@ -112,7 +112,11 @@ export default function AllGuide() {
           <Button
             onClick={() => setIsPending((prev) => !prev)}
             variant="sm"
-            className={`${isPending ? "bg-gray-800" : "bg-actionBlue"}`}
+            className={`${
+              isPending
+                ? "bg-gray-800"
+                : "bg-actionBlue tracking-wide font-medium"
+            }`}
           >
             {isPending ? "Cancel" : "Pending guide"}
           </Button>
