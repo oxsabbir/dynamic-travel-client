@@ -29,7 +29,7 @@ export default function SideNav({ type, closeDrawer, navType = "admin" }) {
                 onClick={closeDrawer}
                 href={menu.link}
                 variant="paragraph"
-                className={`flex ${
+                className={`flex text-center ${
                   type === "mobile" ? "text-base" : "flex-col text-lg"
                 } lg:flex-row  lg:gap gap-2 lg:text-lg font-medium tracking-wider text-blue-gray-900 items-center hover:bg-actionBlue my-1 ${
                   (
