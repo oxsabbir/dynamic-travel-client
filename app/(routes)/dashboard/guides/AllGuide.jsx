@@ -93,7 +93,7 @@ export default function AllGuide() {
         loading={deleteLoading}
         confirmHandler={guideDeleteHandler}
       />
-      <div className=" pb-3 rounded-sm flex flex-col-reverse  gap-4 md:flex-row items-start  justify-between">
+      <div className=" pb-3 rounded-sm flex flex-col-reverse  gap-4 lg:flex-row items-start  justify-between">
         <div className=" flex gap-4 items-center">
           <div className="flex flex-col gap-6">
             <Select
@@ -114,14 +114,14 @@ export default function AllGuide() {
             variant="sm"
             className={`${
               isPending
-                ? "bg-gray-800"
-                : "bg-actionBlue tracking-wide font-medium"
+                ? "bg-blue-300 tracking-wide font-medium shadow-sm"
+                : " bg-blue-500 tracking-wide font-medium shadow-sm"
             }`}
           >
             {isPending ? "Cancel" : "Pending guide"}
           </Button>
         </div>
-        <div className="relative mt-4 md:mt-0 flex w-full md:max-w-[24rem]">
+        <div className="relative mt-4 md:mt-0 flex w-full lg:max-w-[24rem]">
           <Input
             type="text"
             label="Search here"
