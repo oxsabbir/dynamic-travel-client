@@ -32,7 +32,7 @@ export default function Overview() {
   ];
 
   return (
-    <div className="">
+    <div className="lg:py-0 py-3 ">
       <div className="flex justify-between flex-col lg:flex-row gap-2 items-center">
         <div className="w-full lg:w-2/3 xl:w-2/5">
           <div className=" lg:hidden">
