@@ -11,6 +11,7 @@ export const signInAction = async function (formData) {
     if (isRedirectError(error)) {
       redirect("/");
     }
+    console.log(error.cause, "----------");
     throw new Error(
       error?.cause.err?.toString()?.split(":")[1] || "Something Went Wrong"
     );
