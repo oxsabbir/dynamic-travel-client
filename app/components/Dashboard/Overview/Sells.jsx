@@ -48,6 +48,34 @@ export default function Sells({ filterby }) {
 
               <CircleEllipsis className=" float-right" />
             </div>
+
+            <div className="p-6 px-7  flex flex-col justify-center">
+              <Typography variant="h4" className=" font-semibold pb-4">
+                {item.title !== "Orders" ? "$" : ""}
+                {item.title !== "Orders"
+                  ? item.amount.toLocaleString()
+                  : item.amount.toLocaleString()}
+              </Typography>
+              <div className=" flex items-center">
+                <span>
+                  <Typography
+                    variant="small"
+                    className={`font-medium ${
+                      item.increase ? "positive" : "negative"
+                    } px-5 mr-3 rounded-2xl`}
+                  >
+                    {item.increase ? "+" : "-"}
+                    {item.change.toFixed(1)}
+                  </Typography>
+                </span>
+                <Typography
+                  variant="small"
+                  className=" text-sm  font-normal text-dashboard_text"
+                >
+                  From last period
+                </Typography>
+              </div>
+            </div>
           </Card>
         ))}
       </div>
