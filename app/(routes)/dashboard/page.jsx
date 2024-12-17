@@ -10,6 +10,7 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 import Sells from "@/app/components/Dashboard/Overview/Sells";
+import Charts from "@/app/components/Dashboard/Overview/Charts";
 
 export default function Overview() {
   const [activeTab, setActiveTab] = useState("last_week");
@@ -78,6 +79,7 @@ export default function Overview() {
         </div>
       </div>
       <Sells filterby={activeTab} />
+      <Charts />
     </div>
   );
 }
