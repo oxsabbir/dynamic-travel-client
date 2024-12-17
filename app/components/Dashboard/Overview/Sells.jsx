@@ -6,6 +6,7 @@ import {
   ShoppingBag,
   Activity,
 } from "lucide-react";
+import CalenderMenu from "./CalenderMenu";
 
 export default function Sells({ filterby }) {
   const data = [
@@ -78,6 +79,10 @@ export default function Sells({ filterby }) {
             </div>
           </Card>
         ))}
+
+        <div className=" grid-cols-1 grid-rows-1">
+          <CalenderMenu />
+        </div>
       </div>
     </>
   );
