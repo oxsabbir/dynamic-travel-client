@@ -1,0 +1,56 @@
+
+.react-calendar {
+    padding: 10px;
+    border-radius: 10px;
+    border: none; /* Remove border */
+  }  
+.react-calendar__month-view {
+    max-height: 250px; /* Adjust the max height as needed */
+  }
+  @media screen and (max-width: 1280px) {
+    .react-calendar {
+      width:  100%;
+    }  
+  }
+
+  .react-calendar__month-view__days {
+    line-height: 1.5; /* Ensure minimal line height */
+  }
+  
+  .react-calendar__tile {
+    padding: 0.40em; /* Adjust padding as needed */
+    border-radius: 25px;
+  }
+  .react-calendar__tile--now {
+  background: #2E53FF; /* Background color for active dates */
+  color:  white;
+}
+
+
+
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  text-transform: uppercase;
+  font: inherit;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: inherit;
+}
+  
+  /* Adjust font size as needed */
+  .react-calendar__month-view__days__day {
+    font-size: 14px; /* Adjust font size as needed */
+  }
+  .react-calendar__tile--active {
+    background: rgba(230, 78, 224, 0.823); /* Background color for active dates */
+  }
+  
+  .react-calendar__month-view__weekdays {
+    background-color: transparent;
+    text-decoration: none;
+    border: 0;
+  }
+  
