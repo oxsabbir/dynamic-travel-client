@@ -70,6 +70,42 @@ export default function ChartBar() {
             <ChevronDown className=" h-4 w-4" />
           </Button>
         </div>
+
+        <div className="py-2">
+          <div className=" flex">
+            <span>
+              <Typography
+                variant="small"
+                className="font-medium positive px-4 mr-3 rounded-2xl"
+              >
+                +23.5
+              </Typography>
+            </span>
+            <Typography
+              variant="small"
+              className=" text-sm  font-normal text-dashboard_text"
+            >
+              From last period
+            </Typography>
+          </div>
+        </div>
+        <div className=" w-full h-[280px] pt-2">
+          <ResponsiveContainer>
+            <BarChart data={data}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" fontSize={13} />
+              <YAxis fontSize={13} />
+              <Tooltip />
+
+              <Bar
+                dataKey="Traffic"
+                fill="#2E53FF"
+                barSize={45}
+                radius={[25, 25, 0, 0]}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </>
   );
