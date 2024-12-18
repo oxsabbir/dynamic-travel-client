@@ -1,12 +1,15 @@
 "use client";
 import React from "react";
 import { Card } from "@material-tailwind/react";
+import ChartBar from "./ChartBar";
 
 export default function Charts() {
   return (
     <>
-      <div>
-        <h2>Main chart section here </h2>
+      <div className=" ">
+        <Card className="">
+          <ChartBar />
+        </Card>
       </div>
     </>
   );
