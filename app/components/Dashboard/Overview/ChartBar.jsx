@@ -91,7 +91,15 @@ export default function ChartBar() {
         </div>
         <div className=" w-full h-[280px] pt-2">
           <ResponsiveContainer>
-            <BarChart data={data}>
+            <BarChart
+              data={data}
+              margin={{
+                top: 15,
+                right: 5,
+                left: -15,
+                bottom: 0,
+              }}
+            >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" fontSize={13} />
               <YAxis fontSize={13} />
