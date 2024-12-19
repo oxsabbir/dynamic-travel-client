@@ -51,7 +51,25 @@ export default function BestGuide() {
           </p>
         </div>
         <div className=" grid grid-cols-1 md:grid-cols-2 gap-5">
-          <h1>hi</h1>
+          {data.map((item) => (
+            <div key={item.id} className=" flex items-center gap-6">
+              <Image
+                src={item.image}
+                width={60}
+                height={60}
+                className=" w-[60px] h-[60px] object-cover"
+                alt="Profile"
+              />
+              <div>
+                <h3 className=" text-[#0E0E1D] text-[18px]  font-normal">
+                  {item.name}
+                </h3>
+                <p className=" uppercase font-normal text-[15px] text-[#2E53FF]">
+                  Member
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
 
         <div className=" pt-4 flex justify-center">
