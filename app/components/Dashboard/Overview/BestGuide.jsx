@@ -50,6 +50,15 @@ export default function BestGuide() {
             Monitor the performance
           </p>
         </div>
+        <div className=" grid grid-cols-1 md:grid-cols-2 gap-5">
+          <h1>hi</h1>
+        </div>
+
+        <div className=" pt-4 flex justify-center">
+          <IconButton className=" rounded-none bg-[#2E53FF]">
+            <ChevronDown />
+          </IconButton>
+        </div>
       </div>
     </>
   );
