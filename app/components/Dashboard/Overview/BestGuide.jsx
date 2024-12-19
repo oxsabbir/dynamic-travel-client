@@ -1,4 +1,44 @@
+import Image from "next/image";
+import pp1 from "@/../public/ocean1.png";
+import pp2 from "@/../public/ocean2.png";
+import pp3 from "@/../public/ocean3.png";
+
+import { IconButton } from "@material-tailwind/react";
+import { ChevronDown } from "lucide-react";
+
 export default function BestGuide() {
+  const data = [
+    {
+      id: "p1",
+      image: pp1,
+      name: "Cristine Watsone",
+    },
+    {
+      id: "p2",
+      image: pp2,
+      name: "Shane Watson",
+    },
+    {
+      id: "p3",
+      image: pp3,
+      name: "Jim Kerry",
+    },
+    {
+      id: "p4",
+      image: pp1,
+      name: "Alexender T",
+    },
+    {
+      id: "p5",
+      image: pp2,
+      name: "Jim Kerry",
+    },
+    {
+      id: "p6",
+      image: pp3,
+      name: "Alexender T",
+    },
+  ];
   return (
     <>
       <div className=" p-6 xl:py-6 xl:px-14">
