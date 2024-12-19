@@ -52,6 +52,7 @@ export default function ChartPie() {
                 cx="50%"
                 cy="50%"
                 labelLine={false}
+                label={renderCustomizedLabel}
                 outerRadius={100}
                 innerRadius={20}
                 fill="#8884d8"
