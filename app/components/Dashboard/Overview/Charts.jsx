@@ -3,6 +3,7 @@ import React from "react";
 import { Card } from "@material-tailwind/react";
 import ChartBar from "./ChartBar";
 import LatestBookings from "./LatestBookings";
+import ChartPie from "./ChartPie";
 
 export default function Charts() {
   return (
@@ -17,6 +18,11 @@ export default function Charts() {
         <Card className=" row-span-2 2xl:row-span-4 lg:col-span-3  overflow-auto  2xl:col-span-1 col-span-4">
           <LatestBookings />
         </Card>
+        <div className="row-span-2 lg:row-span-1  lg:col-span-5 col-span-4 2xl:col-span-1">
+          <Card>
+            <ChartPie />
+          </Card>
+        </div>
       </div>
     </>
   );
