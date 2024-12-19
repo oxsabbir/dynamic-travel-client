@@ -51,13 +51,16 @@ export default function BestGuide() {
           </p>
         </div>
         <div className=" grid grid-cols-1 md:grid-cols-2 gap-5">
-          {data.map((item) => (
-            <div key={item.id} className=" flex items-center gap-6">
+          {data.map((item, i) => (
+            <div
+              key={item.id}
+              className=" flex items-center gap-6 hover:opacity-80 hover:duration-300 hover:cursor-pointer"
+            >
               <Image
                 src={item.image}
                 width={60}
                 height={60}
-                className=" w-[60px] h-[60px] object-cover"
+                className=" w-[60px] h-[60px] object-cover rounded-md "
                 alt="Profile"
               />
               <div>
@@ -65,7 +68,7 @@ export default function BestGuide() {
                   {item.name}
                 </h3>
                 <p className=" uppercase font-normal text-[15px] text-[#2E53FF]">
-                  Member
+                  "userName"
                 </p>
               </div>
             </div>
