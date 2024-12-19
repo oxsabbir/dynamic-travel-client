@@ -11,7 +11,6 @@ const data = [
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const RADIAN = Math.PI / 180;
-
 const renderCustomizedLabel = ({
   cx,
   cy,
@@ -42,7 +41,32 @@ export default function ChartPie() {
   return (
     <>
       <div className=" flex flex-col p-5">
-        <div className="w-full "></div>
+        <p className=" font-medium text-[#515151] pb-3 text-base">
+          Total User : {"140k"}
+        </p>
+        <div className="w-full h-[240px]">
+          <ResponsiveContainer>
+            <PieChart>
+              <Pie
+                data={data}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                outerRadius={100}
+                innerRadius={20}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {data.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </>
   );
