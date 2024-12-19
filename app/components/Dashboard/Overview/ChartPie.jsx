@@ -68,6 +68,17 @@ export default function ChartPie() {
             </PieChart>
           </ResponsiveContainer>
         </div>
+        <div className=" grid grid-cols-2  px-4 pt-4 gap-2">
+          {data.map((entry, index) => (
+            <div className=" flex items-center gap-2">
+              <div
+                style={{ background: COLORS[index].toLocaleLowerCase() }}
+                className={`h-3 w-3 rounded-full`}
+              ></div>
+              <p className=" text-sm text-admin_text ">{`${entry.name} : ${entry.value}`}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
