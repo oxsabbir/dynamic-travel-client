@@ -66,7 +66,25 @@ export default function SalesStatistic() {
   return (
     <>
       <div className=" p-4">
-        <h2>stats</h2>
+        <div className=" flex justify-between items-center">
+          <p>Sales Statistic</p>
+          <div className=" pb-1 flex items-center bg-transparent justify-between">
+            <select
+              className="p-1 hover:cursor-pointer  focus:border-none text-[#0F2552] text-sm font-semibold flex !outline-none "
+              name="dropdown"
+            >
+              <option className=" p-3 " value="admin">
+                Weekly
+              </option>
+              <option className=" p-3 " value="provider">
+                Montly
+              </option>
+              <option className=" p-3 " value="user">
+                Yearly
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
     </>
   );
