@@ -120,7 +120,24 @@ export default function SalesStatistic() {
         </div>
 
         <div className=" grid gap-6 py-1 px-3 grid-cols-2">
-          <h1>data here</h1>
+          {incomeData.map((item) => (
+            <div key={item.id} className=" flex items-center gap-4 ">
+              <div
+                style={{ background: `${theme[item.title]}` }}
+                className={` w-6 h-[45px] `}
+              ></div>
+
+              <div className=" flex flex-col ">
+                <p className=" text-black font-medium text-lg">
+                  {item.title === "Services" ? "" : "$"}
+                  {item.total.toLocaleString()}
+                </p>
+                <p className=" font-normal text-admin_small_text">
+                  {item.title}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </>
