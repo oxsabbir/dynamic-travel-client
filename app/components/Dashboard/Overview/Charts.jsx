@@ -5,6 +5,7 @@ import ChartBar from "./ChartBar";
 import LatestBookings from "./LatestBookings";
 import ChartPie from "./ChartPie";
 import BestGuide from "./BestGuide";
+import SalesStatistic from "./SalesStatistics";
 
 export default function Charts() {
   return (
@@ -27,6 +28,11 @@ export default function Charts() {
         <div className=" row-span-2 lg:col-span-4 lg:row-span-1 col-span-4 2xl:col-span-2">
           <Card>
             <BestGuide />
+          </Card>
+        </div>
+        <div className="  row-span-1  lg:col-span-4 col-span-4 2xl:col-span-1 ">
+          <Card className=" h-full">
+            <SalesStatistic />
           </Card>
         </div>
       </div>
