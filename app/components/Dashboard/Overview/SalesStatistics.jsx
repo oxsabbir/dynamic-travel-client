@@ -85,6 +85,39 @@ export default function SalesStatistic() {
             </select>
           </div>
         </div>
+
+        <div className=" w-full h-[185px] ">
+          <ResponsiveContainer>
+            <PieChart>
+              {Object.keys(chartData).map((item) => (
+                <Pie
+                  key={chartData[item].id}
+                  data={chartData[item].chart}
+                  background={{ fill: "#00000" }}
+                  dataKey="value"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={chartData[item].radius[0]}
+                  innerRadius={chartData[item].radius[1]}
+                  fill="#8884d8"
+                  startAngle={-70}
+                  endAngle={250}
+                >
+                  {chartData[item].chart.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={
+                        chartData[item].color[
+                          index % chartData[item].color.length
+                        ]
+                      }
+                    />
+                  ))}
+                </Pie>
+              ))}
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </>
   );
