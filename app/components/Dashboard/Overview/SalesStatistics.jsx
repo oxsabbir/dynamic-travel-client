@@ -118,6 +118,10 @@ export default function SalesStatistic() {
             </PieChart>
           </ResponsiveContainer>
         </div>
+
+        <div className=" grid gap-6 py-1 px-3 grid-cols-2">
+          <h1>data here</h1>
+        </div>
       </div>
     </>
   );
