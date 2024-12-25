@@ -7,7 +7,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import { journeyData } from "../../constant/constant";
-import { getAllTours } from "../../libs/getAllTours";
+import { getAllTours } from "@/app/libs/tourApi";
 
 export default async function Destination() {
   const allTours = await getAllTours();

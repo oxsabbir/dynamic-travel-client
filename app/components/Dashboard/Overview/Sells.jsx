@@ -25,7 +25,7 @@ export default function Sells({ filterby }) {
       increase: true,
     },
     {
-      title: "Orders",
+      title: "Total Bookings",
       icon: ShoppingBag,
       amount: 743,
       change: 23,

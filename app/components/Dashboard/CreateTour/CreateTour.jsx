@@ -1,11 +1,5 @@
 "use client";
-import {
-  Input,
-  Typography,
-  Button,
-  Textarea,
-  collapse,
-} from "@material-tailwind/react";
+import { Input, Typography, Button, Textarea } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiOutlinePhotograph } from "react-icons/hi";
@@ -15,9 +9,9 @@ import AddLocationPoint from "./AddLocationPoint";
 import { convertToDataURL } from "@/app/util/helper";
 import { HiOutlineX } from "react-icons/hi";
 import { useMapContext } from "./MapContext";
-import updateTour from "@/app/libs/updateTour";
+import { updateTour } from "@/app/libs/tourApi";
 import generateFormData from "@/app/util/GenerateFormData";
-import createNewTour from "@/app/libs/createNewTour";
+import { createNewTour } from "@/app/libs/tourApi";
 import { useRouter } from "next/navigation";
 
 export default function CreateTour({ actionType, tourData }) {

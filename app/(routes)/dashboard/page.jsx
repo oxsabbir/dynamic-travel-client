@@ -16,27 +16,31 @@ export default function Overview() {
   const [activeTab, setActiveTab] = useState("last_week");
   const data = [
     {
+      label: "All time",
+      value: "alltime",
+    },
+    {
       label: "Last 24 hours",
-      value: "last_day",
+      value: "today",
     },
     {
       label: "Last Week",
-      value: "last_week",
+      value: "week",
     },
     {
       label: "Last month",
-      value: "last_month",
+      value: "month",
     },
     {
       label: "Last year",
-      value: "last_year",
+      value: "year",
     },
   ];
 
   return (
     <div className="lg:py-0 py-3 ">
       <div className="flex justify-between flex-col lg:flex-row gap-2 items-center">
-        <div className="w-full lg:w-2/3 xl:w-2/5">
+        <div className="w-full lg:w-2/3 xl:w-2/4">
           <div className=" lg:hidden">
             <Select
               label="Filter by"
