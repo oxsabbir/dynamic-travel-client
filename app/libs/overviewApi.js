@@ -4,7 +4,7 @@ export const getSellStats = async function (filterType) {
   try {
     const res = await apiRequest(
       "get",
-      `/api/v1/statistic/sales${filterType ? "?filter=month" : ""}`
+      `/api/v1/statistic/sales${filterType ? `?filter=${filterType}` : ""}`
     );
     return res?.data?.user;
   } catch (error) {
