@@ -25,8 +25,8 @@ export default function Charts() {
             <ChartPie />
           </Card>
         </div>
-        <div className=" row-span-2 lg:col-span-4 lg:row-span-1 col-span-4 2xl:col-span-2">
-          <Card>
+        <div className=" row-span-2 lg:col-span-4 ! lg:row-span-1 col-span-4 2xl:col-span-2">
+          <Card className=" h-full">
             <BestGuide />
           </Card>
         </div>

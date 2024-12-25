@@ -66,7 +66,7 @@ export default function BestGuide() {
 
   return (
     <>
-      <div className=" p-6 xl:py-6 xl:px-14 ">
+      <div className=" p-6 xl:py-6 xl:px-14 flex flex-col  ">
         <div className="  pb-4">
           <h3 className=" text-lg font-normal pb-1 text-[#3D3338]">
             Loyal Guides
@@ -100,11 +100,11 @@ export default function BestGuide() {
             ))}
         </div>
 
-        <div className=" pt-4 flex justify-center">
+        {/* <div className=" pt-4 flex bg-green-200 justify-center">
           <IconButton className=" rounded-none bg-[#2E53FF]">
             <ChevronDown />
           </IconButton>
-        </div>
+        </div> */}
       </div>
     </>
   );
