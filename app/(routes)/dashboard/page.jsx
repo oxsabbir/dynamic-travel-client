@@ -1,5 +1,5 @@
 "use client";
-
+// SSR can be done leaving for later optimization
 import React from "react";
 import {
   Tabs,
