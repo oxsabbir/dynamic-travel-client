@@ -13,11 +13,11 @@ import Sells from "@/app/components/Dashboard/Overview/Sells";
 import Charts from "@/app/components/Dashboard/Overview/Charts";
 
 export default function Overview() {
-  const [activeTab, setActiveTab] = useState("last_week");
+  const [activeTab, setActiveTab] = useState(null);
   const data = [
     {
       label: "All time",
-      value: "alltime",
+      value: null,
     },
     {
       label: "Last 24 hours",
