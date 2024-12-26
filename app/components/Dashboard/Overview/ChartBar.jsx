@@ -86,23 +86,7 @@ export default function ChartBar() {
   return (
     <Card className=" p-4 flex justify-center w-full h-full ">
       <div className=" pb-1 flex items-center border-b border-[#E4E5E7] justify-between">
-        <h4 className=" text-sm text-fade_text font-medium ">
-          Overall User Acquisition
-        </h4>
-        <select
-          className="p-1 hover:cursor-pointer  focus:border-none text-[#0F2552] text-sm font-semibold flex !outline-none "
-          name="dropdown"
-        >
-          <option className=" p-3 " value="admin">
-            Admin
-          </option>
-          <option className=" p-3 " value="provider">
-            Provider
-          </option>
-          <option className=" p-3 " value="user">
-            User
-          </option>
-        </select>
+        <h4 className=" text-sm text-fade_text font-medium ">Sales Overview</h4>
       </div>
       <div className=" w-full pt-4 h-full min-h-[250px] ">
         <ResponsiveContainer>
@@ -114,7 +98,7 @@ export default function ChartBar() {
               left: 0,
               bottom: 0,
             }}
-            barSize={14}
+            barSize={16}
           >
             <XAxis
               dataKey="month"
