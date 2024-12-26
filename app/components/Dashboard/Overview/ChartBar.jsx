@@ -31,7 +31,7 @@ const CustomizedYAxisTick = (props) => {
   );
 };
 
-export default function AquisitionChart() {
+export default function ChartBar() {
   const data = [
     {
       month: "JAN",
@@ -84,7 +84,7 @@ export default function AquisitionChart() {
   ];
 
   return (
-    <Card className=" p-4 flex justify-center ">
+    <Card className=" p-4 flex justify-center w-full h-full ">
       <div className=" pb-1 flex items-center border-b border-[#E4E5E7] justify-between">
         <h4 className=" text-sm text-fade_text font-medium ">
           Overall User Acquisition
@@ -104,7 +104,7 @@ export default function AquisitionChart() {
           </option>
         </select>
       </div>
-      <div className=" w-full pt-4 h-[240px] ">
+      <div className=" w-full pt-4 h-full min-h-[250px] ">
         <ResponsiveContainer>
           <BarChart
             data={data}
