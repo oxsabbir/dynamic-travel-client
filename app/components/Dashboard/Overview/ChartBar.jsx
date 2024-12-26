@@ -104,6 +104,42 @@ export default function AquisitionChart() {
           </option>
         </select>
       </div>
+      <div className=" w-full pt-4 h-[240px] ">
+        <ResponsiveContainer>
+          <BarChart
+            data={data}
+            margin={{
+              top: 15,
+              right: 30,
+              left: 0,
+              bottom: 0,
+            }}
+            barSize={14}
+          >
+            <XAxis
+              dataKey="month"
+              scale="point"
+              padding={{ left: 30, right: 10 }}
+              axisLine={false}
+              tickLine={false}
+              fontSize={12}
+            />
+            <YAxis
+              axisLine={false}
+              tickLine={false}
+              tick={<CustomizedYAxisTick />}
+              fontSize={12}
+            />
+            <Tooltip />
+            <Bar
+              dataKey="Traffic"
+              fill="#526EF3"
+              background={{ fill: "#F2F7FF", radius: 10 }}
+              radius={10}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </Card>
   );
 }
