@@ -19,6 +19,7 @@ export default function Sells({ filterby }) {
   useEffect(() => {
     const getData = async () => {
       try {
+        setLoading(true);
         const sellsData = await getSellsStats(filterby);
         setSellsStats(sellsData);
         setLoading(false);
@@ -71,7 +72,6 @@ export default function Sells({ filterby }) {
         )}
 
         {!loading &&
-          data[0]?.amount &&
           data.map((item) => (
             <Card key={item.title}>
               <div
