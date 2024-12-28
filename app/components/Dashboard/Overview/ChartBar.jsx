@@ -1,5 +1,7 @@
 "use client";
+import { getSalesOverView } from "@/app/libs/overviewApi";
 import { Card } from "@material-tailwind/react";
+import useDataFetch from "@/app/hooks/useDataFetch";
 
 import {
   BarChart,
@@ -32,56 +34,7 @@ const CustomizedYAxisTick = (props) => {
 };
 
 export default function ChartBar() {
-  const data = [
-    {
-      month: "JAN",
-      Traffic: 913236,
-    },
-    {
-      month: "FEB",
-      Traffic: 323564,
-    },
-    {
-      month: "MAR",
-      Traffic: 453452,
-    },
-    {
-      month: "APR",
-      Traffic: 1945343,
-    },
-    {
-      month: "MAY",
-      Traffic: 644212,
-    },
-    {
-      month: "JUN",
-      Traffic: 1766412,
-    },
-    {
-      month: "JUL",
-      Traffic: 342355,
-    },
-    {
-      month: "AUG",
-      Traffic: 523543,
-    },
-    {
-      month: "SEP",
-      Traffic: 945344,
-    },
-    {
-      month: "OCT",
-      Traffic: 342355,
-    },
-    {
-      month: "NOV",
-      Traffic: 1345676,
-    },
-    {
-      month: "DEC",
-      Traffic: 1044534,
-    },
-  ];
+  const { data, loading, error } = useDataFetch(getSalesOverView, undefined);
 
   return (
     <Card className=" p-4 flex justify-center w-full h-full ">
@@ -89,40 +42,42 @@ export default function ChartBar() {
         <h4 className=" text-sm text-fade_text font-medium ">Sales Overview</h4>
       </div>
       <div className=" w-full pt-4 h-full min-h-[250px] ">
-        <ResponsiveContainer>
-          <BarChart
-            data={data}
-            margin={{
-              top: 15,
-              right: 30,
-              left: 0,
-              bottom: 0,
-            }}
-            barSize={16}
-          >
-            <XAxis
-              dataKey="month"
-              scale="point"
-              padding={{ left: 30, right: 10 }}
-              axisLine={false}
-              tickLine={false}
-              fontSize={12}
-            />
-            <YAxis
-              axisLine={false}
-              tickLine={false}
-              tick={<CustomizedYAxisTick />}
-              fontSize={12}
-            />
-            <Tooltip />
-            <Bar
-              dataKey="Traffic"
-              fill="#526EF3"
-              background={{ fill: "#F2F7FF", radius: 10 }}
-              radius={10}
-            />
-          </BarChart>
-        </ResponsiveContainer>
+        {!loading && (
+          <ResponsiveContainer>
+            <BarChart
+              data={data?.salesOverview && data.salesOverview}
+              margin={{
+                top: 15,
+                right: 30,
+                left: 0,
+                bottom: 0,
+              }}
+              barSize={16}
+            >
+              <XAxis
+                dataKey="month"
+                scale="point"
+                padding={{ left: 30, right: 10 }}
+                axisLine={false}
+                tickLine={false}
+                fontSize={12}
+              />
+              <YAxis
+                axisLine={false}
+                tickLine={false}
+                tick={<CustomizedYAxisTick />}
+                fontSize={12}
+              />
+              <Tooltip />
+              <Bar
+                dataKey="TOTALSELLS"
+                fill="#526EF3"
+                background={{ fill: "#F2F7FF", radius: 10 }}
+                radius={10}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        )}
       </div>
     </Card>
   );

@@ -70,7 +70,7 @@ export default function ChartPie() {
         </div>
         <div className=" grid grid-cols-2  px-4 pt-4 gap-2">
           {data.map((entry, index) => (
-            <div className=" flex items-center gap-2">
+            <div key={index} className=" flex items-center gap-2">
               <div
                 style={{ background: COLORS[index].toLocaleLowerCase() }}
                 className={`h-3 w-3 rounded-full`}
