@@ -22,5 +22,5 @@ export default function useDataFetch(method, params) {
     getData();
   }, [params]);
 
-  return { data, loading, error };
+  return [data, loading, error];
 }

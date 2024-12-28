@@ -34,7 +34,7 @@ const CustomizedYAxisTick = (props) => {
 };
 
 export default function ChartBar() {
-  const { data, loading, error } = useDataFetch(getSalesOverView, undefined);
+  const [data, loading, error] = useDataFetch(getSalesOverView, undefined);
 
   return (
     <Card className=" p-4 flex justify-center w-full h-full ">

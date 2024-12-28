@@ -1,36 +1,12 @@
 "use client";
 import Image from "next/image";
-import pp1 from "@/../public/ocean1.png";
-import pp2 from "@/../public/ocean2.png";
-import pp3 from "@/../public/ocean3.png";
-
-import { IconButton, Typography } from "@material-tailwind/react";
-import { ChevronDown } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Typography } from "@material-tailwind/react";
 import { getLoyaleGuide } from "@/app/libs/overviewApi";
 import Link from "next/link";
+import useDataFetch from "@/app/hooks/useDataFetch";
 
 export default function BestGuide() {
-  const [loyaleGuide, setLoyaleGuide] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const getData = async () => {
-      setLoading(true);
-      try {
-        const data = await getLoyaleGuide();
-        console.log(data?.guide);
-        setLoyaleGuide(data?.guide);
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-        throw error;
-      }
-    };
-    getData();
-  }, []);
-
+  const [data, loading, error] = useDataFetch(getLoyaleGuide, undefined);
   return (
     <>
       <div className=" p-6 xl:py-6 xl:px-14 flex flex-col  ">
@@ -43,8 +19,8 @@ export default function BestGuide() {
           </p>
         </div>
         <div className=" grid grid-cols-1 md:grid-cols-2 gap-5">
-          {loyaleGuide &&
-            loyaleGuide?.map((item, i) => (
+          {data?.guide &&
+            data?.guide?.map((item, i) => (
               <Link key={i} href={`/profile/${item?.info[0]?.userName}`}>
                 <div className=" flex items-center gap-6 hover:opacity-80 hover:duration-300 hover:cursor-pointer">
                   <Image
