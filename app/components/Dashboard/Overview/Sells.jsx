@@ -11,48 +11,32 @@ import {
 import CalenderMenu from "./CalenderMenu";
 import { getSellsStats } from "@/app/libs/overviewApi";
 import { SalesSkeleton } from "@/app/ui/skeleton/SalesBar";
+import useDataFetch from "@/app/hooks/useDataFetch";
 
 export default function Sells({ filterby }) {
-  const [sellsStats, setSellsStats] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [data, loading, error] = useDataFetch(getSellsStats, filterby);
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        setLoading(true);
-        const sellsData = await getSellsStats(filterby);
-        setSellsStats(sellsData);
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-        throw error;
-      }
-    };
-    getData();
-  }, [filterby]);
-
-  const data = [
+  const mainData = [
     {
       title: "Net Income",
       icon: DollarSign,
-      amount: sellsStats?.totalSells?.amount,
-      change: sellsStats?.totalSells?.changes.amount,
-      increase: sellsStats?.totalSells?.changes?.increased,
+      amount: data?.totalSells?.amount,
+      change: data?.totalSells?.changes.amount,
+      increase: data?.totalSells?.changes?.increased,
     },
     {
       title: "Avr. Order Value",
       icon: Activity,
-      amount: sellsStats?.averageSells?.amount,
-      change: sellsStats?.averageSells?.changes.amount,
-      increase: sellsStats?.averageSells?.changes.increased,
+      amount: data?.averageSells?.amount,
+      change: data?.averageSells?.changes.amount,
+      increase: data?.averageSells?.changes.increased,
     },
     {
       title: "Total Bookings",
       icon: ShoppingBag,
-      amount: sellsStats?.totalBookings?.amount,
-      change: sellsStats?.totalBookings?.changes.amount,
-      increase: sellsStats?.totalBookings?.changes?.increased,
+      amount: data?.totalBookings?.amount,
+      change: data?.totalBookings?.changes.amount,
+      increase: data?.totalBookings?.changes?.increased,
     },
   ];
 
@@ -61,7 +45,7 @@ export default function Sells({ filterby }) {
       <div className=" grid grid-cols-1 items-center md:grid-cols-2 xl:grid-cols-4 gap-6  py-4">
         {loading && (
           <>
-            {data.map((item, i) => (
+            {mainData?.map((item, i) => (
               <Card key={i}>
                 <div className=" flex justify-between py-3 px-5 items-center border-b-[2px] border-[#CCCCCC]">
                   <SalesSkeleton />
@@ -72,7 +56,7 @@ export default function Sells({ filterby }) {
         )}
 
         {!loading &&
-          data.map((item) => (
+          mainData?.map((item) => (
             <Card key={item.title}>
               <div
                 key={item.title}
