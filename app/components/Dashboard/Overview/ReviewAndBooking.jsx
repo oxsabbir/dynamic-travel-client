@@ -44,6 +44,33 @@ export default function ReviewAndBooking() {
                 </p>
               </div>
             </div>
+            <div className="w-full h-full min-h-[180px]">
+              <ResponsiveContainer>
+                <PieChart>
+                  <Pie
+                    data={reviewData.data}
+                    dataKey="value"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={70}
+                    innerRadius={40}
+                    cornerRadius={5}
+                    paddingAngle={1}
+                    fill="#8884d8"
+                  >
+                    {reviewData.data.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={
+                          reviewData.colors[index % reviewData.colors.length]
+                        }
+                      />
+                    ))}
+                  </Pie>
+                  <Tooltip isAnimationActive />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </Card>
       </div>
