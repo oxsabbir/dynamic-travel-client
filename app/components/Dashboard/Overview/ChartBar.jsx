@@ -37,11 +37,22 @@ export default function ChartBar() {
   const [data, loading, error] = useDataFetch(getSalesOverView, undefined);
 
   return (
-    <Card className=" p-4 flex justify-center w-full h-full ">
+    <Card className=" p-4 flex justify-center w-full h-full">
       <div className=" pb-1 flex items-center border-b border-[#E4E5E7] justify-between">
         <h4 className=" text-sm text-fade_text font-medium ">Sales Overview</h4>
+        <select
+          className="p-1 hover:cursor-pointer  focus:border-none text-[#0F2552] text-sm font-semibold flex !outline-none "
+          name="dropdown"
+        >
+          <option className=" p-3 " value="admin">
+            Lines
+          </option>
+          <option selected className=" p-3 " value="provider">
+            Bars
+          </option>
+        </select>
       </div>
-      <div className=" w-full pt-4 h-full min-h-[250px] ">
+      <div className=" w-full pt-4 h-full min-h-[230px] ">
         {!loading && (
           <ResponsiveContainer>
             <BarChart
