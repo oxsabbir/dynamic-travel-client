@@ -2,35 +2,30 @@
 import React from "react";
 import { Card } from "@material-tailwind/react";
 import ChartBar from "./ChartBar";
-import LatestBookings from "./LatestBookings";
-import ChartPie from "./ChartPie";
 import BestGuide from "./BestGuide";
-import SalesStatistic from "./SalesStatistics";
+import ReviewAndBooking from "./ReviewAndBooking";
+import UserJoinStats from "./UserJoinStats";
 
 export default function Charts() {
   return (
     <>
-      <div className="pb-8 pt-2 h-full 2xl:h-[840px]  grid  grid-cols-1 lg:grid-cols-8 2xl:grid-cols-4  grid-rows-2 gap-4">
-        <Card className=" 2xl:col-span-2 lg:row-span-1 col-span-4 lg:col-span-5 2xl:row-span-3">
+      <div className="pb-8 pt-2 grid grid-cols-1 xl:grid-cols-2  grid-rows-2 gap-4">
+        <Card className=" col-span-1 row-span-1 ">
           <ChartBar />
         </Card>
 
-        <Card className=" row-span-2 2xl:row-span-4 lg:col-span-3  overflow-auto  2xl:col-span-1 col-span-4">
-          <LatestBookings />
+        <Card className=" col-span-1 row-span-1">
+          <ReviewAndBooking />
         </Card>
-        <div className="row-span-2 lg:row-span-1  lg:col-span-5 col-span-4 2xl:col-span-1">
-          <Card>
-            <ChartPie />
-          </Card>
-        </div>
-        <div className=" row-span-2 lg:col-span-4 ! lg:row-span-1 col-span-4 2xl:col-span-2">
-          <Card className=" h-full">
+
+        <div className=" col-span-1 row-span-1">
+          <Card className="h-full">
             <BestGuide />
           </Card>
         </div>
-        <div className="  row-span-1  lg:col-span-4 col-span-4 2xl:col-span-1 ">
+        <div className="col-span-1 row-span-1 ">
           <Card className=" h-full">
-            <SalesStatistic />
+            <UserJoinStats />
           </Card>
         </div>
       </div>
