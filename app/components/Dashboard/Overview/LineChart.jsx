@@ -1,7 +1,7 @@
 import {
   XAxis,
   YAxis,
-  LineChart,
+  LineChart as Chart,
   Tooltip,
   Line,
   ResponsiveContainer,
@@ -25,7 +25,7 @@ export default function LineChart({ lineData }) {
   return (
     <>
       <ResponsiveContainer>
-        <LineChart
+        <Chart
           data={lineData}
           margin={{
             top: 15,
@@ -56,14 +56,13 @@ export default function LineChart({ lineData }) {
           <Tooltip />
           <Line
             type="monotone"
-            dataKey="Traffic"
-            // stroke="#526EF3"
+            dataKey="TOTALSELLS"
             stroke="url(#linear)"
             strokeWidth={9}
             dot={false}
             strokeLinecap="round"
           />
-        </LineChart>
+        </Chart>
       </ResponsiveContainer>
     </>
   );

@@ -1,5 +1,5 @@
 import {
-  BarChart,
+  BarChart as Chart,
   Bar,
   XAxis,
   YAxis,
@@ -32,8 +32,8 @@ export default function BarChart({ barData }) {
   return (
     <>
       <ResponsiveContainer>
-        <BarChart
-          data={data?.salesOverview && data.salesOverview}
+        <Chart
+          data={barData}
           margin={{
             top: 15,
             right: 30,
@@ -63,7 +63,7 @@ export default function BarChart({ barData }) {
             background={{ fill: "#F2F7FF", radius: 10 }}
             radius={10}
           />
-        </BarChart>
+        </Chart>
       </ResponsiveContainer>
     </>
   );
