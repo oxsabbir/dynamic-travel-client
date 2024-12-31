@@ -7,7 +7,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export default function BarChart({ barData }) {
+export default function BarChart({ barData, XdataKey, BarDataKey }) {
   const CustomizedYAxisTick = (props) => {
     const { x, y, payload } = props;
     const value = payload.value / 1000; // convert to 'k'
@@ -43,7 +43,7 @@ export default function BarChart({ barData }) {
           barSize={16}
         >
           <XAxis
-            dataKey="month"
+            dataKey={XdataKey}
             scale="point"
             padding={{ left: 30, right: 10 }}
             axisLine={false}
@@ -58,7 +58,7 @@ export default function BarChart({ barData }) {
           />
           <Tooltip />
           <Bar
-            dataKey="TOTALSELLS"
+            dataKey={BarDataKey}
             fill="#526EF3"
             background={{ fill: "#F2F7FF", radius: 10 }}
             radius={10}

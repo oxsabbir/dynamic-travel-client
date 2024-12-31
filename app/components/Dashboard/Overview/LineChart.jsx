@@ -7,7 +7,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export default function LineChart({ lineData }) {
+export default function LineChart({ lineData, XdataKey, LineDataKey }) {
   const CustomizedYAxisTick = (props) => {
     const { x, y, payload } = props;
     const value =
@@ -35,7 +35,7 @@ export default function LineChart({ lineData }) {
           }}
         >
           <XAxis
-            dataKey="month"
+            dataKey={XdataKey}
             fontSize={12}
             fontWeight={500}
             tickLine={false}
@@ -56,7 +56,7 @@ export default function LineChart({ lineData }) {
           <Tooltip />
           <Line
             type="monotone"
-            dataKey="TOTALSELLS"
+            dataKey={LineDataKey}
             stroke="url(#linear)"
             strokeWidth={9}
             dot={false}

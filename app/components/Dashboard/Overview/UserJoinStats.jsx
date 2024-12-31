@@ -9,6 +9,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+import { useState } from "react";
+
 export default function UserJoinStats() {
   const carData = [
     {
@@ -74,6 +76,8 @@ export default function UserJoinStats() {
       </g>
     );
   };
+
+  const [activeChart, setActiveChart] = useState("line");
 
   return (
     <>
