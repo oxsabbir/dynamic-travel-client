@@ -1,15 +1,9 @@
 "use client";
 import { Card } from "@material-tailwind/react";
-import {
-  XAxis,
-  YAxis,
-  LineChart,
-  Tooltip,
-  Line,
-  ResponsiveContainer,
-} from "recharts";
-
 import { useState } from "react";
+
+import BarChart from "./BarChart";
+import LineChart from "./LineChart";
 
 export default function UserJoinStats() {
   const carData = [
@@ -78,6 +72,7 @@ export default function UserJoinStats() {
   };
 
   const [activeChart, setActiveChart] = useState("line");
+  console.log(activeChart);
 
   return (
     <>
@@ -87,59 +82,32 @@ export default function UserJoinStats() {
             Overall User Activity
           </h4>
           <select
+            onChange={(e) => setActiveChart(e.target.value)}
             className="p-1 hover:cursor-pointer  focus:border-none text-[#0F2552] text-sm font-semibold flex !outline-none "
             name="dropdown"
           >
-            <option selected className=" p-3 " value="admin">
+            <option selected className="p-3 " value="line">
               Lines
             </option>
-            <option className=" p-3 " value="provider">
+            <option className="p-3 " value="Bar">
               Bars
             </option>
           </select>
         </div>
         <div className=" h-full min-h-[230px]  p-4">
-          <ResponsiveContainer>
+          {activeChart === "line" ? (
             <LineChart
-              data={carData}
-              margin={{
-                top: 15,
-                right: 18,
-                left: -10,
-                bottom: 0,
-              }}
-            >
-              <XAxis
-                dataKey="month"
-                fontSize={12}
-                fontWeight={500}
-                tickLine={false}
-                axisLine={false}
-              />
-              <YAxis
-                tickLine={false}
-                axisLine={false}
-                tick={<CustomizedYAxisTick />}
-              />
-
-              <defs>
-                <linearGradient id="linear" x1="1" y1="0" x2="0" y2="0">
-                  <stop offset="10%" stopColor="#1B59F8" stopOpacity={1} />
-                  <stop offset="100%" stopColor="#4673E7" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <Tooltip />
-              <Line
-                type="monotone"
-                dataKey="Traffic"
-                // stroke="#526EF3"
-                stroke="url(#linear)"
-                strokeWidth={9}
-                dot={false}
-                strokeLinecap="round"
-              />
-            </LineChart>
-          </ResponsiveContainer>
+              lineData={carData}
+              XdataKey={"month"}
+              LineDataKey={"Traffic"}
+            />
+          ) : (
+            <BarChart
+              barData={carData}
+              XdataKey={"month"}
+              BarDataKey={"Traffic"}
+            />
+          )}
         </div>
       </Card>
     </>
