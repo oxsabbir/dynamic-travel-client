@@ -34,15 +34,15 @@ export default function UserJoinStats() {
         <div className=" h-full min-h-[230px]  p-4">
           {activeChart === "line" ? (
             <LineChart
-              lineData={carData}
+              lineData={data?.userJoinData}
               XdataKey={"month"}
-              LineDataKey={"Traffic"}
+              LineDataKey={"TOTALJOIN"}
             />
           ) : (
             <BarChart
-              barData={carData}
+              barData={data?.userJoinData}
               XdataKey={"month"}
-              BarDataKey={"Traffic"}
+              BarDataKey={"TOTALJOIN"}
             />
           )}
         </div>
