@@ -4,75 +4,12 @@ import { useState } from "react";
 
 import BarChart from "./BarChart";
 import LineChart from "./LineChart";
+import useDataFetch from "@/app/hooks/useDataFetch";
+import { getUserJoinStats } from "@/app/libs/overviewApi";
 
 export default function UserJoinStats() {
-  const carData = [
-    {
-      month: "JAN",
-      Traffic: 124236,
-    },
-    {
-      month: "FEB",
-      Traffic: 323564,
-    },
-    {
-      month: "MAR",
-      Traffic: 453452,
-    },
-    {
-      month: "APR",
-      Traffic: 1945343,
-    },
-    {
-      month: "MAY",
-      Traffic: 644212,
-    },
-    {
-      month: "JUN",
-      Traffic: 1766412,
-    },
-    {
-      month: "JUL",
-      Traffic: 342355,
-    },
-    {
-      month: "AUG",
-      Traffic: 523543,
-    },
-    {
-      month: "SEP",
-      Traffic: 945344,
-    },
-    {
-      month: "OCT",
-      Traffic: 342355,
-    },
-    {
-      month: "NOV",
-      Traffic: 145676,
-    },
-    {
-      month: "DEC",
-      Traffic: 14534,
-    },
-  ];
-
-  const CustomizedYAxisTick = (props) => {
-    const { x, y, payload } = props;
-    const value =
-      payload.value < 1000 ? payload.value : `${payload.value / 1000}k`; // convert to 'k'
-
-    return (
-      <g transform={`translate(${x},${y})`}>
-        <text textAnchor="end" fontSize={13} fill="#666">
-          {value}
-        </text>
-      </g>
-    );
-  };
-
+  const [data, loading, error] = useDataFetch(getUserJoinStats, undefined);
   const [activeChart, setActiveChart] = useState("line");
-  console.log(activeChart);
 
   return (
     <>

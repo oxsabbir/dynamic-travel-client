@@ -29,3 +29,12 @@ export const getSalesOverView = async function () {
     throw error.response.data;
   }
 };
+
+export const getUserJoinStats = async function () {
+  try {
+    const res = await apiRequest("get", `/api/v1/statistic/userJoinStats`);
+    return res?.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
