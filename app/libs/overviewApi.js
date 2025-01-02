@@ -38,3 +38,11 @@ export const getUserJoinStats = async function () {
     throw error.response.data;
   }
 };
+export const getUserBookedRatio = async function () {
+  try {
+    const res = await apiRequest("get", `/api/v1/statistic/userActionRatio`);
+    return res?.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
