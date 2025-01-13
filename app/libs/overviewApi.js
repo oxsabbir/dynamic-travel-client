@@ -20,3 +20,12 @@ export const getLoyaleGuide = async function () {
     throw error.response.data;
   }
 };
+
+export const getSalesOverView = async function () {
+  try {
+    const res = await apiRequest("get", `/api/v1/statistic/salesOverview`);
+    return res?.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
