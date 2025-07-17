@@ -177,7 +177,7 @@ export default function AllGuide() {
                       <Typography className=" font-medium text-lg text-offBlack tracking-wide">
                         {item?.fullName}
                       </Typography>
-                      <Typography className=" font-thin text-sm text-offBlack tracking-wide">
+                      <Typography className="text-sm text-offBlack tracking-wide">
                         ${item?.price} per/person
                       </Typography>
                     </div>

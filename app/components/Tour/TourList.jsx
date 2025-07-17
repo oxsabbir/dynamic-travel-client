@@ -112,7 +112,7 @@ export default function TourList({
                 <Typography variant="h5" className="mb-2 mt-3 text-black">
                   {item?.title}
                 </Typography>
-                <Typography className="text-offGray">
+                <Typography className="text-offGray font-normal">
                   {item?.summery}
                 </Typography>
               </div>
@@ -184,12 +184,8 @@ export default function TourList({
                   </div>
                 ) : (
                   <div className="">
-                    <Button size="sm" color="blue-gray" className=" mr-3">
-                      <HiHeart className="w-4 h-4" />
-                    </Button>
-
                     <Link href={`/tour/${item?.id}`}>
-                      <Button size="sm" className=" bg-actionBlue font-light">
+                      <Button size="sm" className="bg-actionBlue font-medium">
                         Details
                       </Button>
                     </Link>

@@ -33,7 +33,7 @@ export default async function SingleTour({ params }) {
                 {tour?.title}
               </Typography>
               <Typography
-                className="text-shadeBlack tracking-wide py-2"
+                className="text-shadeBlack  tracking-wide py-2"
                 variant="paragraph"
               >
                 {tour?.summery}

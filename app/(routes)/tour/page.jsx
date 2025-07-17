@@ -1,11 +1,5 @@
-import dynamic from "next/dynamic";
-const TourMain = dynamic(() => import("@/app/components/Map/TourMain"), {
-  ssr: false,
-});
+import TourMain from "@/app/components/Map/TourMain";
+
 export default function page() {
-  return (
-    <>
-      <TourMain />
-    </>
-  );
+  return <TourMain />;
 }

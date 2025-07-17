@@ -1,12 +1,5 @@
-import dynamic from "next/dynamic";
-const TourMain = dynamic(() => import("@/app/components/Map/TourMain"), {
-  ssr: false,
-});
+import TourMain from "../Map/TourMain";
 
 export default function ManageTour() {
-  return (
-    <>
-      <TourMain pageType={"admin"} />
-    </>
-  );
+  return <TourMain pageType={"admin"} />;
 }

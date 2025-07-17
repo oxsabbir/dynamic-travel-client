@@ -12,13 +12,7 @@ import {
 import DateManager from "@/app/util/DateManager";
 
 import Image from "next/image";
-import {
-  Avatar,
-  Button,
-  collapse,
-  Spinner,
-  Typography,
-} from "@material-tailwind/react";
+import { Avatar, Button, Spinner, Typography } from "@material-tailwind/react";
 
 export default function TourCard({ filterType, userName }) {
   const [tours, setTours] = useState([]);
