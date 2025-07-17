@@ -34,13 +34,13 @@ export default function BookingMenu({ tourData, guide }) {
     const session = await getSession();
     if (!session?.user && !session?.accessToken) return router.push("/login");
 
-    const formatedDate = new DateManager(startDate).getSelectedDate();
+    const formatedDate = new DateManager(startDate);
 
     try {
       const response = await bookTour(
         tourData?.id,
         selectedGuide?.id,
-        formatedDate
+        formatedDate.selectedDate
       );
       setLoading(false);
     } catch (error) {
